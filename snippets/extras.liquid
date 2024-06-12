@@ -1,0 +1,178 @@
+{% if customer %}
+  {{ 'extras.css' | asset_url | stylesheet_tag }}
+  {{ 'extras.js' | asset_url | script_tag }}
+  <div class="extrasHeader">
+    <h1 class="pageTitle">Extras</h1>
+    <img
+      class="desktopVersion"
+      src="https://media.gingerfox.co.uk/GingerFoxHub/Site/Extras/EXTRAS_PAGE_MAIN_BANNER_DESKTOP.jpg"
+    >
+    <img
+      class="mobileVersion"
+      src="https://media.gingerfox.co.uk/GingerFoxHub/Site/Extras/EXTRAS_PAGE_MAIN_BANNER_MOBILE.jpg"
+    >
+  </div>
+  <ul class="extrasNavContainer">
+    <li id="All" class="Active">
+      Show All
+      <div class="arrowDown"></div>
+    </li>
+    <li id="GameRules">
+      Game Rules
+      <div class="arrowDown d-none"></div>
+    </li>
+    <li id="ExtraContent">
+      Extras
+      <div class="arrowDown d-none"></div>
+    </li>
+    <li id="TryGame">
+      Try a Game
+      <div class="arrowDown d-none"></div>
+    </li>
+  </ul>
+  <div id="ShowAllContainer" class="content container">
+    <div class="HeaderContainer">
+      <h3 class="headerTitle">Game Rules</h3>
+      <button id="GameRulesBtn" class="GingerfoxButton formRoundedTextbox">
+        See All <span class="ArrowBtn"></span>
+      </button>
+    </div>
+    <div class="blueUnderline"></div>
+
+    {% assign GameRulesDownloads = page.metafields.custom.game_rules.value %}
+
+    <div class="DownloadCarousel">
+      {% for download in GameRulesDownloads limit: 3 %}
+        <div class="DownloadItem">
+          <a href="{{ download.download_url }}" download target="_blank">
+            <img class="downloadImage" src="{{ download.image_url }}">
+            <p class="downloadText">
+              {{ download.title }}
+              {{ download.product_name }}
+            </p>
+          </a>
+        </div>
+      {% endfor %}
+    </div>
+
+    <div class="HeaderContainer">
+      <h3 class="headerTitle">Extras</h3>
+      <button id="ExtraContentBtn" class="GingerfoxButton formRoundedTextbox">
+        See All <span class="ArrowBtn"></span>
+      </button>
+    </div>
+    <div class="blueUnderline"></div>
+
+    {% assign ExtraContent = page.metafields.custom.extra_content.value %}
+
+    <div class="DownloadCarousel">
+      {% for download in ExtraContent limit: 3 %}
+        <div class="DownloadItem">
+          <a href="{{ download.download_url }}" download target="_blank">
+            <img class="downloadImage" src="{{ download.image_url }}">
+            <p class="downloadText">
+              {{ download.title }}
+              {{ download.product_name }}
+            </p>
+          </a>
+        </div>
+      {% endfor %}
+    </div>
+
+    <div class="HeaderContainer">
+      <h3 class="headerTitle">Try A Game</h3>
+      <button id="TryGameBtn" class="GingerfoxButton formRoundedTextbox">See All <span class="ArrowBtn"></span></button>
+    </div>
+    <div class="blueUnderline"></div>
+
+    {% assign TryAGame = page.metafields.custom.try_a_game.value %}
+
+    <div class="DownloadCarousel">
+      {% for download in TryAGame limit: 3 %}
+        <div class="DownloadItem">
+          <a href="{{ download.download_url }}" download target="_blank">
+            <img class="downloadImage" src="{{ download.image_url }}">
+            <p class="downloadText">
+              {{ download.title }}
+              {{ download.product_name }}
+            </p>
+          </a>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div id="GameRulesContainer" class="content container">
+    <div id="PageHeader">
+      <h3 id="PageTitle">Game Rules</h3>
+      <p id="PageSubTitle">Check out all of our Ginger Fox Game Rules below!</p>
+    </div>
+    <div id="pageHeaderUnderLine" class="blueUnderline" style=""></div>
+    {% assign GameRulesDownloads = page.metafields.custom.game_rules.value %}
+
+    <div class="DownloadCarousel">
+      {% for download in GameRulesDownloads %}
+        <div class="DownloadItem">
+          <a href="{{ download.download_url }}" download target="_blank">
+            <img class="downloadImage" src="{{ download.image_url }}">
+            <p class="downloadText">
+              {{ download.title }}
+              {{ download.product_name }}
+            </p>
+          </a>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div id="ExtraContentContainer" class="content container">
+    <div id="PageHeader">
+      <h3 id="PageTitle">Extra Content</h3>
+      <p id="PageSubTitle">Check out all of our Ginger Fox Extra Content below!</p>
+    </div>
+    <div id="pageHeaderUnderLine" class="blueUnderline" style=""></div>
+    {% assign ExtraContent = page.metafields.custom.extra_content.value %}
+
+    <div class="DownloadCarousel">
+      {% for download in ExtraContent %}
+        <div class="DownloadItem">
+          <a href="{{ download.download_url }}" download target="_blank">
+            <img class="downloadImage" src="{{ download.image_url }}">
+            <p class="downloadText">
+              {{ download.title }}
+              {{ download.product_name }}
+            </p>
+          </a>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div id="TryAGameContainer" class="content container">
+    <div id="PageHeader">
+      <h3 id="PageTitle">Try A Game</h3>
+      <p id="PageSubTitle">Check out all of our Ginger Fox Free Games below!</p>
+    </div>
+    <div id="pageHeaderUnderLine" class="blueUnderline" style=""></div>
+    {% assign TryAGame = page.metafields.custom.try_a_game.value %}
+
+    <div class="DownloadCarousel">
+      {% for download in TryAGame %}
+        <div class="DownloadItem">
+          <a href="{{ download.download_url }}" download target="_blank">
+            <img class="downloadImage" src="{{ download.image_url }}">
+            <p class="downloadText">
+              {{ download.title }}
+              {{ download.product_name }}
+            </p>
+          </a>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% else %}
+  <div class="container">
+    <h4 class="text-center mt-5">To view the bonus content you must be logged in!</h4>
+    <a class="text-center d-block w-100" href="{{ routes.account_login_url }}">Login here</a>
+  </div>
+{% endif %}

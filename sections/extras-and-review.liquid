@@ -1,0 +1,240 @@
+<link type="text/css" href="{{ 'extras-and-review.css' | asset_url }}" rel="stylesheet">
+<div class="bottomContainer">
+  <div class="JoinTheHubContainer">
+    <div class="JoinTheHubImage">
+      {{ section.settings.svgImage }}
+      <a href="{{ section.settings.buttonLink }}" class="joinTodayBtn">{{ section.settings.buttonText }}</a>
+    </div>
+  </div>
+  {% for block in section.blocks %}
+    {% case block.type %}
+      {% when 'product' %}
+        {% assign currentDate = 'now' | date: '%s' %}
+        {% assign startDate = block.settings.startDate | date: '%s' %}
+        {% assign endDate = block.settings.endDate | date: '%s' %}
+        {% if currentDate >= startDate and currentDate <= endDate %}
+          <div class="ReviewContainer">
+            <div class="ReviewCenterContainer">
+              <div class="ReviewTitleContainer">
+                <img src="{{ 'WhiteLinesLeft.svg' | asset_url }}" width="118" height="150">
+                <h4>Your Reviews</h4>
+                <img src="{{ 'WhiteLinesRight.svg' | asset_url }}" width="118" height="150">
+              </div>
+              <div class="ReviewContentContainer">
+                <div class="ReviewImageContainer">
+                  <img
+                    data-src="{{ block.settings.reviewImage | image_url }}"
+                    class="lazyload"
+                    width="{{ block.settings.reviewImage.width }}"
+                    height="{{ block.settings.reviewImage.height }}"
+                  >
+                </div>
+                <div class="ReviewQuoteContainer">
+                  <div class="QuoteContainer">
+                    <p>{{ block.settings.reviewText }}</p>
+                    <p>{{ block.settings.reviewBy }}</p>
+                    <div class="starContainer">
+                      <div class="starsEmpty">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="#ffd138"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                        >
+                                                              <path d="M12 5.173l2.335 4.817 5.305.732-3.861 3.71.942
+                          5.27-4.721-2.524-4.721 2.525.942-5.27-3.861-3.71 5.305-.733 2.335-4.817zm0-4.586l-3.668 7.568-8.332 1.151 6.064 5.828-1.48 8.279 7.416-3.967 7.416 3.966-1.48-8.279
+                          6.064-5.827-8.332-1.15-3.668-7.569z"></path>
+                        </svg>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="#ffd138"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                        >
+                          <path d="M12 5.173l2.335 4.817 5.305.732-3.861 3.71.942 5.27-4.721-2.524-4.721 2.525.942-5.27-3.861-3.71 5.305-.733 2.335-4.817zm0-4.586l-3.668 7.568-8.332 1.151 6.064 5.828-1.48 8.279 7.416-3.967 7.416 3.966-1.48-8.279 6.064-5.827-8.332-1.15-3.668-7.569z"></path>
+                        </svg>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="#ffd138"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                        >
+                          <path d="M12 5.173l2.335 4.817 5.305.732-3.861 3.71.942 5.27-4.721-2.524-4.721 2.525.942-5.27-3.861-3.71 5.305-.733 2.335-4.817zm0-4.586l-3.668 7.568-8.332 1.151 6.064 5.828-1.48 8.279 7.416-3.967 7.416 3.966-1.48-8.279 6.064-5.827-8.332-1.15-3.668-7.569z"></path>
+                        </svg>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="#ffd138"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                        >
+                          <path d="M12 5.173l2.335 4.817 5.305.732-3.861 3.71.942 5.27-4.721-2.524-4.721 2.525.942-5.27-3.861-3.71 5.305-.733 2.335-4.817zm0-4.586l-3.668 7.568-8.332 1.151 6.064 5.828-1.48 8.279 7.416-3.967 7.416 3.966-1.48-8.279 6.064-5.827-8.332-1.15-3.668-7.569z"></path>
+                        </svg>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="#ffd138"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                        >
+                          <path d="M12 5.173l2.335 4.817 5.305.732-3.861 3.71.942 5.27-4.721-2.524-4.721 2.525.942-5.27-3.861-3.71 5.305-.733 2.335-4.817zm0-4.586l-3.668 7.568-8.332 1.151 6.064 5.828-1.48 8.279 7.416-3.967 7.416 3.966-1.48-8.279 6.064-5.827-8.332-1.15-3.668-7.569z"></path>
+                        </svg>
+                      </div>
+                      <div
+                        class="starsFilled"
+                        style="width:{{ block.settings.starRating | divided_by: 5 | times: 100 }}%"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="#ffd138"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                        >
+                          <path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"></path>
+                        </svg>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="#ffd138"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                        >
+                          <path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"></path>
+                        </svg>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="#ffd138"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                        >
+                          <path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"></path>
+                        </svg>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="#ffd138"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                        >
+                          <path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"></path>
+                        </svg>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="#ffd138"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                        >
+                          <path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"></path>
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="SeeGameBtnContainer">
+                    <a
+                      class="SeeGameBtn btn GingerfoxAmazonButtonBlue formRoundedTextbox"
+                      href="{{ block.settings.reviewProduct.url }}"
+                    >
+                      {{- block.settings.reviewButtonText -}}
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endif %}
+    {% endcase %}
+  {% endfor %}
+</div>
+
+{% schema %}
+{
+  "name": "Extra Section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Extras Section"
+    },
+    {
+      "type": "html",
+      "id": "svgImage",
+      "label": "Extra SVG Image (Leave for Ollie to edit)"
+    },
+    {
+      "type": "text",
+      "id": "buttonText",
+      "label": "Button Text"
+    },
+    {
+      "type": "url",
+      "id": "buttonLink",
+      "label": "Button Link"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Product",
+      "type": "product",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Review Section"
+        },
+        {
+          "type": "text",
+          "id": "reviewText",
+          "label": "Review Text"
+        },
+        {
+          "type": "text",
+          "id": "reviewBy",
+          "label": "Review Author"
+        },
+        {
+          "type": "range",
+          "id": "starRating",
+          "min": 0,
+          "max": 5,
+          "step": 0.1,
+          "label": "Star Rating",
+          "default": 2.5
+        },
+        {
+          "type": "product",
+          "id": "reviewProduct",
+          "label": "Select Product"
+        },
+        {
+          "type": "image_picker",
+          "id": "reviewImage",
+          "label": "Select review image"
+        },
+        {
+          "type": "text",
+          "id": "reviewButtonText",
+          "label": "Review Button Text"
+        },
+        {
+          "type": "text",
+          "id": "startDate",
+          "label": "Start Date",
+          "info": "e.g. dd-mm-yyyy"
+        },
+        {
+          "type": "text",
+          "id": "endDate",
+          "label": "End Date",
+          "default": "31-12-2050",
+          "info": "e.g. dd-mm-yyyy"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

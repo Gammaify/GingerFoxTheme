@@ -1,0 +1,35 @@
+{% for item in cart.items %}
+  <div class="Product">
+    <a class="ProductImage" href="{{ item.product.url }}">
+      <img src="{{ item.product.featured_image.src | image_url }}">
+    </a>
+    <div class="ProductData">
+      <p class="ProductText">{{ item.title }}</p>
+      {% if item.product.compare_at_price != blank %}
+        <p class="ProductText redColor">
+          {{ item.price | money }}
+          <span class="discountCrossedOut">{{ item.product.compare_at_price | money }}</span>
+        </p>
+      {% else %}
+        <p class="ProductText">{{ item.product.original_price | money }}</p>
+      {% endif %}
+
+      <div class="qtyContainer">
+        <label for="qty">Quantity: </label><span class="decreaseVal">-</span
+        ><input
+          type="text"
+          class="qty"
+          name="updates[]"
+          data-productid="{{ item.variant_id }}"
+          value="{{ item.quantity }}"
+          min="0"
+          max="10"
+          disabled
+
+        ><span class="increaseVal">+</span>
+      </div>
+
+      <a class="removeItem" href="{{ item.url_to_remove }}">Remove</a>
+    </div>
+  </div>
+{% endfor %}

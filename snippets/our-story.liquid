@@ -1,0 +1,46 @@
+{{ 'our-story.css' | asset_url | stylesheet_tag }}
+<style>
+  .TitleBackground {
+    background-image: url({{'GF_WEB_BACKGROUND.jpg'|asset_url}});
+  }
+</style>
+<header class="vheader">
+  <div class="overlay"></div>
+  <video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
+    <source src="{{ 'aboutUS.mp4' | asset_url }}" type="video/mp4">
+  </video>
+  <div class="Vcontainer h-100">
+    <div class="d-flex h-100 text-center align-items-center">
+      <div class="w-100 text-white">
+        <h1 class="d-none">Ginger Fox</h1>
+        <img class="VideoLogo mb-5" src="{{ 'LOGO_ONTOP_OF_VID-01.svg' | asset_url }}">
+        <h3 class="VideoText mb-1">Creating Games</h3>
+        <h3 class="VideoText mb-1">Making Memories</h3>
+        <h3 class="VideoText mb-1">Having Fun!</h3>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="TitleBackground">
+  <h2 class="textColor text-center pt-4 mb-3">Welcome to the world of Ginger Fox!</h2>
+  <h3 class="TextGray text-center pb-4 mb-5">Games, gifts and more!</h3>
+</div>
+
+<div class="SnakeContainer">
+  <img class="mobileVersion lazyload" data-src="{{ 'GF ABOUT US_MOBILE.png' | asset_url }}">
+  <img class="desktopVersion lazyload" data-src="{{ 'GF_ABOUT US_DESKTOP_2.4.png' | asset_url }}">
+</div>
+
+<section class="my-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-7 ">
+        <img class="img-thumbnail img-fluid lazyload" data-src="{{ 'AboutUsImage.png' | asset_url }}">
+      </div>
+      <div class="col-md-5 mx-auto mt-3 align-self-center">
+        {{ pages['our-story'].content }}
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,267 @@
+/* @font-face {
+    font-family: Poppins-Bold;
+    src: url("/Fonts/Traitors/Poppins-Bold.ttf");
+}
+
+@font-face {
+    font-family: Poppins-Medium;
+    src: url("/Fonts/Traitors/Poppins-Medium.ttf");
+} */
+
+#main {
+    font-family: sofia-pro !important;
+}
+
+.mobileVersion {
+    display: none;
+}
+
+.desktopVersion {
+    display: block;
+}
+
+.TopContainer {
+    background-color: #731135;
+}
+
+.traitorsLogo {
+    width: 50%;
+    margin: auto;
+    display: block;
+    max-width: 270px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+.TitleContainer {
+    width: 100%;
+    background-color: #f08115;
+    text-align: center;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    color: #731135;
+}
+
+    .TitleContainer h1 {
+        font-weight: bold;
+        margin: 0;
+    }
+
+.HowToPlayVid {
+    padding: 50px 20px;
+    max-width: 70%;
+    margin: auto;
+}
+
+.video-container {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+}
+
+    .video-container::after {
+        padding-top: 56.25%;
+        display: block;
+        content: '';
+    }
+
+    .video-container iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+.FAQContainer {
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.faqItem {
+    border-bottom: 1px solid black;
+    position: relative;
+}
+
+.faqQuestionText {
+    background-color: transparent;
+    border: 0;
+    font-size: 16px;
+    font-weight: bold;
+    width: 100%;
+    text-align: left;
+    color: #842e4e;
+    margin: 0;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+
+
+    .faqQuestionText[aria-expanded="false"]:after {
+        font-family: normal;
+        content: "+";
+        font-size: 20px;
+        transform: scale(1.5);
+        position: absolute;
+        font-weight: normal;
+        right: 6px;
+    }
+
+    .faqQuestionText[aria-expanded="true"]:after {
+        font-family: normal;
+        content: "–";
+        font-size: 20px;
+        transform: scale(1.5);
+        position: absolute;
+        font-weight: normal;
+        right: 6px;
+    }
+
+.faqAnswerText {
+    padding: 1px 6px;
+}
+
+    .faqAnswerText p {
+        color: #964c67;
+    }
+
+.faqTitle {
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #f08115 !important;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #f08115;
+}
+
+.faqSection {
+    margin-bottom: 40px;
+}
+
+
+.FAQTitleContainer {
+    color: #f08115;
+    background-color: #731135;
+    text-align: center;
+    font-weight: bold;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    margin-bottom: 5%;
+}
+
+    .FAQTitleContainer h2 {
+        margin: 0;
+    }
+
+.RulesContainer {
+    width: 50%;
+    margin: auto;
+    margin-bottom: 50px;
+    margin-top: 50px;
+}
+
+    .RulesContainer h2 {
+        font-weight: bold;
+        color: #731135;
+        text-align: center;
+        padding-bottom: 30px;
+    }
+
+.RulesIconContainer {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.RulesIcon {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+    .RulesIcon img {
+        width: 100px;
+        padding-bottom: 10px;
+    }
+
+    .RulesIcon p {
+        text-align: center;
+        width: 100%;
+        font-size: 20px;
+    }
+
+.RulesIconContainer a {
+    color: #731135 !important;
+}
+
+.copyrightLogos {
+    width: 60%;
+}
+
+.copyRightContainer {
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+    .copyRightContainer p {
+        color: #171650;
+    }
+
+@media screen and (max-width: 992px) {
+    .faqAnswerText p {
+        text-align: center;
+    }
+
+    .mobileVersion {
+        display: block;
+    }
+
+    .desktopVersion {
+        display: none;
+    }
+
+    .copyRightContainer p {
+        text-align: center;
+    }
+
+    .copyrightLogos {
+        width: 100%;
+    }
+
+    .TitleContainer {
+        padding-bottom: 15px;
+        padding-top: 15px;
+    }
+
+    .HowToPlayVid {
+        max-width: 100%;
+    }
+
+    .faqTitle {
+        text-align: center;
+    }
+
+    .FAQContainer {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .faqQuestionText {
+        justify-content: center;
+        width: 80%;
+        margin: auto;
+        text-align: center;
+    }
+
+        .faqQuestionText[aria-expanded="false"]:after {
+            padding-left: 10px;
+        }
+
+        .faqQuestionText[aria-expanded="true"]:after {
+            padding-left: 10px;
+        }
+
+    .RulesContainer {
+        width: 100%;
+    }
+}

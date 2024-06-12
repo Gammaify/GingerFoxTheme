@@ -1,0 +1,31 @@
+// window.onbeforeunload = function () {
+//     $("input[type=button], input[type=submit]").attr("disabled", "disabled");
+// };
+
+
+
+$("input[type=button], input[type=submit]").on('dblclick', function(event) {
+    event.preventDefault();
+  });
+
+  $.get("https://shopify.gingerfox.co.uk/api/iplookup", function (data, status) {
+    var json = JSON.parse(data);
+    var country = json["country"]["names"]["en"];
+    if (status == "success"){
+      switch (country){
+        case "Russia":
+          location.href = "https://block.gingerfox.co.uk/"
+          break;
+        case "China":
+          location.href = "https://block.gingerfox.co.uk/"
+          break;
+        case "Afghanistan":
+          location.href = "https://block.gingerfox.co.uk/"
+          break;
+        case "Vietnam":
+          location.href = "https://block.gingerfox.co.uk/"
+          break;
+      }
+    }
+    
+});

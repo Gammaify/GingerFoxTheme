@@ -1,0 +1,85 @@
+$(document).ready(function () {
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  const e = urlParams.get("e");
+  console.log(e);
+  switch (e) {
+    case "game-rules":
+      $(".extrasNavContainer li").removeClass("Active");
+      $(".arrowDown").addClass("d-none");
+      $("#GameRules > .arrowDown").removeClass("d-none");
+      $("#GameRules").addClass("Active");
+      $("#GameRulesContainer").show();
+      break;
+    case "extra-content":
+      $(".extrasNavContainer li").removeClass("Active");
+      $(".arrowDown").addClass("d-none");
+      $("#ExtraContent > .arrowDown").removeClass("d-none");
+      $("#ExtraContent").addClass("Active");
+      $("#ExtraContentContainer").show();
+      break;
+    case "try-game":
+      $(".extrasNavContainer li").removeClass("Active");
+      $(".arrowDown").addClass("d-none");
+      $("#TryGame > .arrowDown").removeClass("d-none");
+      $("#TryGame").addClass("Active");
+      $("#TryAGameContainer").show();
+      break;
+  }
+
+  if (e == null) {
+    $("#ShowAllContainer").show();
+  }
+
+  $("#GameRules, #GameRulesBtn").on("click", function () {
+    $(".content").hide();
+    var url = new URL(window.location.href);
+    url.searchParams.set("e", "game-rules");
+    window.history.replaceState(null, null, url);
+    $(".extrasNavContainer li").removeClass("Active");
+    $(".arrowDown").addClass("d-none");
+    $("#GameRules > .arrowDown").removeClass("d-none");
+    $("#GameRules").addClass("Active");
+    $("#GameRulesContainer").show();
+    window.scrollTo({ top: 0 });
+  });
+
+  $("#All").on("click", function () {
+    $(".content").hide();
+    var url = new URL(window.location.href);
+    url.searchParams.delete("e");
+    window.history.replaceState(null, null, url);
+    $(".extrasNavContainer li").removeClass("Active");
+    $(".arrowDown").addClass("d-none");
+    $("#All > .arrowDown").removeClass("d-none");
+    $("#All").addClass("Active");
+    $("#ShowAllContainer").show();
+    window.scrollTo({ top: 0 });
+  });
+
+  $("#ExtraContent, #ExtraContentBtn").on("click", function () {
+    $(".content").hide();
+    var url = new URL(window.location.href);
+    url.searchParams.set("e", "extra-content");
+    window.history.replaceState(null, null, url);
+    $(".extrasNavContainer li").removeClass("Active");
+    $(".arrowDown").addClass("d-none");
+    $("#ExtraContent > .arrowDown").removeClass("d-none");
+    $("#ExtraContent").addClass("Active");
+    $("#ExtraContentContainer").show();
+    window.scrollTo({ top: 0 });
+  });
+
+  $("#TryGame, #TryGameBtn").on("click", function () {
+    $(".content").hide();
+    var url = new URL(window.location.href);
+    url.searchParams.set("e", "try-game");
+    window.history.replaceState(null, null, url);
+    $(".extrasNavContainer li").removeClass("Active");
+    $(".arrowDown").addClass("d-none");
+    $("#TryGame > .arrowDown").removeClass("d-none");
+    $("#TryGame").addClass("Active");
+    $("#TryAGameContainer").show();
+    window.scrollTo({ top: 0 });
+  });
+});

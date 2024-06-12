@@ -1,0 +1,159 @@
+#customer_login ul li {
+    color: red;
+    text-align: center;
+}
+
+#activationMessage {
+    display: none;
+}
+
+.loginContainer,
+#recover_customer_password {
+    width: 40%;
+    margin: auto;
+}
+
+.loginHeader {
+    width: 100%;
+    padding-top: 20px;
+    position: relative;
+}
+
+.loginTitleContainer h1,
+.loginTitleContainer h2 {
+    font-size: clamp(20px, 4vw, 80px);
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.loginTitleContainer h2 {
+    font-size: clamp(20px, 3vw, 50px);
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.loginTitleContainer {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-bottom: 20px;
+}
+
+.guestLoginContainer {
+    width: 40%;
+    padding-bottom: 20px;
+    margin: auto;
+    margin-top: 20px;
+    border-bottom: 2px solid #ff8200;
+    display: none;
+}
+
+.loginTitleContainer img,
+.ForgotPassTitleContainer img {
+    width: clamp(15px, 2vw, 30px);
+    margin-right: 5px;
+}
+
+.nearlyThereDesktop {
+    display: block;
+    position: absolute;
+    width: 30%;
+    right: -5%;
+    top: 15%;
+}
+
+.nearlyThereMobile {
+    display: none;
+}
+
+.loginLinks {
+    margin-bottom: 20px;
+}
+
+.loginText h4,
+#recover_customer_password p {
+    text-align: center;
+    font-size: 20px;
+    color: black;
+    margin-bottom: 0px;
+}
+
+#customer_login {
+    margin: 0;
+}
+
+#customer_login label,
+#recover_customer_password label {
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+    color: black;
+}
+
+.LoginBtn {
+    display: block;
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+#recover_customer_password {
+    display: none;
+}
+
+.ForgotPassTitleContainer {
+    display: none;
+}
+
+.ForgotPassTitleContainer {
+    padding-top: 30px;
+    padding-bottom: 30px;
+
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.ForgotPassTitleContainer h1 {
+    padding-top: 11px;
+    font-size: clamp(16px, 3vw, 80px);
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+@media screen and (max-width: 992px) {
+
+    .loginText h4,
+    #recover_customer_password p {
+        font-size: 16px;
+    }
+
+    .loginContainer,
+    #recover_customer_password,
+    .guestLoginContainer {
+        width: 80%;
+    }
+
+    .loginContainer h1 {
+        font-size: 54px;
+    }
+
+    .nearlyThereDesktop {
+        display: none;
+    }
+
+    .nearlyThereMobile {
+        display: block;
+        position: absolute;
+        width: 40%;
+        right: 0;
+    }
+
+    .loginText {
+        margin-top: 25%
+    }
+
+    /* .loginTitleContainer {
+        padding-bottom: unset;
+    } */
+
+}

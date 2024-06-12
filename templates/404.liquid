@@ -1,0 +1,16 @@
+{{ '404.css' | asset_url | stylesheet_tag }}
+
+<div class="container">
+    <div class="errorMessageContainer">
+        <div class="errorImage">
+            <img src="{{ '404_PAGE_NOT_FOUND_IMAGE.jpg' | asset_url  }}" alt="404 error page not found">
+        </div>
+        <div class="errorMessage">
+            <img class="errorTitle" src="{{ '404_PAGE_TITLE_IMAGE.jpg' | asset_url }}" alt="Who Spoiled The Fun Title">
+            <p class="errorText">Sorry, something's gone wrong, the page is missing or does not exist. Please click below to return back to the homepage.</p>
+
+            <img class="errorArrow" src="{{ 'HEAD_BACK_TO_THE_FUN_ARROW.jpg' | asset_url }}" alt="Head back to the fun! arrow pointing at Return Home button">
+            <a class="errorReturn" href="/">Return Home</a>
+        </div>
+    </div>
+</div>

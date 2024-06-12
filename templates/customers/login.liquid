@@ -1,0 +1,109 @@
+{{ 'login.css' | asset_url | stylesheet_tag }}
+<div class="guestLoginContainer">
+  <div class="loginTitleContainer">
+    <img src="{{ 'BlueLinesLeft.svg' | asset_url }}">
+    <h2 id="title">Guest Checkout</h2>
+    <img src="{{ 'BlueLinesRight.svg' | asset_url }}">
+  </div>
+  <a class="GingerFoxButtonBlue mb-2 ms-auto me-auto ps-0 pe-0" href="/checkout">Continue To Checkout</a>
+</div>
+<div class="loginContainer">
+  <div id="activationMessage" class="mt-3 mb-3 text-center fw-bold">
+    <p class="text-success">We have sent you an email to activate your account. Please go and check your emails!</p>
+  </div>
+  <div class="loginHeader">
+    <div class="loginTitleContainer">
+      <img src="{{ 'BlueLinesLeft.svg' | asset_url }}">
+      <h1 id="title">Log In</h1>
+      <img src="{{ 'BlueLinesRight.svg' | asset_url }}">
+    </div>
+    <img class="nearlyThereDesktop" src="{{ 'NEARLYTHERE_ARROW_DESKTOP.png' | asset_url }}">
+    <img class="nearlyThereMobile" src="{{ 'NEARLYTHERE_ARROW_MOBILE.png' | asset_url }}">
+  </div>
+  <div class="loginText">
+    <h4>You are moments away from unlimited access to exclusive perks, offers and more!</h4>
+  </div>
+  {% form 'customer_login' %}
+    {% for error in form.errors %}
+      {% if error == 'form' %}
+        <ul>
+          <li>
+            {{ form.errors.messages[error] }}
+          </li>
+        </ul>
+      {% endif %}
+    {% endfor %}
+
+    <div class="email">
+      <label for="email">Email</label>
+      <input class="form-control" type="email" name="customer[email]">
+    </div>
+
+    <div class="password">
+      <label for="password">Password</label>
+      <input class="form-control" type="password" name="customer[password]">
+    </div>
+
+    <div class="submit">
+      <input class="GingerFoxButtonBlue LoginBtn" type="submit" value="Login">
+    </div>
+    <a
+      class="loginLinks textLinkBlack d-flex justify-content-center"
+      href="{{ routes.account_login_url }}?forgot-password=true"
+      >Forgot your password?</a
+    >
+
+    <a
+      class="loginLinks textLinkBlack d-flex justify-content-center"
+      id="registerURL"
+      href="{{ routes.account_register_url }}"
+      >Register as a New User</a
+    >
+  {% endform %}
+</div>
+<div class="ForgotPassTitleContainer">
+  <img src="{{ 'BlueLinesLeft.svg' | asset_url }}">
+  <h1>Forgot your password?</h1>
+  <img src="{{ 'BlueLinesRight.svg' | asset_url }}">
+</div>
+<div id="recover_customer_password">
+  <p>Please enter your email that you log in with. We will email you if you are registered with us.</p>
+  {% form 'recover_customer_password' %}
+    {{ form.errors | default_errors }}
+
+    <div class="email">
+      <label for="email">Email</label>
+      <input class="form-control" type="email" name="email">
+    </div>
+
+    <div class="submit">
+      <input class="GingerFoxButtonBlue LoginBtn" type="submit" value="Submit">
+    </div>
+    <a class="textLinkBlack d-flex justify-content-center" href="{{ routes.account_login_url }}">Back to login</a>
+  {% endform %}
+</div>
+<script>
+  var search = window.location.search;
+  const urlParams = new URLSearchParams(search);
+
+  var forgotPassword = urlParams.get('forgot-password');
+  var return_to = urlParams.get('return_to');
+  var return_url = urlParams.get('return_url');
+
+  if (return_url == '/account') {
+    $('#activationMessage').show();
+  }
+
+  if (forgotPassword == 'true') {
+    $('.ForgotPassTitleContainer').css('display', 'flex');
+    $('#customer_login').hide();
+    $('.loginContainer').hide();
+    $('#recover_customer_password').show();
+  }
+
+  if (return_to == 'checkout') {
+    $('.guestLoginContainer').show();
+    $('#customer_login').prepend('<input type="hidden" name="checkout_url" value="/checkout"/>');
+    $('#registerURL').attr('href', '{{ routes.account_register_url }}?return_to=checkout');
+  }
+</script>

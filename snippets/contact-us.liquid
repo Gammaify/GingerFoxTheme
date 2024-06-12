@@ -1,0 +1,373 @@
+{{ 'contact-us.css' | asset_url | stylesheet_tag }}
+
+<div class="container">
+  <div class="TitleHeading">
+    <h1 class="">
+      <img src="{{ 'BlueLinesLeft.svg' | asset_url }}">Contact Us<img src="{{ 'BlueLinesRight.svg' | asset_url }}">
+    </h1>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <form id="contactUsForm" method="post">
+        <span id="formValidate" class="invalid-feedback">An error has occured, please try again.</span>
+        <span id="formSent" class="valid-feedback"
+          >We have received your contact form, we will respond as soon as possible.</span
+        >
+        <div class="mb-3 mt-3">
+          <label class="form-label required">Your Full Name</label>
+          <input type="text" class="form-control" id="fullName" name="fullName">
+          <span class="invalid-feedback" id="fullNameEmpty">Your Full Name is required.</span>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label required">Your Email Address</label>
+          <input type="email" class="form-control" id="email" name="email">
+          <span class="invalid-feedback" id="emailEmpty">Your Email Address is required.</span>
+          <span id="emailValidate" class="invalid-feedback">Please use a valid email address.</span>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label required">Your Telephone Number</label>
+          <input type="tel" class="form-control" id="telephone" name="telephone">
+          <span class="invalid-feedback" id="teleEmpty">Your Telephone Number is required.</span>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Nature Of Enquiry</label>
+          <select class="form-control form-select" id="enquiry" name="enquiry">
+            <option value="General Enquiries">General Enquiries</option>
+            <option value="Marketing/Press Enquiry">Marketing/Press Enquiry</option>
+            <option value="Have A Game Idea">Have A Game Idea</option>
+            <option value="Customer Service">Customer Service</option>
+            <option value="Accessibility">Accessibility</option>
+            <option value="Trade Enquiries">Trade Enquiries</option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label required">Your Message</label>
+          <textarea class="form-control" id="message" name="message"></textarea>
+          <span class="invalid-feedback" id="messageEmpty">Your Message is required.</span>
+          <span class="invalid-feedback" id="messageValidate"
+            >Please only use the english alphabet, numbers and basic punctuation.</span
+          >
+        </div>
+
+        <div class="mb-3">
+          <div class="cf-turnstile" data-sitekey="0x4AAAAAAADtH6bHTmySzXv4"></div>
+        </div>
+        <p class="requiredField">* Required Information</p>
+        <button type="button" class="GingerFoxButtonBlue" id="sendBtn">Send</button>
+      </form>
+    </div>
+    <div class="col-md-6">
+      <div class="addressesContainer">
+        <div class="ContactUSInfo">
+          <div class="s3">
+            <h5><strong>UK Customer Services</strong></h5>
+          </div>
+          <div class="adress-toggle">
+            <div class="row mt-2">
+              <div class="col-md-3">
+                <span class="ContactUsTab"><strong>Email:</strong></span>
+              </div>
+              <div class="col-md-9">
+                <span><a href="mailto:helpme@gingerfox.co.uk">helpme@gingerfox.co.uk</a></span>
+              </div>
+            </div>
+
+            <div class="row mt-2">
+              <div class="col-md-3">
+                <span class="ContactUsTab"><strong>Telephone:</strong></span>
+              </div>
+              <div class="col-md-9">
+                <span><a href="tel:01242513424">01242 513 424</a></span>
+              </div>
+            </div>
+            <div class="row mt-2">
+              <div class="col-md-3 ">
+                <span class="ContactUsTab"><strong>Address:</strong></span>
+              </div>
+              <div class="col-md-9">
+                <span>Unit B4 Kingsditch Trade Park,</span><br>
+                <span>Upperfield Road,</span><br>
+                <span>Cheltenham,</span><br>
+                <span>Gloucestershire.</span><br>
+                <span>GL51 9PA</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="ContactUSInfo">
+          <div class="s3">
+            <h5><strong>UK Trade Sales</strong></h5>
+          </div>
+          <div class="adress-toggle">
+            <div class="row mt-2">
+              <div class="col-md-3">
+                <span class="ContactUsTab"><strong>Email:</strong></span>
+              </div>
+              <div class="col-md-9">
+                <span><a href="mailto:sales@gingerfox.co.uk">sales@gingerfox.co.uk</a></span>
+              </div>
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-md-3">
+              <span class="ContactUsTab"><strong>Telephone:</strong></span>
+            </div>
+            <div class="col-md-9">
+              <span><a href="tel:01242241765">01242 241765</a></span>
+            </div>
+          </div>
+        </div>
+        <div class="ContactUSInfo">
+          <div class="s3">
+            <h5><strong>USA Customer Services</strong></h5>
+          </div>
+          <div class="adress-toggle">
+            <div class="row mt-2">
+              <div class="col-md-3">
+                <span class="ContactUsTab"><strong>Email:</strong></span>
+              </div>
+              <div class="col-md-9">
+                <span><a href="mailto:usa@gingerfoxgames.com">usa@gingerfoxgames.com</a></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="ContactUSInfo">
+          <div class="s3">
+            <h5><strong>Marketing &amp; Press Enquiries</strong></h5>
+          </div>
+          <div class="adress-toggle">
+            <div class="row mt-2">
+              <div class="col-md-3">
+                <span class="ContactUsTab"><strong>Email:</strong></span>
+              </div>
+              <div class="col-md-9">
+                <span><a href="mailto:press@gingerfox.co.uk">press@gingerfox.co.uk</a></span>
+              </div>
+            </div>
+            <div class="row mt-2">
+              <div class="col-md-3">
+                <span class="ContactUsTab"><strong>Press Centre:</strong></span>
+              </div>
+              <div class="col-md-9">
+                <span><a href="{{ pages.press.url }}">Click here</a></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+<script>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+  var cloudflareDisabled = false;
+  if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+    $('.cf-turnstile').remove();
+    cloudflareDisabled = true;
+  }
+ 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  $('#sendBtn').on('click', function (e) {
+    e.preventDefault();
+    $('.invalid-feedback').hide();
+    $(".valid-feedback").hide();
+
+    var isValid = true;
+    var fullName = $('#fullName').val();
+    var email = $('#email').val();
+    var enquiry = $('#enquiry').val();
+    var message = $('#message').val();
+    var telephone = $('#telephone').val();
+
+    if (fullName == '') {
+      $('#fullNameEmpty').show();
+      isValid = false;
+    }
+
+    if (email == '') {
+      $('#emailEmpty').show();
+      isValid = false;
+    }
+
+    if (telephone == '') {
+      $('#teleEmpty').show();
+      isValid = false;
+    }
+
+    var emailRegex = new RegExp("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$");
+    if (emailRegex.test(email) == false && email != '') {
+      $('#emailValidate').show();
+      isValid = false;
+    }
+
+    var messageRegex = new RegExp(/^(?=.*[A-Z0-9])[()£?|@&-;\w.,!"'\/ ]+$/i);
+    if (messageRegex.test(message) == false && message != '') {
+      $('#messageValidate').show();
+      isValid = false;
+    }
+
+    if (message == '') {
+      $('#messageEmpty').show();
+      isValid = false;
+    }
+
+    if (isValid == true){
+     
+
+      
+
+      if (cloudflareDisabled == false){
+        var cloudflareResponse = $('input[name="cf-turnstile-response"]').val();
+        var cloudflareResult = false;
+        const data = {
+          response: cloudflareResponse,
+        };
+
+        fetch('https://shopify.gingerfox.co.uk/api/cloudflare/turnstile/response', {
+          method: 'POST', // or 'PUT'
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            var json = JSON.parse(data);
+    
+            
+            cloudflareResult = json.success;
+            console.log(json)
+            if (isValid == true && cloudflareResult == true) {
+           
+                var fullName = $('#fullName').val();
+                var email = $('#email').val();
+                var enquiry = $('#enquiry').val();
+                var message = $('#message').val();
+                var telephone = $("#telephone").val();
+            
+                const data2 = {
+                  fullName: fullName,
+                  email: email,
+                  telephone: telephone,
+                  enquiry: enquiry,
+                  message: message,
+                };
+            
+                fetch('https://shopify.gingerfox.co.uk/api/contact-us/submit', {
+                  method: 'POST', // or 'PUT'
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify(data2),
+                })
+                  .then((response) => response.json())
+                  .then((data) => {
+                    var json = JSON.parse(data);
+            
+                    if (json == true){
+                        $("#formSent").show();
+                        document.getElementById("contactUsForm").reset();
+                    }
+                    else{
+                        
+                        $("#formValidate").show();
+                        turnstile.reset();
+                    }
+                    
+                  });
+            }
+            else{
+                $("#formValidate").show();
+                turnstile.reset();
+            }
+            
+          });
+      }
+      else{
+
+        var fullName = $('#fullName').val();
+                var email = $('#email').val();
+                var enquiry = $('#enquiry').val();
+                var message = $('#message').val();
+                var telephone = $("#telephone").val();
+            
+                const data2 = {
+                  fullName: fullName,
+                  email: email,
+                  telephone: telephone,
+                  enquiry: enquiry,
+                  message: message,
+                };
+                
+        fetch('https://shopify.gingerfox.co.uk/api/contact-us/submit', {
+          method: 'POST', // or 'PUT'
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data2),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            var json = JSON.parse(data);
+    
+            if (json == true){
+                $("#formSent").show();
+                document.getElementById("contactUsForm").reset();
+            }
+            else{
+                
+                $("#formValidate").show();
+                turnstile.reset();
+            }
+            
+          });
+      }
+
+
+      
+     
+    }
+    
+
+      
+});
+
+setTimeout(function(){
+  turnstile.reset();
+},300000)
+  {% comment %} $('#contactUsForm').on('submit', function (e) {
+    e.preventDefault();
+
+    
+  }); {% endcomment %}
+</script>

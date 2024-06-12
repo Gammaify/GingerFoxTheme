@@ -1,0 +1,53 @@
+$(document).ready(function(){
+    // Function to initialize or destroy Swiper based on screen width
+    function handleSwiper() {
+        // Check if the screen width is below a certain breakpoint (e.g., 768 pixels)
+        if (window.innerWidth < 768) {
+        // Initialize Swiper if it's not already initialized
+        if (!swiper) {
+            // $("#howItAllWorksSlider").addClass("swiper")
+            swiper = new Swiper('.howItAllWorksSlider', {
+                autoHeight: true,
+                slidesPerView: "auto",
+                centeredSlides: true,
+                spaceBetween: 60,
+                breakpoints: {
+                    768:{
+                        slidesPerView: 3,
+                    }
+                },
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                    renderBullet: function (index, className) {
+                    return '<span class="' + className + '"></span>';
+                    },
+                  },    
+                
+            // Swiper configuration options
+            // ...
+            });
+        }
+        } else {
+        // Destroy Swiper if it's initialized
+        if (swiper) {
+            swiper.destroy();
+            swiper = null;
+            // $("#howItAllWorksSlider").removeClass("swiper")
+        }
+        }
+    }
+
+    // Variable to store the Swiper instance
+    var swiper = null;
+
+    // Initial setup on page load
+    window.addEventListener('load', function () {
+    handleSwiper();
+    });
+
+    // Update Swiper on window resize
+    window.addEventListener('resize', function () {
+    handleSwiper();
+    });
+})

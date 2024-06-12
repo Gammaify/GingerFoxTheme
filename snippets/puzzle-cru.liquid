@@ -1,0 +1,303 @@
+{{ 'puzzle-cru.css' | asset_url | stylesheet_tag }}
+{{ 'puzzle-cru.js' | asset_url | script_tag }}
+<div class="PuzzleCruTopBanner">
+  <h1 class="d-none">Puzzle Cru</h1>
+  <img
+    class="PuzzleTopDesktopBanner lazyload"
+    data-src="https://media.gingerfox.co.uk/GingerFoxHub/ProductPages/PuzzleCru/PUZZLECRU_DESKTOP_HEADER.png"
+  >
+  <img
+    class="PuzzleTopMobileBanner lazyload"
+    data-src="https://media.gingerfox.co.uk/GingerFoxHub/ProductPages/PuzzleCru/PUZZLECRU_Mobile_HEADER.png"
+  >
+  <div class="PCHeaderTxtContainer">
+    <p>A range of entertaining yet informative jigsaw maps crafted by Master of Wine <nobr>Rebecca Gibb.</nobr></p>
+    <p>
+      Wine and whisky lovers will enjoy exploring their favourite wine regions or whisky distilleries as they piece
+      <nobr>together these beautiful puzzles.</nobr>
+    </p>
+  </div>
+</div>
+
+{% assign puzzleProducts = collections.puzzles.products | sort: 'price' | reverse %}
+{% for product in puzzleProducts %}
+  {% case product.id %}
+    {% when 8777814343966 %}
+      {% assign puzzleFrance = product %}
+
+      <div class="PuzzleContainer BlueBackground">
+        <div class="PuzzleIconContainer BlueGradientBackground">
+          <div class="IconContainer">
+            <img
+              class="PuzzleIcon1"
+              src="https://media.gingerfox.co.uk/GingerFoxHub/ProductPages/PuzzleCru/PUZZLECRU_BLUEPUZZLE.svg"
+            >
+            <p class="BlueColor">{{ puzzleFrance.metafields.product.puzzle_pieces }}</p>
+          </div>
+        </div>
+
+        <img
+          class="PuzzleImage lazyload"
+          data-src="https://media.gingerfox.co.uk/GingerFoxHub/ProductPages/PuzzleCru/PUZZLECRU_FRANCE.png"
+        >
+        <div class="PuzzleInfoContainer">
+          <h2>{{ puzzleFrance.title }}</h2>
+          <div class="priceReviewContainer">
+            <div class="priceContainer">
+              {% if puzzleFrance.compare_at_price > 0 %}
+                <p class="price priceDiscount">{{ puzzleFrance.price | money }}</p>
+                <p class="priceCrossedOut">{{ puzzleFrance.compare_at_price | money }}</p>
+              {% else %}
+                <p class="price">{{ puzzleFrance.price | money }}</p>
+              {% endif %}
+            </div>
+          </div>
+          <div class="AddToBasketContainer">
+            {% if puzzleFrance.available == true %}
+              <form method="post" action="/cart/add">
+                <input type="hidden" name="id" value="{{ puzzleFrance.variants.first.id }}">
+                <input type="number" id="quantity" name="quantity" value="1" min="1" class="d-none">
+                <input type="submit" value="Add To Basket" class="AddToBasketBtn">
+              </form>
+            {% else %}
+              <button disabled class="AddToBasketBtn disabled">Out of Stock</button>
+            {% endif %}
+          </div>
+          <div class="DescriptionContainer">
+            <h4>Description</h4>
+            <div class="descriptionContent1" id="descriptionContent1">
+              {{ puzzleFrance.description }}
+            </div>
+
+            <div id="DescriptionReadMoreBtn1" class="DescriptionReadMoreBtn">Read More</div>
+            <div id="DescriptionHideBtn1" class="DescriptionHideBtn" style="display: none;">Hide</div>
+          </div>
+
+          <div class="deliveryInfoContainer">
+            <div class="deliveryInfoTitleContainer">
+              <h4>Delivery Info</h4>
+              <div id="DeliveryInfoReadMoreBtn1" class="DeliveryInfoReadMoreBtn">Read More</div>
+              <div id="DeliveryInfoHideBtn1" class="DeliveryInfoHideBtn">Hide</div>
+            </div>
+            <div id="deliveryInfoTxtContainer1" class="deliveryInfoTxtContainer">
+              <p>
+                We offer both Royal Mail 48-hour post, and Royal Mail 24-hour post. We may use other couriers during
+                busier periods, but shipping costs will remain the same.
+              </p>
+              <ul>
+                <li>Royal Mail 48 (2-3 business days) - FREE</li>
+                <li>Royal Mail 24 (next business day) - £3.99</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% when 8777814507806 %}
+      {% assign puzzleItaly = product %}
+      <div class="PuzzleContainer RedBackground ReverseDiv">
+        <div class="PuzzleIconContainer RedGradientBackground">
+          <div class="IconContainer IconReverse">
+            <img
+              class="PuzzleIcon2"
+              src="https://media.gingerfox.co.uk/GingerFoxHub/ProductPages/PuzzleCru/PUZZLECRU_REDPUZZLE-01.svg"
+            >
+            <p class="RedColor">{{ puzzleItaly.metafields.product.puzzle_pieces }}</p>
+          </div>
+        </div>
+
+        <img
+          class="PuzzleImage PuzzleImageReversePadding lazyload"
+          data-src="https://media.gingerfox.co.uk/GingerFoxHub/ProductPages/PuzzleCru/PUZZLECRU_ITALY.png"
+        >
+        <div class="PuzzleInfoContainer PuzzleInfoReversePadding">
+          <h2>{{ puzzleItaly.title }}</h2>
+          <div class="priceReviewContainer">
+            <div class="priceContainer">
+              {% if puzzleItaly.compare_at_price > 0 %}
+                <p class="price priceDiscount">{{ puzzleItaly.price | money }}</p>
+                <p class="priceCrossedOut">{{ puzzleItaly.compare_at_price | money }}</p>
+              {% else %}
+                <p class="price">{{ puzzleItaly.price | money }}</p>
+              {% endif %}
+            </div>
+          </div>
+          <div class="AddToBasketContainer">
+            {% if puzzleItaly.available == true %}
+              <form method="post" action="/cart/add">
+                <input type="hidden" name="id" value="{{ puzzleItaly.variants.first.id }}">
+                <input type="number" id="quantity" name="quantity" value="1" min="1" class="d-none">
+                <input type="submit" value="Add To Basket" class="AddToBasketBtn">
+              </form>
+            {% else %}
+              <button disabled class="AddToBasketBtn disabled">Out of Stock</button>
+            {% endif %}
+          </div>
+          <div class="DescriptionContainer">
+            <h4>Description</h4>
+            <div class="descriptionContent2" id="descriptionContent2">
+              {{ puzzleItaly.description }}
+            </div>
+
+            <div id="DescriptionReadMoreBtn2" class="DescriptionReadMoreBtn">Read More</div>
+            <div id="DescriptionHideBtn1" class="DescriptionHideBtn" style="display: none;">Hide</div>
+          </div>
+
+          <div class="deliveryInfoContainer">
+            <div class="deliveryInfoTitleContainer">
+              <h4>Delivery Info</h4>
+              <div id="DeliveryInfoReadMoreBtn2" class="DeliveryInfoReadMoreBtn">Read More</div>
+              <div id="DeliveryInfoHideBtn2" class="DeliveryInfoHideBtn">Hide</div>
+            </div>
+            <div id="deliveryInfoTxtContainer2" class="deliveryInfoTxtContainer">
+              <p>
+                We offer both Royal Mail 48-hour post, and Royal Mail 24-hour post. We may use other couriers during
+                busier periods, but shipping costs will remain the same.
+              </p>
+              <ul>
+                <li>Royal Mail 48 (2-3 business days) - FREE</li>
+                <li>Royal Mail 24 (next business day) - £3.99</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% when 8777814769950 %}
+      {% assign puzzleSpain = product %}
+      <div class="PuzzleContainer OrangeBackground">
+        <div class="PuzzleIconContainer OrangeGradientBackground">
+          <div class="IconContainer">
+            <img
+              class="PuzzleIcon1"
+              src="https://media.gingerfox.co.uk/GingerFoxHub/ProductPages/PuzzleCru/PUZZLECRU_ORANGEPUZZLE-01.svg"
+            >
+            <p class="OrangeColor">{{ puzzleSpain.metafields.product.puzzle_pieces }}</p>
+          </div>
+        </div>
+
+        <img
+          class="PuzzleImage lazyload"
+          data-src="https://media.gingerfox.co.uk/GingerFoxHub/ProductPages/PuzzleCru/PUZZLECRU_SPAIN.png"
+        >
+        <div class="PuzzleInfoContainer">
+          <h2>{{ puzzleSpain.title }}</h2>
+          <div class="priceReviewContainer">
+            <div class="priceContainer">
+              {% if puzzleSpain.compare_at_price > 0 %}
+                <p class="price priceDiscount">{{ puzzleSpain.price | money }}</p>
+                <p class="priceCrossedOut">{{ puzzleSpain.compare_at_price | money }}</p>
+              {% else %}
+                <p class="price">{{ puzzleSpain.price | money }}</p>
+              {% endif %}
+            </div>
+          </div>
+          <div class="AddToBasketContainer">
+            {% if puzzleSpain.available == true %}
+              <form method="post" action="/cart/add">
+                <input type="hidden" name="id" value="{{ puzzleSpain.variants.first.id }}">
+                <input type="number" id="quantity" name="quantity" value="1" min="1" class="d-none">
+                <input type="submit" value="Add To Basket" class="AddToBasketBtn">
+              </form>
+            {% else %}
+              <button disabled class="AddToBasketBtn disabled">Out of Stock</button>
+            {% endif %}
+          </div>
+          <div class="DescriptionContainer">
+            <h4>Description</h4>
+            <div class="descriptionContent3" id="descriptionContent3">
+              {{ puzzleSpain.description }}
+            </div>
+
+            <div id="DescriptionReadMoreBtn3" class="DescriptionReadMoreBtn">Read More</div>
+            <div id="DescriptionHideBtn3" class="DescriptionHideBtn" style="display: none;">Hide</div>
+          </div>
+
+          <div class="deliveryInfoContainer">
+            <div class="deliveryInfoTitleContainer">
+              <h4>Delivery Info</h4>
+              <div id="DeliveryInfoReadMoreBtn3" class="DeliveryInfoReadMoreBtn">Read More</div>
+              <div id="DeliveryInfoHideBtn3" class="DeliveryInfoHideBtn">Hide</div>
+            </div>
+            <div id="deliveryInfoTxtContainer3" class="deliveryInfoTxtContainer">
+              <p>
+                We offer both Royal Mail 48-hour post, and Royal Mail 24-hour post. We may use other couriers during
+                busier periods, but shipping costs will remain the same.
+              </p>
+              <ul>
+                <li>Royal Mail 48 (2-3 business days) - FREE</li>
+                <li>Royal Mail 24 (next business day) - £3.99</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% when 8777814933790 %}
+      {% assign puzzleScotland = product %}
+      <div class="PuzzleContainer TealBackground ReverseDiv">
+        <div class="PuzzleIconContainer TealGradientBackground">
+          <div class="IconContainer IconReverse">
+            <img
+              class="PuzzleIcon1"
+              src="https://media.gingerfox.co.uk/GingerFoxHub/ProductPages/PuzzleCru/PUZZLECRU_TEALPUZZLE-01.svg"
+            >
+            <p class="TealColor">{{ puzzleScotland.metafields.product.puzzle_pieces }}</p>
+          </div>
+        </div>
+
+        <img
+          class="PuzzleImage PuzzleImageReversePadding lazyload"
+          data-src="https://media.gingerfox.co.uk/GingerFoxHub/ProductPages/PuzzleCru/PUZZLECRU_SCOTLAND.png"
+        >
+        <div class="PuzzleInfoContainer PuzzleInfoReversePadding">
+          <h2>{{ puzzleScotland.title }}</h2>
+          <div class="priceReviewContainer">
+            <div class="priceContainer">
+              {% if puzzleScotland.compare_at_price > 0 %}
+                <p class="price priceDiscount">{{ puzzleScotland.price | money }}</p>
+                <p class="priceCrossedOut">{{ puzzleScotland.compare_at_price | money }}</p>
+              {% else %}
+                <p class="price">{{ puzzleScotland.price | money }}</p>
+              {% endif %}
+            </div>
+          </div>
+          <div class="AddToBasketContainer">
+            {% if puzzleScotland.available == true %}
+              <form method="post" action="/cart/add">
+                <input type="hidden" name="id" value="{{ puzzleScotland.variants.first.id }}">
+                <input type="number" id="quantity" name="quantity" value="1" min="1" class="d-none">
+                <input type="submit" value="Add To Basket" class="AddToBasketBtn">
+              </form>
+            {% else %}
+              <button disabled class="AddToBasketBtn disabled">Out of Stock</button>
+            {% endif %}
+          </div>
+          <div class="DescriptionContainer">
+            <h4>Description</h4>
+            <div class="descriptionContent4" id="descriptionContent4">
+              {{ puzzleScotland.description }}
+            </div>
+
+            <div id="DescriptionReadMoreBtn4" class="DescriptionReadMoreBtn" style="display: none;">Read More</div>
+            <div id="DescriptionHideBtn4" class="DescriptionHideBtn" style="display: none;">Hide</div>
+          </div>
+
+          <div class="deliveryInfoContainer">
+            <div class="deliveryInfoTitleContainer">
+              <h4>Delivery Info</h4>
+              <div id="DeliveryInfoReadMoreBtn4" class="DeliveryInfoReadMoreBtn">Read More</div>
+              <div id="DeliveryInfoHideBtn4" class="DeliveryInfoHideBtn">Hide</div>
+            </div>
+            <div id="deliveryInfoTxtContainer4" class="deliveryInfoTxtContainer">
+              <p>
+                We offer both Royal Mail 48-hour post, and Royal Mail 24-hour post. We may use other couriers during
+                busier periods, but shipping costs will remain the same.
+              </p>
+              <ul>
+                <li>Royal Mail 48 (2-3 business days) - FREE</li>
+                <li>Royal Mail 24 (next business day) - £3.99</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+  {% endcase %}
+{% endfor %}

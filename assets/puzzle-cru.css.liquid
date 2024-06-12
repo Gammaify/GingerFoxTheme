@@ -1,0 +1,386 @@
+.PuzzleInfoContainer {
+    width: 50%;
+    padding: 10% 14% 5% 0%;
+    max-width: 700px;
+    z-index: 900;
+}
+
+h2 {
+    font-size: 25px;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+
+}
+
+.PCHeaderTxtContainer {
+    font-size: 18px;
+    color: #636467;
+}
+
+.priceReviewContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 15px;
+}
+
+.priceContainer {
+    text-align: center;
+}
+
+.price {
+    font-size: 35px;
+    font-weight: bold;
+    color: white;
+}
+
+.priceDiscount {
+    color: darkred;
+}
+
+.priceCrossedOut {
+    text-decoration: line-through;
+}
+
+.AddToBasketContainer {
+    display: flex;
+    justify-content: center;
+    padding: 20px 0px;
+    border-bottom: 1px solid white;
+}
+
+
+.AddToBasketBtn {
+    color: white !important;
+    background-color: #1B365D;
+    padding: 5px 30px;
+    border-radius: 50px;
+    font-size: 20px;
+    border: 0;
+}
+
+.AddToBasketBtn:hover {
+    color: #1B365D !important;
+    background-color: transparent;
+    border: 2px solid #1B365D;
+}
+
+.DescriptionContainer {
+    border-bottom: 1px solid white;
+}
+
+.DescriptionContainer h4 {
+    font-size: 16px;
+    font-weight: bold;
+    padding: 20px 0px 10px;
+    margin: 0;
+    color: white;
+}
+
+.DescriptionContainer p,
+.DescriptionContainer ul {
+    font-size: 14px;
+    color: white;
+}
+
+.DescriptionReadMoreBtn,
+.DescriptionHideBtn {
+    user-select: none;
+    text-decoration: underline;
+    text-align: end;
+    margin-top: -10px;
+    padding-bottom: 15px;
+    color: white;
+}
+
+.DescriptionReadMoreBtn:hover,
+.DescriptionHideBtn:hover {
+    cursor: pointer;
+}
+
+.DeliveryInfoReadMoreBtn,
+.DeliveryInfoHideBtn {
+
+    text-decoration: underline;
+
+    color: White !important;
+    user-select: none;
+}
+
+.DeliveryInfoHideBtn {
+    display: none;
+}
+
+.DeliveryInfoReadMoreBtn:hover,
+.DeliveryInfoHideBtn:hover {
+    text-decoration: underline !important;
+    cursor: pointer;
+}
+
+.deliveryInfoTxtContainer {
+    display: none;
+}
+
+.deliveryInfoContainer {
+    padding: 20px 0px;
+    border-bottom: 1px solid white;
+}
+
+.deliveryInfoTitleContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.deliveryInfoTitleContainer h4 {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0;
+    color: white;
+}
+
+.deliveryInfoTitleContainer a {
+    font-family: "Montserrat";
+    text-decoration: underline !important;
+    font-weight: bold;
+    color: white !important
+}
+
+.deliveryInfoTitleContainer a:hover {
+    text-decoration: underline !important;
+}
+
+.deliveryInfoTxtContainer {
+    padding-top: 15px;
+    color: white !important;
+}
+
+.PuzzleIconContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 22vw;
+    height: 22vw;
+    max-width: 250px;
+    max-height: 250px;
+
+    z-index: 0;
+}
+
+.BlueGradientBackground {
+    background: linear-gradient(45deg, #6293bb 50%, white 50%);
+}
+
+.BlueBackground {
+    background-color: #6293bb;
+}
+
+.RedGradientBackground {
+    background: linear-gradient(-45deg, #cb6e6e 50%, white 50%);
+    left: 0;
+    right: unset;
+}
+
+.RedBackground {
+    background-color: #cb6e6e;
+}
+
+.OrangeGradientBackground {
+    background: linear-gradient(45deg, #e27f68 50%, white 50%);
+}
+
+.OrangeBackground {
+    background-color: #e27f68;
+}
+
+.TealGradientBackground {
+    background: linear-gradient(-45deg, #76b2aa 50%, white 50%);
+    left: 0;
+    right: unset;
+}
+
+.TealBackground {
+    background-color: #76b2aa;
+}
+
+.BlueColor {
+    color: #6293bb;
+}
+
+.RedColor {
+    color: #cb6e6e;
+}
+
+.OrangeColor {
+    color: #e27f68;
+}
+
+.TealColor {
+    color: #76b2aa;
+}
+
+.PuzzleIconContainer p {
+    width: 100%;
+    text-align: center;
+    margin: 0;
+    font-size: clamp(11px, 2vw, 16px);
+
+}
+
+.PuzzleCruTopBanner {
+    position: relative;
+}
+
+.PuzzleTopDesktopBanner {
+    width: 100%;
+    display: block;
+}
+
+.PuzzleTopMobileBanner {
+    display: none;
+}
+
+.PCHeaderTxtContainer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 90%;
+}
+
+.PuzzleContainer {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.PuzzleIcon1 {
+    max-width: 100px;
+    min-width: 50px;
+    display: block;
+    margin: auto;
+}
+
+.IconContainer {
+    width: 45%;
+    height: auto;
+    position: absolute;
+    top: 5%;
+    right: 5%;
+}
+
+.PuzzleImage {
+    width: 50%;
+    padding: 5% 5% 5% 0%;
+    position: relative;
+    z-index: 999;
+    height: min-content;
+    max-width: 700px;
+}
+
+.PuzzleImageReversePadding {
+
+    padding: 5% 5% 5% 5% !important;
+
+}
+
+.PuzzleInfoReversePadding {
+    padding: 10% 0% 5% 14% !important;
+}
+
+.IconReverse {
+    left: 5%;
+    right: 0 !important;
+}
+
+.ReverseDiv {
+    flex-direction: row-reverse;
+}
+
+
+
+
+@media screen and (max-width: 992px) {
+    .IconReverse {
+        left: unset !important;
+        right: 5% !important;
+    }
+
+    .RedGradientBackground {
+        left: unset;
+        right: 0;
+        background: linear-gradient(45deg, #cb6e6e 50%, white 50%);
+    }
+
+    .TealGradientBackground {
+        left: unset;
+        right: 0;
+        background: linear-gradient(45deg, #76b2aa 50%, white 50%);
+    }
+
+    .PuzzleImageReversePadding {
+        padding: 30% 5% 5% 5% !important;
+    }
+
+    .PuzzleImage {
+        width: 100%;
+        margin: auto;
+        display: block;
+        padding: 30% 5% 5% 5%;
+        z-index: 100;
+        position: relative;
+    }
+
+    .AddToBasketBtn {
+        text-align: center;
+    }
+
+    .PuzzleInfoContainer {
+        width: 90%;
+        display: block;
+        margin: auto;
+        padding: 0 !important;
+        max-width: 500px;
+        padding-bottom: 5% !important;
+    }
+
+    .PuzzleTopMobileBanner {
+        display: block;
+        width: 100%;
+    }
+
+    .PuzzleTopDesktopBanner {
+        display: none;
+    }
+
+    .PCHeaderTxtContainer {
+        position: absolute;
+        top: 40%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        width: 70%;
+        min-width: 245px;
+        font-size: clamp(13px, 3vw, 16px);
+    }
+
+    .PuzzleIconContainer {
+        width: 30vw;
+        height: 30vw;
+        min-width: 200px;
+        min-height: 200px;
+    }
+
+    .PuzzleContainer {
+        display: block;
+    }
+
+
+}

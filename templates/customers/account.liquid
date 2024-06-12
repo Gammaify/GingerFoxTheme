@@ -1,0 +1,43 @@
+{{ 'account.css' | asset_url | stylesheet_tag }}
+<div class="AccountMenuContainer">
+    <img class="leftConfetti" src="{{ 'ACCOUNT_CONFETTI_LEFT.png' | asset_url }}">
+    <div class="AccountMenuDataContainer">
+
+        <h1>Welcome To Your Account {{ customer.first_name }}</h1>
+        <div class="AccountIconContainer">
+
+            <div class="AccountIcon">
+                <a href="{{ pages['account-details'].url }}">
+                    <img src="{{ 'GF_PROFILE_ICON.svg' | asset_url }}">
+                    <p>My Details</p>
+                </a>
+            </div>
+            <div class="AccountIcon">
+                <a href="{{ routes.account_addresses_url }}">
+                    <img src="{{ 'GF_ADDRESSES_ICON.svg' | asset_url }}">
+                    <p>Addresses</p>
+                </a>
+            </div>
+            <div class="AccountIcon">
+                <a href="{{ pages['account-orders'].url }}">
+                    <img src="{{ 'GF_ORDERS_ICON.svg' | asset_url }}">
+                    <p>Orders</p>
+                </a>
+            </div>
+            <div class="AccountIcon">
+                <a href="{{ pages['account-wishlist'].url }}"">
+                    <img src="{{ 'GF_WISHLIST_ICON.svg' | asset_url }}">
+                    <p>Wishlist</p>
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <img class="rightConfetti" src="{{ 'ACCOUNT_CONFETTI_RIGHT.png' | asset_url }}">
+</div>
+<div class="LogoutContainer">
+   <a class="GingerFoxButtonBlue logoutBtn" href="{{ routes.account_logout_url }}">Logout</a>
+</div>

@@ -1,0 +1,133 @@
+{% if customer %}
+  <link type="text/css" href="{{ 'account-orders.css' | asset_url }}" rel="stylesheet">
+  <div class="container pt-4 pb-4  ">
+    <a class="textLinkBlack w-100 d-md-inline text-center text-md-start" href="{{ routes.account_url }}"
+      >Back To Account</a
+    >
+    <div class="TitleHeading">
+      <h1 class="">
+        <img src="{{ 'BlueLinesLeft.svg' | asset_url }}">Your Orders<img src="{{ 'BlueLinesRight.svg' | asset_url }}">
+      </h1>
+    </div>
+    {% if customer.orders_count != 0 %}
+      <div class="row">
+        {% paginate customer.orders by 4 %}
+          {% for order in customer.orders %}
+            <div class="col-sm-12 col-md-6 mb-2">
+              <div class="border border-dark rounded">
+                <div class="row ms-0 me-0">
+                  <div class="col text-start p-3">Order {{ order.name }}</div>
+                  <div class="col text-end p-3">{{ order.created_at | date: format: 'date_at_time' }}</div>
+                </div>
+                <div class="row ms-0 me-0 d-none d-md-flex">
+                  <div class="col text-start p-3">Delivery Status: {{ order.fulfillment_status_label }}</div>
+                  <div class="col text-end p-3">Payment Status: {{ order.financial_status_label }}</div>
+                </div>
+                <div class="row ms-0 me-0">
+                  <div class="col text-start p-3">{{ order.total_price | money }}</div>
+                  <div class="col text-end p-3">
+                    <a class="textLinkBlack" target="_blank" href="{{ order.order_status_url }}">View Here</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+
+          {% if paginate.pages > 1 %}
+            <div class="pagination">
+              {% if paginate.current_page > 1 %}
+                <a href="{{ paginate.previous.url }}">
+                  <img class="prevArrow" src="{{ 'ORANGE_ARROW.svg' | asset_url }}">
+                </a>
+              {% endif %}
+
+              <div class="PageNumbers">
+                <input
+                  type="number"
+                  min="1"
+                  max="{{ paginate.pages }}"
+                  id="currentPage"
+                  value="{{ paginate.current_page }}"
+                  onkeyup="enforceMinMax(this)"
+                >
+                Of {{ paginate.pages }}
+              </div>
+
+              {% if paginate.current_page != paginate.pages %}
+                <a href="{{ paginate.next.url }}">
+                  <img class="nextArrow" src="{{ 'ORANGE_ARROW.svg' | asset_url }}">
+                </a>
+              {% endif %}
+            </div>
+          {% endif %}
+        {% endpaginate %}
+      </div>
+
+      <script>
+        function addUrlParameter(url, parameterName, parameterValue) {
+          // Check if the URL already has query parameters
+          if (url.indexOf('?') === -1) {
+            // If not, add a '?' to the end of the URL
+            url += '?';
+          } else {
+            // If so, add a '&' to the end of the URL
+            url += '&';
+          }
+          // Append the parameter name and value to the end of the URL
+          url += encodeURIComponent(parameterName) + '=' + encodeURIComponent(parameterValue);
+          return url;
+        }
+        function updateUrlParameter(url, parameterName, parameterValue) {
+          let currentUrl = url;
+
+          if (currentUrl.indexOf(parameterName + '=') >= 0) {
+            let prefix = currentUrl.substring(0, currentUrl.indexOf(parameterName));
+            let suffix = currentUrl.substring(currentUrl.indexOf(parameterName));
+            suffix = suffix.substring(suffix.indexOf('=') + 1);
+            suffix = suffix.indexOf('&') >= 0 ? suffix.substring(suffix.indexOf('&')) : '';
+            currentUrl = prefix + parameterName + '=' + parameterValue + suffix;
+          } else {
+            if (currentUrl.indexOf('?') < 0) currentUrl += '?' + parameterName + '=' + parameterValue;
+            else currentUrl += '&' + parameterName + '=' + parameterValue;
+          }
+
+          return currentUrl;
+        }
+        function enforceMinMax(el) {
+          if (el.value != '') {
+            if (parseInt(el.value) < parseInt(el.min)) {
+              el.value = el.min;
+            }
+            if (parseInt(el.value) > parseInt(el.max)) {
+              el.value = el.max;
+            }
+          }
+        }
+
+        $('#currentPage').on('change', function () {
+          var currentValue = $(this).val();
+          console.log(currentValue);
+          var currentURL = window.location.href;
+          let url = new URL(currentURL);
+
+          var pageParam = url.searchParams.get('page');
+
+          if (pageParam == undefined) {
+            url.searchParams.append('page', currentValue);
+          } else {
+            url.searchParams.set('page', currentValue);
+          }
+
+          window.location.href = url;
+        });
+      </script>
+    {% else %}
+      <p>No orders have been placed.</p>
+    {% endif %}
+  </div>
+
+{% else %}
+  <script>
+    window.location.href = '/';
+  </script>
+{% endif %}

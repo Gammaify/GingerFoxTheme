@@ -1,0 +1,28 @@
+{% if customer %}
+  <script>
+    setTimeout(function () {
+      var search = window.location.search;
+      const urlParams = new URLSearchParams(search);
+      var return_to = urlParams.get('return_to');
+      if (return_to == 'checkout') {
+        location.href = '/checkout';
+      }
+    }, 1000);
+  </script>
+  <style>
+    .loading {
+      display: block;
+      margin: auto;
+      width: 100px;
+    }
+
+    .redirectText {
+      text-align: center;
+      font-weight: bold;
+    }
+  </style>
+  <div class="container d-block m-auto">
+    <img class="loading" src="{{ 'Spinner.gif' | asset_url }}">
+    <h1 class="redirectText">Please wait, while we redirect you to the Checkout</h1>
+  </div>
+{% endif %}

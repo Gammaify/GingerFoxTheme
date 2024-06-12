@@ -1,0 +1,259 @@
+<style>
+  .cookiePopupIcon {
+    position: fixed;
+    z-index: 2;
+    font-size: 30px;
+    bottom: 0;
+    background-color: #ff8200;
+    right: 0;
+    padding: 5px;
+  }
+  .cookiePopupIcon button {
+    border: 0;
+    background: 0;
+  }
+  :root {
+    --cc-btn-primary-bg: #ff8200;
+    --cc-btn-border-radius: 50px;
+    --cc-btn-primary-hover-bg: #1b365d;
+    --cc-border-radius: 0px;
+  }
+  #cc_div .title {
+    padding-top: 0px;
+  }
+</style>
+{% comment %}
+  <div class="cookiePopupIcon">
+    <button type="button" data-cc="c-settings"><img src="{{ 'cookie.svg' | asset_url }}" width="24" height="24"></button>
+  </div>
+{% endcomment %}
+<script src="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@v2.8.9/dist/cookieconsent.js"></script>
+<script>
+  var cookieconsent = initCookieConsent();
+
+  cookieconsent.run({
+    // 'opt-in', 'opt-out'
+    mode: 'opt-in',
+    // language
+    current_lang: 'en',
+    // auto display on page load
+    autorun: true,
+    // cookie name
+    cookie_name: 'cc_cookie',
+    // 6 months
+    cookie_expiration: 182,
+    // cookie domain
+    cookie_domain: location.hostname,
+    // cookie path
+    cookie_path: '/',
+    // sameSite attribute
+    cookie_same_site: 'Lax',
+    // specify if you want to set a different number of days - before the cookie expires - when the user accepts only the necessary categories
+    cookie_necessary_only_expiration: null,
+    // enable if you want the value of the cookie to be rfc compliant (it's base64 encoded)
+    use_rfc_cookie: false,
+    // enable if you don't want the plugin to run when a bot/crawler is detected
+    hide_from_bots: true,
+    // delay in ms
+    delay: 0,
+    // path to theme CSS
+    theme_css: '',
+    // enable if you want to block page navigation until user action
+    force_consent: true,
+    // enable revisions
+    revision: 0,
+    // Language auto-detection strategy
+    // Null to disable (default),
+    // "browser" to get user's browser language or "document" to read value from <html lang="..."> of current page.
+    // If language is not defined => use specified current_lang
+    auto_language: null,
+    // automatically delete cookies when user opts-out of a specific category inside cookie settings
+    autoclear_cookies: true,
+    // enable if you want to easily manage existing script tags
+    page_scripts: true,
+    // remove the html cookie tables
+    remove_cookie_tables: true,
+    languages: {
+      en: {
+        consent_modal: {
+          title: ' Our Cookies ',
+          description:
+            '<p>We use cookies to enhance your experience and for analytics on our site and third party sites. We may share your information with our advertising and analytics partners. Find out more about cookies by reading our <a href="/policies/privacy-policy">Privacy Policy</a>. By clicking <b>"Allow All Cookies"</b> you agree to all of the above or you can click <b>"Cookie Settings"</b> to choose what cookies you are happy for us to use.</p>',
+          primary_btn: {
+            text: 'Allow All Cookies',
+            role: 'accept_all', // 'accept_selected' or 'accept_all'
+          },
+          secondary_btn: {
+            text: 'Cookie Settings',
+            role: 'settings', // 'settings' or 'accept_necessary'
+          },
+        },
+        settings_modal: {
+          title: 'Ginger Fox',
+          save_settings_btn: 'Save settings',
+          accept_all_btn: 'Accept all',
+          reject_all_btn: 'Reject all',
+          close_btn_label: 'Close',
+          cookie_table_headers: [{ col1: 'Name' }, { col2: 'Domain' }, { col3: 'Expiration' }, { col4: 'Description' }],
+          blocks: [
+            {
+              title: 'Cookie usage 📢',
+              description:
+                '<p>We use cookies to enhance your experience and for analytics on our site and third party sites. We may share your information with our advertising and analytics partners. Find out more about cookies by reading our <a href="/policies/privacy-policy">Privacy Policy</a>. By clicking <b>"Allow All Cookies"</b> you agree to all of the above or you can click <b>"Cookie Settings"</b> to choose what cookies you are happy for us to use.</p>',
+            },
+            {
+              title: 'Strictly necessary cookies',
+              description:
+                'These cookies are essential for the proper functioning of my website. Without these cookies, the website would not work properly',
+              toggle: {
+                value: 'necessary',
+                enabled: true,
+                readonly: true, // cookie categories with readonly=true are all treated as "necessary cookies"
+              },
+            },
+            {
+              title: 'Performance and Analytics cookies',
+              description: 'These cookies allow the website to remember the choices you have made in the past',
+              toggle: {
+                value: 'analytics', // there are no default categories => you specify them
+                enabled: false,
+                readonly: false,
+              },
+              cookie_table: [
+                {
+                  col1: '_ga',
+                  col2: 'google.com',
+                  col3: '2 years',
+                  col4: 'Used to distinguish users.',
+                  is_regex: true,
+                },
+                {
+                  col1: '_ga_<container-id>',
+                  col2: 'google.com',
+                  col3: '2 years',
+                  col4: 'Used to persist session state.',
+                },
+              ],
+            },
+            {
+              title: 'Advertisement and Targeting cookies',
+              description:
+                'These cookies collect information about how you use the website, which pages you visited and which links you clicked on. All of the data is anonymized and cannot be used to identify you',
+              toggle: {
+                value: 'targeting',
+                enabled: false,
+                readonly: false,
+              },
+              cookie_table: [
+                {
+                  col1: 'NID',
+                  col2: 'google.com',
+                  col3: '6 months',
+                  col4: 'Used to show Google ads in Google services for signed-out users.',
+                },
+                {
+                  col1: 'ANID',
+                  col2: 'google.com',
+                  col3: '13 months/24 months',
+                  col4: 'Used to show Google ads on non-Google sites',
+                },
+                {
+                  col1: 'IDE',
+                  col2: 'google.com',
+                  col3: '13 months/24 months',
+                  col4: 'Used to show Google ads on non-Google sites',
+                },
+                {
+                  col1: 'DSID',
+                  col2: 'google.com',
+                  col3: '2 Weeks',
+                  col4: 'Used to identify a signed-in user on non-Google sites and to remember whether the user has agreed to ad personalization.',
+                },
+                {
+                  col1: '_gads',
+                  col2: 'google.com',
+                  col3: '13 months',
+                  col4: 'Enables sites to show Google ads.',
+                },
+                {
+                  col1: '_gac_',
+                  col2: 'google.com',
+                  col3: '90 days',
+                  col4: 'From Google Analytics and are used by advertisers to measure user activity and the performance of their ad campaigns.',
+                },
+                {
+                  col1: '_gcl_',
+                  col2: 'google.com',
+                  col3: '90 days',
+                  col4: 'Used to help advertisers determine how many times users who click on their ads end up taking an action on their site, such as making a purchase.',
+                },
+                {
+                  col1: 'fr',
+                  col2: 'facebook.com',
+                  col3: '90 days',
+                  col4: 'Used to deliver, measure and improve the relevancy of ads',
+                },
+                {
+                  col1: '_fbp',
+                  col2: 'facebook.com',
+                  col3: '90 days',
+                  col4: 'Identifies browsers for the purposes of providing advertising and site analytics services',
+                },
+              ],
+            },
+            {
+              title: 'More information',
+              description:
+                'For any queries in relation to my policy on cookies and your choices, please <a class="cc-link" href="/pages/contact">contact us</a>.',
+            },
+          ],
+        },
+      },
+    },
+
+    onAccept: function (event) {},
+    onChange: function (event) {
+      if (cookieconsent.allowedCategory('analytics')) {
+        window.Shopify.customerPrivacy.setTrackingConsent(true, function () {
+          console.log('Shopify tracking is enabled');
+        });
+      } else {
+        window.Shopify.customerPrivacy.setTrackingConsent(false, function () {
+          console.log('Shopify tracking is disabled');
+        });
+      }
+    },
+    onFirstAction: function (event) {
+      if (cookieconsent.allowedCategory('analytics')) {
+        window.Shopify.customerPrivacy.setTrackingConsent(true, function () {
+          console.log('Shopify tracking is enabled');
+        });
+      } else {
+        window.Shopify.customerPrivacy.setTrackingConsent(false, function () {
+          console.log('Shopify tracking is disabled');
+        });
+      }
+    },
+  });
+
+  window.Shopify.loadFeatures(
+    [
+      {
+        name: 'consent-tracking-api',
+        version: '0.1',
+      },
+    ],
+    function (error) {
+      if (error) {
+        throw error;
+      }
+
+      cookieconsent;
+    }
+  );
+
+  $('.cookiePopupIcon').on('click', function () {
+    cookieconsent.show();
+    console.log('clicked');
+  });
+</script>

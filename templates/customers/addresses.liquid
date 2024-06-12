@@ -1,0 +1,726 @@
+{{ 'addresses.css' | asset_url | stylesheet_tag }}
+<div class="container pt-4 pb-4">
+  <div id="mainContainer">
+    <a
+      class="textLinkBlack w-100   ms-sm-0 ms-md-3 d-md-inline text-center text-md-start"
+      href="{{ routes.account_url }}"
+      >Back To Account</a
+    >
+    <div class="TitleHeading">
+      <h1 class="">
+        <img src="{{ 'BlueLinesLeft.svg' | asset_url }}">Addresses<img src="{{ 'BlueLinesRight.svg' | asset_url }}">
+      </h1>
+    </div>
+    <button
+      type="button"
+      id="addAddressBtn"
+      class="GingerFoxButtonBlue d-block  m-auto ms-md-2"
+      data-bs-toggle="modal"
+      data-bs-target="#address-new"
+    >
+      Add Address
+    </button>
+    {% paginate customer.addresses by 4 %}
+      <div class="addressesContainer">
+        {% assign default_address = customer.default_address %}
+
+        <div class="addressCard col-md-6 col-sm-12 mt-2">
+          <div class="address">
+            <h4>Default</h4>
+            {{ default_address | format_address }}
+
+            <div class="editDeleteBtnContainer">
+              <button
+                type="button"
+                class="GingerFoxButtonBlue centerBtn"
+                id="address-{{ default_address.id }}-btn"
+                data-bs-toggle="modal"
+                data-bs-target="#address-{{ default_address.id }}"
+              >
+                Edit
+              </button>
+              <form
+                class="address-delete-form"
+                method="post"
+                action="/account/addresses/{{ default_address.id }}"
+              >
+                <input type="hidden" name="_method" value="delete">
+                <button type="submit" class="GingerFoxButtonRedWarning centerBtn">Delete</button>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div
+          class="modal fade"
+          id="address-{{ default_address.id }}"
+          tabindex="-1"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable modal-fullscreen-md-down">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5">Edit Address</h1>
+                <button
+                  type="button"
+                  class="btn-close  btn-close-orange"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body">
+                {% form 'customer_address', default_address %}
+                  <ul>
+                    {% for error in form.errors %}
+                      {% if error == 'form' %}
+                        <li>
+                          {{ form.errors.messages[error] }}
+                        </li>
+                      {% endif %}
+                    {% endfor %}
+                  </ul>
+                  <div class="row">
+                    <div class="col-lg-6 col-sm-12">
+                      <label class="col-form-label col-form-label-sm" for="editFirstName-{{ default_address.id }}"
+                        >First Name:</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control form-control-sm"
+                        name="address[first_name]"
+                        id="editFirstName-{{ default_address.id }}"
+                        value="{{ default_address.first_name }}"
+                      >
+                    </div>
+                    <div class="col-lg-6 col-sm-12">
+                      <label class="col-form-label col-form-label-sm" for="editLastName-{{ default_address.id }}"
+                        >Last Name:</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control form-control-sm"
+                        name="address[last_name]"
+                        id="editLastName-{{ default_address.id }}"
+                        value="{{ default_address.last_name }}"
+                      >
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-6 col-sm-12">
+                      <label class="col-form-label col-form-label-sm" for="editCompany-{{ default_address.id }}"
+                        >Company:</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control form-control-sm"
+                        name="address[company]"
+                        id="editCompany-{{ default_address.id }}"
+                        value="{{ default_address.company }}"
+                      >
+                    </div>
+                    <div class="col-lg-6 col-sm-12">
+                      <label class="col-form-label col-form-label-sm" for="editAddress1-{{ default_address.id }}"
+                        >Address Line 1:</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control form-control-sm"
+                        name="address[address1]"
+                        id="editAddress1-{{ default_address.id }}"
+                        value="{{ default_address.address1 }}"
+                      >
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-6 col-sm-12">
+                      <label class="col-form-label col-form-label-sm" for="editAddress2-{{ default_address.id }}"
+                        >Address Line 2:</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control form-control-sm"
+                        name="address[address2]"
+                        id="editAddress2-{{ default_address.id }}"
+                        value="{{ default_address.address2 }}"
+                      >
+                    </div>
+                    <div class="col-lg-6 col-sm-12">
+                      <label class="col-form-label col-form-label-sm" for="editCity-{{ default_address.id }}"
+                        >City:</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control form-control-sm"
+                        name="address[city]"
+                        id="editCity-{{ default_address.id }}"
+                        value="{{ default_address.city }}"
+                      >
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-6 col-sm-12">
+                      <label class="col-form-label col-form-label-sm" for="editCountry-{{ default_address.id }}"
+                        >Country:</label
+                      >
+                      <select
+                        name="address[country]"
+                        class="form-control form-control-sm"
+                        id="editCountry-{{ default_address.id }}"
+                      >
+                        {{ country_option_tags }}
+                      </select>
+                    </div>
+                    <div class="col-lg-6 col-sm-12">
+                      <label class="col-form-label col-form-label-sm" for="editPostCode-{{ default_address.id }}"
+                        >Postal Code:</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control form-control-sm"
+                        name="address[zip]"
+                        id="editPostCode-{{ default_address.id }}"
+                        value="{{ default_address.zip }}"
+                      >
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-6 col-sm-12">
+                      <label class="col-form-label col-form-label-sm" for="editPhone">Phone Number:</label>
+                      <input
+                        type="tel"
+                        class="form-control form-control-sm"
+                        name="address[phone]"
+                        id="editPhone"
+                        value="{{ default_address.phone }}"
+                      >
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="defaultCheckContainer">
+                      <input
+                        type="checkbox"
+                        class="defaultCheck"
+                        id="defaultCheck-{{ default_address.id }}"
+                        name="address[default]"
+                        checked
+                        disabled
+                      >
+                      <label for="defaultCheck-{{ address.id }}">Is this a Default Address?</label>
+                    </div>
+                  </div>
+                {% endform %}
+              </div>
+              <div class="modal-footer justify-content-center">
+                {% comment %} <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Delete</button> {% endcomment %}
+                <form
+                  class="address-delete-form"
+                  method="post"
+                  action="/account/addresses/{{ default_address.id }}"
+                >
+                  <input type="hidden" name="_method" value="delete">
+                  <button type="submit" class="GingerFoxButtonRedWarning">Delete</button>
+                </form>
+                <button type="button" class="GingerFoxButtonBlue" id="address-{{ default_address.id }}-savebtn">
+                  Save Changes
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {% assign other_addresses = customer.addresses %}
+        {% for address in other_addresses %}
+          {% if address.id != customer.default_address.id %}
+            <div class="addressCard col-md-6 col-sm-12 mt-2">
+              <div class="address">
+                {{ address | format_address }}
+
+                <div class="editDeleteBtnContainer">
+                  <button
+                    type="button"
+                    class="GingerFoxButtonBlue centerBtn"
+                    id="address-{{ address.id }}-btn"
+                    data-bs-toggle="modal"
+                    data-bs-target="#address-{{ address.id }}"
+                  >
+                    Edit
+                  </button>
+                  <form
+                    class="address-delete-form"
+                    method="post"
+                    action="/account/addresses/{{ address.id }}"
+                  >
+                    <input type="hidden" name="_method" value="delete">
+                    <button type="submit" class="GingerFoxButtonRedWarning centerBtn">Delete</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div
+              class="modal fade"
+              id="address-{{ address.id }}"
+              tabindex="-1"
+              aria-labelledby="exampleModalLabel"
+              aria-hidden="true"
+            >
+              <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable modal-fullscreen-md-down">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h1 class="modal-title fs-5">Edit Address</h1>
+                    <button
+                      type="button"
+                      class="btn-close  btn-close-orange"
+                      data-bs-dismiss="modal"
+                      aria-label="Close"
+                    ></button>
+                  </div>
+                  <div class="modal-body">
+                    {% form 'customer_address', address %}
+                      <ul>
+                        {% for error in form.errors %}
+                          {% if error == 'form' %}
+                            <li>
+                              {{ form.errors.messages[error] }}
+                            </li>
+                          {% endif %}
+                        {% endfor %}
+                      </ul>
+                      <div class="row">
+                        <div class="col-lg-6 col-sm-12">
+                          <label class="col-form-label col-form-label-sm" for="editFirstName-{{ address.id }}"
+                            >First Name:</label
+                          >
+                          <input
+                            type="text"
+                            class="form-control form-control-sm"
+                            name="address[first_name]"
+                            id="editFirstName-{{ address.id }}"
+                            value="{{ address.first_name }}"
+                          >
+                        </div>
+                        <div class="col-lg-6 col-sm-12">
+                          <label class="col-form-label col-form-label-sm" for="editLastName-{{ address.id }}"
+                            >Last Name:</label
+                          >
+                          <input
+                            type="text"
+                            class="form-control form-control-sm"
+                            name="address[last_name]"
+                            id="editLastName-{{ address.id }}"
+                            value="{{ address.last_name }}"
+                          >
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-lg-6 col-sm-12">
+                          <label class="col-form-label col-form-label-sm" for="editCompany-{{ address.id }}"
+                            >Company:</label
+                          >
+                          <input
+                            type="text"
+                            class="form-control form-control-sm"
+                            name="address[company]"
+                            id="editCompany-{{ address.id }}"
+                            value="{{ address.company }}"
+                          >
+                        </div>
+                        <div class="col-lg-6 col-sm-12">
+                          <label class="col-form-label col-form-label-sm" for="editAddress1-{{ address.id }}"
+                            >Address Line 1:</label
+                          >
+                          <input
+                            type="text"
+                            class="form-control form-control-sm"
+                            name="address[address1]"
+                            id="editAddress1-{{ address.id }}"
+                            value="{{ address.address1 }}"
+                          >
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-lg-6 col-sm-12">
+                          <label class="col-form-label col-form-label-sm" for="editAddress2-{{ address.id }}"
+                            >Address Line 2:</label
+                          >
+                          <input
+                            type="text"
+                            class="form-control form-control-sm"
+                            name="address[address2]"
+                            id="editAddress2-{{ address.id }}"
+                            value="{{ address.address2 }}"
+                          >
+                        </div>
+                        <div class="col-lg-6 col-sm-12">
+                          <label class="col-form-label col-form-label-sm" for="editCity-{{ address.id }}">City:</label>
+                          <input
+                            type="text"
+                            class="form-control form-control-sm"
+                            name="address[city]"
+                            id="editCity-{{ address.id }}"
+                            value="{{ address.city }}"
+                          >
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-lg-6 col-sm-12">
+                          <label class="col-form-label col-form-label-sm" for="editCountry-{{ address.id }}"
+                            >Country:</label
+                          >
+                          <select
+                            name="address[country]"
+                            class="form-control form-control-sm"
+                            id="editCountry-{{ address.id }}"
+                          >
+                            {{ country_option_tags }}
+                          </select>
+                        </div>
+                        <div class="col-lg-6 col-sm-12">
+                          <label class="col-form-label col-form-label-sm" for="editPostCode-{{ address.id }}"
+                            >Postal Code:</label
+                          >
+                          <input
+                            type="text"
+                            class="form-control form-control-sm"
+                            name="address[zip]"
+                            id="editPostCode-{{ address.id }}"
+                            value="{{ address.zip }}"
+                          >
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-lg-6 col-sm-12">
+                          <label class="col-form-label col-form-label-sm" for="editPhone">Phone Number:</label>
+                          <input
+                            type="tel"
+                            class="form-control form-control-sm"
+                            name="address[phone]"
+                            id="editPhone"
+                            value="{{ address.phone }}"
+                          >
+                        </div>
+                      </div>
+                      <div class="row">
+                        {% if address == customer.default_address %}
+                          <div class="defaultCheckContainer">
+                            <input
+                              type="checkbox"
+                              class="defaultCheck"
+                              id="defaultCheck-{{ address.id }}"
+                              name="address[default]"
+                              checked
+                            >
+                            <label for="defaultCheck-{{ address.id }}">Is this a Default Address?</label>
+                          </div>
+
+                        {% else %}
+                          <div class="defaultCheckContainer">
+                            <input
+                              type="checkbox"
+                              class="defaultCheck"
+                              id="defaultCheck-{{ address.id }}"
+                              name="address[default]"
+                            >
+                            <label for="defaultCheck-{{ address.id }}">Is this a Default Address?</label>
+                          </div>
+                        {% endif %}
+                      </div>
+                    {% endform %}
+                  </div>
+                  <div class="modal-footer justify-content-center">
+                    {% comment %} <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Delete</button> {% endcomment %}
+                    <form
+                      class="address-delete-form"
+                      method="post"
+                      action="/account/addresses/{{ address.id }}"
+                    >
+                      <input type="hidden" name="_method" value="delete">
+                      <button type="submit" class="GingerFoxButtonRedWarning">Delete</button>
+                    </form>
+                    <button type="button" class="GingerFoxButtonBlue" id="address-{{ address.id }}-savebtn">
+                      Save Changes
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+      {% if paginate.pages > 1 %}
+        <div class="pagination">
+          {% if paginate.current_page > 1 %}
+            <a href="{{ paginate.previous.url }}">
+              <img class="prevArrow" src="{{ 'ORANGE_ARROW.svg' | asset_url }}">
+            </a>
+          {% endif %}
+
+          <div class="PageNumbers">
+            <input
+              type="number"
+              min="1"
+              max="{{ paginate.pages }}"
+              id="currentPage"
+              value="{{ paginate.current_page }}"
+              onkeyup="enforceMinMax(this)"
+            >
+            Of {{ paginate.pages }}
+          </div>
+
+          {% if paginate.current_page != paginate.pages %}
+            <a href="{{ paginate.next.url }}">
+              <img class="nextArrow" src="{{ 'ORANGE_ARROW.svg' | asset_url }}">
+            </a>
+          {% endif %}
+        </div>
+      {% endif %}
+    {% endpaginate %}
+  </div>
+
+  <div class="modal fade" id="address-new" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable modal-fullscreen-md-down">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5">Add Address</h1>
+          <button type="button" class="btn-close btn-close-orange" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          {% form 'customer_address', customer.new_address %}
+            <ul>
+              {% for error in form.errors %}
+                {% if error == 'form' %}
+                  <li>
+                    {{ form.errors.messages[error] }}
+                  </li>
+                {% endif %}
+              {% endfor %}
+            </ul>
+            <div class="row">
+              <div class="col-lg-6 col-sm-12">
+                <label class="col-form-label col-form-label-sm" for="newFirstName">First Name:</label>
+                <input type="text" class="form-control form-control-sm" name="address[first_name]" id="newFirstName">
+              </div>
+              <div class="col-lg-6 col-sm-12">
+                <label class="col-form-label col-form-label-sm" for="newLastName">Last Name:</label>
+                <input type="text" class="form-control form-control-sm" name="address[last_name]" id="newLastName">
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-lg-6 col-sm-12">
+                <label class="col-form-label col-form-label-sm" for="newCompany">Company:</label>
+                <input type="text" class="form-control form-control-sm" name="address[company]" id="newCompany">
+              </div>
+              <div class="col-lg-6 col-sm-12">
+                <label class="col-form-label col-form-label-sm" for="newAddress1">Address Line 1:</label>
+                <input type="text" class="form-control form-control-sm" name="address[address1]" id="newAddress1">
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-lg-6 col-sm-12">
+                <label class="col-form-label col-form-label-sm" for="newAddress2">Address Line 2:</label>
+                <input type="text" class="form-control form-control-sm" name="address[address2]" id="newAddress2">
+              </div>
+              <div class="col-lg-6 col-sm-12">
+                <label class="col-form-label col-form-label-sm" for="newCity">City:</label>
+                <input type="text" class="form-control form-control-sm" name="address[city]" id="newCity">
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-lg-6 col-sm-12">
+                <label class="col-form-label col-form-label-sm" for="newCountry">Country:</label>
+                <select name="address[country]" class="form-control form-control-sm" id="newCountry">
+                  {{ country_option_tags }}
+                </select>
+              </div>
+              <div class="col-lg-6 col-sm-12">
+                <label class="col-form-label col-form-label-sm" for="newPostCode">Postal Code:</label>
+                <input type="text" class="form-control form-control-sm" name="address[zip]" id="newPostCode">
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-lg-6 col-sm-12">
+                <label class="col-form-label col-form-label-sm" for="newPhone">Phone Number:</label>
+                <input type="tel" class="form-control form-control-sm" name="address[phone]" id="newPhone">
+              </div>
+            </div>
+            <div class="row">
+              <div class="defaultCheckContainer">
+                <input type="checkbox" class="defaultCheck" id="defaultCheck" name="address[default]">
+                <label for="defaultCheck">Is this a Default Address?</label>
+              </div>
+            </div>
+          {% endform %}
+        </div>
+        <div class="modal-footer justify-content-center">
+          {% comment %} <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> {% endcomment %}
+          <button type="button" class="GingerFoxButtonBlue" id="AddAddressBtn">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function addUrlParameter(url, parameterName, parameterValue) {
+      // Check if the URL already has query parameters
+      if (url.indexOf('?') === -1) {
+        // If not, add a '?' to the end of the URL
+        url += '?';
+      } else {
+        // If so, add a '&' to the end of the URL
+        url += '&';
+      }
+      // Append the parameter name and value to the end of the URL
+      url += encodeURIComponent(parameterName) + '=' + encodeURIComponent(parameterValue);
+      return url;
+  }
+  function updateUrlParameter(url, parameterName, parameterValue) {
+      let currentUrl = url;
+
+      if (currentUrl.indexOf(parameterName + "=") >= 0) {
+        let prefix = currentUrl.substring(0, currentUrl.indexOf(parameterName));
+        let suffix = currentUrl.substring(currentUrl.indexOf(parameterName));
+        suffix = suffix.substring(suffix.indexOf("=") + 1);
+        suffix = (suffix.indexOf("&") >= 0) ? suffix.substring(suffix.indexOf("&")) : "";
+        currentUrl = prefix + parameterName + "=" + parameterValue + suffix;
+      } else {
+        if (currentUrl.indexOf("?") < 0)
+          currentUrl += "?" + parameterName + "=" + parameterValue;
+        else
+          currentUrl += "&" + parameterName + "=" + parameterValue;
+      }
+
+      return currentUrl;
+    }
+  function enforceMinMax(el) {
+      if (el.value != "") {
+          if (parseInt(el.value) < parseInt(el.min)) {
+              el.value = el.min;
+          }
+          if (parseInt(el.value) > parseInt(el.max)) {
+              el.value = el.max;
+          }
+      }
+  }
+
+  $("#currentPage").on("change", function(){
+      var currentValue = $(this).val();
+      console.log(currentValue)
+      var currentURL = window.location.href;
+      let url = new URL(location.href);
+
+      var pageParam = url.searchParams.get("page");
+
+      if (pageParam == undefined){
+          currentURL = addUrlParameter(currentURL, "page", currentValue);
+      }
+      else{
+          currentURL = updateUrlParameter(currentURL, "page", currentValue)
+      }
+
+      window.location.href = currentURL
+  })
+  {% for address in customer.addresses %}
+      $("#address-{{ address.id }}-savebtn").on("click", function(event){
+          event.preventDefault();
+
+          var firstName = $("#editFirstName-{{ address.id }}");
+          var lastName = $("#editLastName-{{ address.id }}");
+          var address1 = $("#editAddress1-{{ address.id }}");
+          var city = $("#editCity-{{ address.id }}");
+          var country = $("#editCountry-{{ address.id }}");
+          var postalCode = $("#editPostCode-{{ address.id }}");
+
+          var isValid = AddressValidation(firstName, lastName, address1, city, country, postalCode);
+          if (isValid == true){
+              $("#address_form_{{ address.id }}").submit();
+          }
+      })
+
+      $("#address-{{ address.id }}-btn").on("click", function(){
+          var country = "{{ address.country }}";
+          $("#address_form_{{ address.id }} #editCountry-{{ address.id }}").val(country)
+
+      })
+  {% endfor %}
+
+
+  function AddressValidation(firstName, lastName, address1, city, country, postalcode){
+      $(".invalid-feedback").hide();
+
+      var isValid = true;
+
+      if (firstName.val() == ""){
+          isValid = false;
+          var message = "<span class='d-block invalid-feedback'>First Name is required.</span>"
+          $(message).insertAfter(firstName)
+      }
+
+      if (lastName.val() == ""){
+          isValid = false;
+          var message = "<span class='d-block invalid-feedback'>Last Name is required.</span>"
+          $(message).insertAfter(lastName)
+      }
+
+      if (address1.val() == ""){
+          isValid = false;
+          var message = "<span class='d-block invalid-feedback'>Address Line 1 is required.</span>"
+          $(message).insertAfter(address1)
+      }
+
+      if (city.val() == ""){
+          isValid = false;
+          var message = "<span class='d-block invalid-feedback'>City is required.</span>"
+          $(message).insertAfter(city)
+      }
+
+      if (country.val() == "---"){
+          isValid = false;
+          var message = "<span class='d-block invalid-feedback'>Country is required.</span>"
+          $(message).insertAfter(country)
+      }
+
+      var postalCodeRegex = new RegExp("^([A-Za-z][A-Ha-hJ-Yj-y]?[0-9][A-Za-z0-9]? ?[0-9][A-Za-z]{2}|[Gg][Ii][Rr] ?0[Aa]{2})$")
+
+      if (postalCodeRegex.test(postalcode.val()) == false && postalcode.val() != ""){
+          isValid = false;
+          var message = "<span class='d-block invalid-feedback'>Postal Code is not valid.</span>"
+          $(message).insertAfter(postalcode)
+      }
+      if (postalcode.val() == ""){
+          isValid = false;
+          var message = "<span class='d-block invalid-feedback'>Postal Code is required.</span>"
+          $(message).insertAfter(postalcode)
+      }
+
+      return isValid;
+  }
+
+  $("#AddAddressBtn").on("click", function(event){
+      event.preventDefault();
+
+      var firstName = $("#newFirstName");
+      var lastName = $("#newLastName");
+      var address1 = $("#newAddress1");
+      var city = $("#newCity");
+      var country = $("#newCountry");
+      var postalCode = $("#newPostCode");
+
+      var isValid = AddressValidation(firstName, lastName, address1, city, country, postalCode);
+      if (isValid == true){
+          $("#address_form_new").submit();
+      }
+
+  })
+</script>

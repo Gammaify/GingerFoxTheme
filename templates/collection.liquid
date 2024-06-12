@@ -1,0 +1,179 @@
+{{ 'productCollection.css' | asset_url | stylesheet_tag }}
+{% render 'collection-schema' %}
+<div class="container">
+  {% render 'breadcrumbs' %}
+  <div class="CategoryHeading">
+    <img src="{{ 'BlueLinesLeft.svg' | asset_url }}">
+    <h1 class="">{{ collection.title }}</h1>
+    <img src="{{ 'BlueLinesRight.svg' | asset_url  }}">
+  </div>
+  <p id="TotalAmountContainer">{{ collection.products_count }} Products</p>
+  {% paginate collection.products by 12 %}
+    <div class="mainContainer">
+      {% render 'filters' %}
+
+      {% if collection.products_count == 0 %}
+        <p>No Products Found</p>
+      {% endif %}
+      <div class="product-list">
+        {% for product in collection.products %}
+          <div class="product">
+            <a href="{{ product.url | within: collection }}">
+              <div class="ProductImageContainer">
+                <img
+                  class="img-thumbnail lazyload"
+                  data-src="{{ product.featured_image.src | image_url }}"
+                  width="{{ product.featured_image.width }}"
+                  height="{{ product.featured_image.height }}"
+                >
+                {% if product.compare_at_price > 0 %}
+                  <div class="discountLabel">
+                    {{
+                      product.compare_at_price
+                      | minus: product.price
+                      | times: 100
+                      | divided_by: product.compare_at_price
+                    -}}
+                    % off
+                  </div>
+                {% endif %}
+              </div>
+              <h6 class="productName">{{ product.title }}</h6>
+            </a>
+            <div class="PricingContainer">
+              <div class="price">
+                {% if product.compare_at_price > 0 %}
+                  <p class="productPrice discount">{{ product.price | money }}</p>
+                  <p class="productPrice discountCrossedOut">{{ product.compare_at_price | money }}</p>
+                {% else %}
+                  <p class="productPrice">{{ product.price | money }}</p>
+                {% endif %}
+              </div>
+              {% if customer %}
+                {% assign wishListHandle = 'wishlist_' | append: customer.id %}
+                {% assign wishListData = customer.metafields.custom.wishlist.value %}
+                {% comment %} {% assign wishlistValue = customer.metafields.custom.wishlist.value %} {% endcomment %}
+
+                {% assign productExists = false %}
+                {% for item in wishListData %}
+                  {% if product.id == item.id %}
+                    {% assign productExists = true %}
+                  {% endif %}
+                {% endfor %}
+
+                {% if productExists == true %}
+                  <div
+                    class="wishListIconContainer wishListIcon-{{ product.id }} fullHeart"
+                    data-wishListBool="true"
+                    data-productid="{{ product.id }}"
+                    data-customerid="{{ customer.id }}"
+                  ></div>
+                {% else %}
+                  <div
+                    class="wishListIconContainer wishListIcon-{{ product.id }} emptyHeart"
+                    data-wishListBool="false"
+                    data-productid="{{ product.id }}"
+                    data-customerid="{{ customer.id }}"
+                  ></div>
+                {% endif %}
+              {% endif %}
+            </div>
+            {% if product.available == true %}
+              <form method="post" action="/cart/add">
+                <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+                <input type="number" id="quantity" name="quantity" value="1" min="1" class="d-none">
+                <input type="submit" value="Add To Basket" class="AddToCart">
+              </form>
+            {% else %}
+              <button class="AddToCart disabled">Out of Stock</button>
+            {% endif %}
+          </div>
+        {% endfor %}
+        <div class="pagination">
+          {% if paginate.current_page > 1 %}
+            <a href="{{ paginate.previous.url }}">
+              <img class="prevArrow" src="{{ 'ORANGE_ARROW.svg' | asset_url }}">
+            </a>
+          {% endif %}
+
+          <div class="PageNumbers">
+            <input
+              type="number"
+              min="1"
+              max="{{ paginate.pages }}"
+              id="currentPage"
+              value="{{ paginate.current_page }}"
+              onkeyup="enforceMinMax(this)"
+            >
+            Of {{ paginate.pages }}
+          </div>
+
+          {% if paginate.current_page != paginate.pages %}
+            <a href="{{ paginate.next.url }}">
+              <img class="nextArrow" src="{{ 'ORANGE_ARROW.svg' | asset_url }}">
+            </a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  {% endpaginate %}
+</div>
+<script src="{{ 'wishList.js' | asset_url }}"></script>
+<script>
+  function addUrlParameter(url, parameterName, parameterValue) {
+    // Check if the URL already has query parameters
+    if (url.indexOf('?') === -1) {
+      // If not, add a '?' to the end of the URL
+      url += '?';
+    } else {
+      // If so, add a '&' to the end of the URL
+      url += '&';
+    }
+    // Append the parameter name and value to the end of the URL
+    url += encodeURIComponent(parameterName) + '=' + encodeURIComponent(parameterValue);
+    return url;
+  }
+  function updateUrlParameter(url, parameterName, parameterValue) {
+    let currentUrl = url;
+
+    if (currentUrl.indexOf(parameterName + '=') >= 0) {
+      let prefix = currentUrl.substring(0, currentUrl.indexOf(parameterName));
+      let suffix = currentUrl.substring(currentUrl.indexOf(parameterName));
+      suffix = suffix.substring(suffix.indexOf('=') + 1);
+      suffix = suffix.indexOf('&') >= 0 ? suffix.substring(suffix.indexOf('&')) : '';
+      currentUrl = prefix + parameterName + '=' + parameterValue + suffix;
+    } else {
+      if (currentUrl.indexOf('?') < 0) currentUrl += '?' + parameterName + '=' + parameterValue;
+      else currentUrl += '&' + parameterName + '=' + parameterValue;
+    }
+
+    return currentUrl;
+  }
+
+  function enforceMinMax(el) {
+    if (el.value != '') {
+      if (parseInt(el.value) < parseInt(el.min)) {
+        el.value = el.min;
+      }
+      if (parseInt(el.value) > parseInt(el.max)) {
+        el.value = el.max;
+      }
+    }
+  }
+
+  $('#currentPage').on('change', function () {
+    var currentValue = $(this).val();
+    var currentURL = window.location.href;
+    let url = new URL(location.href);
+
+    var pageParam = url.searchParams.get('page');
+
+    if (pageParam == undefined) {
+      currentURL = addUrlParameter(currentURL, 'page', currentValue);
+    } else {
+      currentURL = updateUrlParameter(currentURL, 'page', currentValue);
+    }
+
+    window.location.href = currentURL;
+  });
+</script>

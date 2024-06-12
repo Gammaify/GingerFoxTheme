@@ -1,0 +1,637 @@
+<link type="text/css" href="{{ 'filters.css' | asset_url }}" rel="stylesheet">
+<div class="FilterSortBySection">
+  <div id="resetAllFiltersContainer">
+    <label id="ResetLabel" class="SortByLabel">
+      <input type="submit" value="Reset Filters" id="resetAllFiltersBtn" class="GingerFoxButtonBlue">
+    </label>
+  </div>
+  <div id="DesktopSortByContainer">
+    <div id="DesktopSortBy" class="SortByContainer">
+      <label id="SortBySorter" class="SortByLabel">
+        <span class="sortByTxt">Sort By:</span>
+        <span id="SortBySorterText">
+          <span class="sortByText">Newest First</span>
+          <span class="FilterDropDownIcon topSpacing minus"></span>
+        </span>
+      </label>
+
+      <div id="SortByList" class="SortByList">
+        <ul>
+          <li>
+            <label>
+              <input type="radio" name="sort_by" class="SortItem" value="created-descending" title="Newest First">
+              Newest First
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="radio" name="sort_by" class="SortItem" value="title-ascending" title="Alphabetical">
+              Alphabetical
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="radio" name="sort_by" class="SortItem" value="price-ascending" title="£ Low - High">
+              £ Low - High
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="radio" name="sort_by" class="SortItem" value="price-descending" title="£ High - Low">
+              £ High - Low
+            </label>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="DesktopFilterContainer">
+    <div id="FilterContainer" class="Filters">
+      {% for filter in collection.filters %}
+        {% case filter.type %}
+          {% when 'boolean', 'list' %}
+            <div class="SortByContainer FilterModalPadding">
+              <label id="{{ filter.label | remove:" " }}" class="FilterByLabel SortByLabel">
+                <span class="sortByTxt">
+                  {{ filter.label }}
+                  <span class="FilterDropDownIcon minus"></span>
+                </span>
+              </label>
+              <div id="{{ filter.label | remove:" " }}List" class="SortByList">
+                <ul>
+                  {% for filter_value in filter.values %}
+                    <li>
+                      <label>
+                        <input
+                          type="checkbox"
+                          class="filterCheckbox"
+                          name="{{ filter_value.param_name }}"
+                          value="{{ filter_value.value }}"
+                          id="Filter-{{ filter.param_name }}-{{ forloop.index }}"
+                          {% if filter_value.active %}
+                            checked
+                          {% endif %}
+                          {% if filter_value.count == 0 and filter_value.active == false -%}
+                            disabled
+                          {%- endif %}
+                        >
+                        {{ filter_value.label }}
+                      </label>
+                    </li>
+                  {% endfor %}
+                </ul>
+              </div>
+            </div>
+          {%- when 'price_range' -%}
+            <div class="SortByContainer FilterModalPadding">
+              <label id="{{ filter.label | remove:" " }}" class="FilterByLabel SortByLabel">
+                <span class="sortByTxt">
+                  {{ filter.label }}
+                  <span class="FilterDropDownIcon minus"></span>
+                </span>
+              </label>
+            </div>
+            <div id="{{ filter.label | remove:" " }}List" class="SortByList">
+              <input type="hidden" id="paramsMaxValue">
+              <input type="hidden" id="paramsMinValue">
+              <input type="hidden" id="minValue" value="0">
+              <input type="hidden" id="maxValue" value="{{ filter.range_max | divided_by: 100.0 | ceil }}">
+              <input type="text" id="amount" readonly>
+
+              <div id="slider-range"></div>
+              <input type="submit" value="Apply" id="priceRangeBtn" class="priceFilterBtn">
+              <input type="submit" value="Reset" id="priceRangeResetBtn" class="priceFilterBtn">
+            </div>
+        {% endcase %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<div class="mobileSortByContainer">
+  <div class="mobileFilterContainer">
+    <div id="mobileFilterBtn" class="SortByContainer">
+      <label id="MobileFilterSorter" class="SortByLabel" data-bs-toggle="modal" data-bs-target="#FilterMobileModal">
+        <span class="sortByTxt">Filter By</span>
+      </label>
+      <div
+        class="modal fade"
+        id="FilterMobileModal"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="FilterMobileModalTitle"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">Filter By</h5>
+              <button type="button" class="modalCloseBtn" data-bs-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+            <div class="modal-body" id="FilterModalContent">
+              <div id="FilterContainer" class="Filters">
+                {% for filter in collection.filters %}
+                  {% case filter.type %}
+                    {% when 'boolean', 'list' %}
+                      <div class="SortByContainer FilterModalPadding">
+                        <label id="{{ filter.label | remove:" " }}" class="FilterByLabel SortByLabel">
+                          <span class="sortByTxt">
+                            {{ filter.label }}
+                            <span class="FilterDropDownIcon plus"></span>
+                          </span>
+                        </label>
+                        <div id="{{ filter.label | remove:" " }}List" class="SortByList">
+                          <ul>
+                            {% for filter_value in filter.values %}
+                              <li>
+                                <label>
+                                  <input
+                                    type="checkbox"
+                                    class="filterCheckbox"
+                                    name="{{ filter_value.param_name }}"
+                                    value="{{ filter_value.value }}"
+                                    id="Filter-{{ filter.param_name }}-{{ forloop.index }}"
+                                    {% if filter_value.active %}
+                                      checked
+                                    {% endif %}
+                                    {% if filter_value.count == 0 and filter_value.active == false -%}
+                                      disabled
+                                    {%- endif %}
+                                  >
+                                  {{ filter_value.label }}
+                                </label>
+                              </li>
+                            {% endfor %}
+                          </ul>
+                        </div>
+                      </div>
+                    {%- when 'price_range' -%}
+                      <div class="SortByContainer FilterModalPadding">
+                        <label id="{{ filter.label | remove:" " }}" class="FilterByLabel SortByLabel">
+                          <span class="sortByTxt">
+                            {{ filter.label }}
+                            <span class="FilterDropDownIcon plus"></span>
+                          </span>
+                        </label>
+                      </div>
+                      <div id="{{ filter.label | remove:" " }}List" class="SortByList">
+                        <input type="hidden" id="paramsMaxValue">
+                        <input type="hidden" id="paramsMinValue">
+                        <input type="hidden" id="minValue" value="0">
+                        <input type="hidden" id="maxValue" value="{{ filter.range_max | divided_by: 100.0 | ceil }}">
+                        <input type="text" id="amount2" readonly>
+
+                        <div id="slider-range2"></div>
+                        <input type="submit" value="Apply" id="priceRangeBtnMobile" class="priceFilterBtn">
+                        <input type="submit" value="Reset" id="priceRangeResetMobile" class="priceFilterBtn">
+                      </div>
+                  {% endcase %}
+                {% endfor %}
+              </div>
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" id="FilterResetBtn" class="GingerFoxButtonBlue" data-dismiss="modal">
+                Reset Filters
+              </button>
+              <button type="button" id="FilterFinishBtn" class="" data-dismiss="modal">Apply Filters</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="MobileSortBy" class="SortByContainer">
+    <label id="SortBySorter" class="SortByLabel">
+      <span class="sortByTxt">Sort By:</span>
+      <span id="SortBySorterText">
+        <span class="sortByText">Newest First</span>
+        <span class="FilterDropDownIcon topSpacing plus"></span>
+      </span>
+    </label>
+
+    <div id="SortByList" class="SortByList">
+      <ul>
+        <li>
+          <label>
+            <input type="radio" name="SortBySorter" class="SortItem" value="created-descending" title="Newest First">
+            Newest First
+          </label>
+        </li>
+        <li>
+          <label>
+            <input type="radio" name="SortBySorter" class="SortItem" value="title-ascending" title="Alphabetical">
+            Alphabetical
+          </label>
+        </li>
+        <li>
+          <label>
+            <input type="radio" name="SortBySorter" class="SortItem" value="price-ascending" title="£ Low - High">
+            £ Low - High
+          </label>
+        </li>
+        <li>
+          <label>
+            <input type="radio" name="SortBySorter" class="SortItem" value="price-descending" title="£ High - Low">
+            £ High - Low
+          </label>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script>
+  $("#resetAllFiltersBtn, #FilterResetBtn").on("click", function(){
+    location.href = location.protocol + '//' + location.host + location.pathname
+  })
+  $("#MobileSortBy").on("click", function(){
+      $("#MobileSortBy .SortByList").not("#SortByList").show();
+
+      $("#MobileSortBy #SortByList").toggle();
+
+      $("#MobileSortBy #SortBySorterText .FilterDropDownIcon").toggleClass("plus");
+      $("#MobileSortBy #SortBySorterText .FilterDropDownIcon").toggleClass("minus");
+  })
+
+  $("#DesktopSortBy").on("click", function(){
+      $(".SortByList").not("#SortByList").show();
+      $(".FilterDropDownIcon ").not("#DesktopSortBy .FilterDropDownIcon").removeClass("plus")
+      $(".FilterDropDownIcon ").not("#DesktopSortBy .FilterDropDownIcon").addClass("minus")
+      $("#SortByList").toggle();
+
+      $("#SortBySorterText .FilterDropDownIcon").toggleClass("plus");
+      $("#SortBySorterText .FilterDropDownIcon").toggleClass("minus");
+  })
+
+  {% for filter in collection.filters %}
+      $(".mobileFilterContainer #{{ filter.label | remove:" " }}").on("click",  function(){
+          $(".mobileFilterContainer .SortByList").not(".mobileFilterContainer #{{ filter.label | remove:" " }}List").hide();
+          $(".mobileFilterContainer .FilterDropDownIcon ").not(".mobileFilterContainer #{{ filter.label | remove:" " }} .FilterDropDownIcon").addClass("plus")
+          $(".mobileFilterContainer .FilterDropDownIcon ").not(".mobileFilterContainer #{{ filter.label | remove:" " }} .FilterDropDownIcon").removeClass("minus")
+          $(".mobileFilterContainer #{{ filter.label | remove:" " }}List").toggle()
+          $(".mobileFilterContainer #{{ filter.label | remove:" " }} .FilterDropDownIcon").toggleClass("plus");
+          $(".mobileFilterContainer #{{ filter.label | remove:" " }} .FilterDropDownIcon").toggleClass("minus");
+      })
+  {% endfor %}
+
+  {% for filter in collection.filters %}
+      $("#{{ filter.label | remove:" " }}").on("click",  function(){
+          $(".SortByList").not("#{{ filter.label | remove:" " }}List").show();
+          $(".FilterDropDownIcon ").not("#{{ filter.label | remove:" " }} .FilterDropDownIcon").removeClass("plus")
+          $(".FilterDropDownIcon ").not("#{{ filter.label | remove:" " }} .FilterDropDownIcon").addClass("minus")
+          $("#{{ filter.label | remove:" " }}List").toggle()
+          $("#{{ filter.label | remove:" " }} .FilterDropDownIcon").toggleClass("plus");
+          $("#{{ filter.label | remove:" " }} .FilterDropDownIcon").toggleClass("minus");
+      })
+  {% endfor %}
+
+
+
+
+  $(".DesktopFilterContainer .SortByList input").on("change", function(){
+      var filterName = $(this).attr("name");
+      var filterValue = $(this).val();
+      var currentURL = window.location.href;
+      if ($(this).prop("checked") == true){
+
+
+
+
+
+          window.location.href = addUrlParameter(currentURL, filterName, filterValue)
+      }
+      else{
+          currentURL = removeURLParameterByValue(currentURL, filterValue);
+          window.location.href = currentURL;
+      }
+
+  })
+
+
+
+  function addUrlParameter(url, parameterName, parameterValue) {
+      // Check if the URL already has query parameters
+      if (url.indexOf('?') === -1) {
+        // If not, add a '?' to the end of the URL
+        url += '?';
+      } else {
+        // If so, add a '&' to the end of the URL
+        url += '&';
+      }
+      // Append the parameter name and value to the end of the URL
+      url += encodeURIComponent(parameterName) + '=' + encodeURIComponent(parameterValue);
+      return url;
+  }
+
+
+   function removeURLParameterByValue(url, value) {
+      //Split the URL by "?"
+      var urlparts= url.split("?");
+      if (urlparts.length>=2) {
+          var pars= urlparts[1].split(/[&;]/g);
+          //Loop through the parameters
+          for (var i= pars.length; i-- > 0;) {
+              var pair= pars[i].split("=");
+              if (decodeURIComponent(pair[1]) === value) {
+                  pars.splice(i, 1);
+              }
+          }
+          url= urlparts[0].replace(/\/$/, "") + (pars.length > 0 ? "?" + pars.join("&") : "");
+          return url;
+      } else {
+          return url;
+      }
+  }
+
+  function removeURLParameterByName(url, parameter) {
+      //Split the URL by "?"
+      var urlparts= url.split("?");
+      if (urlparts.length>=2) {
+          var pars= urlparts[1].split(/[&;]/g);
+          //Loop through the parameters
+          for (var i= pars.length; i-- > 0;) {
+              var pair= pars[i].split("=");
+              if (decodeURIComponent(pair[0]) === parameter) {
+                  pars.splice(i, 1);
+              }
+          }
+          url= urlparts[0].replace(/\/$/, "") + (pars.length > 0 ? "?" + pars.join("&") : "");;
+          return url;
+      } else {
+          return url;
+      }
+  }
+
+  function updateUrlParameter(url, parameterName, parameterValue) {
+      let currentUrl = url;
+
+      if (currentUrl.indexOf(parameterName + "=") >= 0) {
+        let prefix = currentUrl.substring(0, currentUrl.indexOf(parameterName));
+        let suffix = currentUrl.substring(currentUrl.indexOf(parameterName));
+        suffix = suffix.substring(suffix.indexOf("=") + 1);
+        suffix = (suffix.indexOf("&") >= 0) ? suffix.substring(suffix.indexOf("&")) : "";
+        currentUrl = prefix + parameterName + "=" + parameterValue + suffix;
+      } else {
+        if (currentUrl.indexOf("?") < 0)
+          currentUrl += "?" + parameterName + "=" + parameterValue;
+        else
+          currentUrl += "&" + parameterName + "=" + parameterValue;
+      }
+
+      return currentUrl;
+    }
+  $("#SortByList ul li input").on("change", function(){
+      let url = new URL(location.href);
+      var sortOption = $(this).val()
+      var currentURL = window.location.href;
+
+      var sortByExists = url.searchParams.get("sort_by");
+      if (sortByExists == undefined){
+          currentURL = addUrlParameter(currentURL, "sort_by", sortOption)
+      }
+      else{
+          currentURL = updateUrlParameter(currentURL, "sort_by", sortOption)
+      }
+
+
+      window.location.href = currentURL;
+  });
+
+  function parseFloat2Decimals(value) {
+      return parseFloat(parseFloat(value).toFixed(2));
+  }
+
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+
+  var paramsSortBy = urlParams.get("sort_by");
+
+  $(".sortByText").text($("input[value=" + paramsSortBy + "]").attr("title"));
+
+  var paramsMaxValue = urlParams.get("filter.v.price.lte");
+  var paramsMinValue = urlParams.get("filter.v.price.gte");
+  var paramsMaxValueNumber = parseFloat2Decimals(paramsMaxValue);
+  var paramsMinValueNumber = parseFloat2Decimals(paramsMinValue);
+
+  var maxValue = parseFloat2Decimals($("#maxValue").val());
+  var minValue = parseFloat2Decimals($("#minValue").val());
+
+
+  var setMin;
+  var setMax;
+  if (paramsMaxValue != undefined && paramsMinValue != undefined){
+      setMax = paramsMaxValueNumber;
+      setMin = paramsMinValueNumber;
+  }
+  else{
+      setMax = maxValue;
+      setMin = minValue;
+  }
+  console.log(setMin)
+  console.log(setMax)
+  var desktopRange = document.getElementById('slider-range');
+
+  noUiSlider.create(desktopRange, {
+    range: {
+      'min': minValue,
+      'max': maxValue
+    },
+    step: 1,
+    start: [setMin, setMax],
+    connect: true,
+    behaviour: 'tap-drag'
+  })
+
+  desktopRange.noUiSlider.on('update', function (values, handle) {
+    $( "#amount" ).val( "£" + values[0] + " - £" + values[1] );
+  });
+
+  var mobileRange = document.getElementById('slider-range2');
+
+  noUiSlider.create(mobileRange, {
+    range: {
+      'min': minValue,
+      'max': maxValue
+    },
+    step: 1,
+    start: [setMin, setMax],
+    connect: true,
+    behaviour: 'tap-drag'
+  })
+
+  mobileRange.noUiSlider.on('update', function (values, handle) {
+    $( "#amount2" ).val( "£" + values[0] + " - £" + values[1] );
+  });
+
+
+
+      {% comment %} $( "#slider-range" ).slider({
+          range: true,
+          min: minValue,
+          max: maxValue,
+          step: 1,
+          values: [ setMin , setMax ],
+          slide: function( event, ui ) {
+            $( "#amount" ).val( "£" + ui.values[ 0 ] + " - £" + ui.values[ 1 ] );
+          }
+        });
+        $( "#amount" ).val( "£" + $( "#slider-range" ).slider( "values", 0 ) +
+          " - £" + $( "#slider-range" ).slider( "values", 1 ) );
+
+          $( "#slider-range2" ).slider({
+              range: true,
+              min: minValue,
+              max: maxValue,
+              step: 1,
+              values: [ setMin , setMax ],
+              slide: function( event, ui ) {
+                $( "#amount2" ).val( "£" + ui.values[ 0 ] + " - £" + ui.values[ 1 ] );
+              }
+            });
+            $( "#amount2" ).val( "£" + $( "#slider-range2" ).slider( "values", 0 ) +
+              " - £" + $( "#slider-range2" ).slider( "values", 1 ) ); {% endcomment %}
+
+  function resetPriceRangeMobileSlider() {
+      var mobileRange = document.getElementById('slider-range2');
+      mobileRange.noUiSlider.set([minValue, maxValue]);
+      $( "#amount2" ).val( "£" + mobileRange.noUiSlider.get(true)[0] +
+              " - £" + mobileRange.noUiSlider.get(true)[1] );
+  }
+
+  $("#priceRangeBtn").on("click", function(){
+      var slider = document.getElementById('slider-range');
+      var currentURL = window.location.href;
+      var min = slider.noUiSlider.get(true)[0];
+      var max = slider.noUiSlider.get(true)[1];
+
+
+       var filter;
+          let url = new URL(location.href);
+
+          var filterGTE = url.searchParams.get("filter.v.price.gte");
+          var filterLTE = url.searchParams.get("filter.v.price.lte");
+          if (filterGTE == undefined && filterLTE == undefined){
+              currentURL = addUrlParameter(currentURL, "filter.v.price.gte", min)
+              currentURL = addUrlParameter(currentURL, "filter.v.price.lte", max)
+          }
+          else{
+              currentURL = updateUrlParameter(currentURL, "filter.v.price.gte", min)
+              currentURL = updateUrlParameter(currentURL, "filter.v.price.lte", max)
+          }
+
+
+
+           window.location.href = currentURL;
+  })
+
+  $("#priceRangeBtnMobile").on("click", function(){
+      var sliderMobile = document.getElementById('slider-range2');
+      var currentURL = window.location.href;
+
+      var min = sliderMobile.noUiSlider.get(true)[0];
+      var max = sliderMobile.noUiSlider.get(true)[1];
+
+      var filter;
+          let url = new URL(location.href);
+
+          var filterGTE = url.searchParams.get("filter.v.price.gte");
+          var filterLTE = url.searchParams.get("filter.v.price.lte");
+          if (filterGTE == undefined && filterLTE == undefined){
+              currentURL = addUrlParameter(currentURL, "filter.v.price.gte", min)
+              currentURL = addUrlParameter(currentURL, "filter.v.price.lte", max)
+          }
+          else{
+              currentURL = updateUrlParameter(currentURL, "filter.v.price.gte", min)
+              currentURL = updateUrlParameter(currentURL, "filter.v.price.lte", max)
+          }
+
+          window.history.pushState(null, null, currentURL)
+  })
+
+
+
+  $("#priceRangeResetBtn").on("click", function(){
+
+      var currentURL = window.location.href;
+
+
+
+
+      currentURL = removeURLParameterByName(currentURL, "filter.v.price.lte")
+      currentURL = removeURLParameterByName(currentURL, "filter.v.price.gte")
+
+
+
+      window.location.href = currentURL;
+
+  })
+
+  $("#priceRangeResetMobile").on("click", function(){
+
+      var currentURL = window.location.href;
+
+
+
+
+      currentURL = removeURLParameterByName(currentURL, "filter.v.price.lte")
+      currentURL = removeURLParameterByName(currentURL, "filter.v.price.gte")
+
+
+      resetPriceRangeMobileSlider()
+      window.history.pushState(null, null, currentURL)
+
+  })
+
+
+  var mainURL;
+
+
+  //ISSUE WITH CHECKBOX STAYING TICKED AFTER CLOSING
+  const myModalEl = document.getElementById('FilterMobileModal')
+  var preFilterData;
+  myModalEl.addEventListener('hide.bs.modal', event => {
+      window.history.pushState(null, null, mainURL);
+
+      window.location.href = mainURL
+
+
+
+  })
+
+  $(document).on('change', "#FilterModalContent input[type='checkbox']", function(event){
+      var filterName = $(this).attr("name");
+      var filterValue = $(this).val();
+
+      var currentURL = window.location.href;
+      if ($(this).prop("checked") == true){
+
+
+          currentURL = addUrlParameter(currentURL, filterName, filterValue);
+
+
+
+
+          window.history.pushState(null, null, currentURL);
+      }
+      else{
+
+          currentURL = removeURLParameterByValue(currentURL, filterValue);
+          window.history.pushState(null, null, currentURL);
+      }
+
+  });
+  myModalEl.addEventListener('show.bs.modal', event => {
+      mainURL = window.location.href;
+
+
+
+  })
+
+  $("#FilterFinishBtn").on("click", function(){
+      window.location.href = window.location.href;
+
+  })
+</script>

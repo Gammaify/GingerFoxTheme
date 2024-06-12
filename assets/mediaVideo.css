@@ -1,0 +1,103 @@
+@font-face {
+    font-family: 'VeteranTypewriter';
+    src: url("{{ 'VeteranTypewriter.woff' | asset_url }}") format("woff");
+}
+
+#CopyRight {
+    font-size: 13px;
+    padding-top: 20px;
+}
+
+.margin-top-title {
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+.center {
+    text-align: center;
+}
+
+.inlineblock {
+    display: inline-block;
+}
+
+.MarginBottom {
+    margin-bottom: 20px;
+}
+
+.DownloadLinks {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+}
+
+.margin {
+    margin: 6px;
+}
+
+.ImageTitle {
+    max-width: 500px;
+}
+
+
+.GingerfoxAmazonButton {
+    background: #FF8200;
+    border: 2px solid #FF8200;
+    color: white;
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+
+
+.img-thumbnail {
+    background-color: transparent
+}
+
+.aLinkColors a:visited {
+    color: white;
+}
+
+.aLinkColors a:link {
+    color: white;
+}
+
+.aLinkColors a:hover {
+    color: #1B365D;
+}
+
+.DownloadImage {
+    max-width: 300px;
+}
+
+/*
+Download Links*/
+/*.DownloadText {
+    position: absolute;
+    color: #1B365D;
+    font-size: 18px;
+    transform: rotate(-12deg);
+    width: 200px;
+    margin-top: 30px;
+    margin-left: 50px;
+}
+
+@media (max-width: 993px) {
+    .DownloadText {
+        margin-top: 20px;
+        margin-left: -20px;
+     
+    }
+}
+@media (max-width: 767px) {
+    .DownloadText {
+        margin-top: 20px;
+        margin-left: 20px;
+    }
+}
+@media (max-width: 450px) {
+    .DownloadText {
+        margin-top: 20px;
+        margin-left: -20px;
+}
+    }*/

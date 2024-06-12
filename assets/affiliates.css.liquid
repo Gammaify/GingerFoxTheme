@@ -1,0 +1,368 @@
+.affiliateTopBanner {
+    position: relative;
+    width: 100%
+}
+
+.affiliateTopBanner img {
+    width: 100%;
+}
+
+.affiliateTitleAndSubTitle {
+    position: absolute;
+    bottom: 0px;
+    left: 50%;
+    transform: translate(-50%, 0px);
+    text-align: center;
+    color: white;
+    width: 100%;
+    background-color: #45424282;
+    padding: 3%;
+}
+
+.affiliateTitleAndSubTitle h1,
+.affiliateTitleAndSubTitle p {
+    margin: 0;
+}
+
+.affiliateTitleAndSubTitle h1 {
+    text-transform: uppercase;
+    margin-bottom: 5px;
+    font-size: 7vmin;
+}
+
+.affiliateTitleAndSubTitle p {
+    font-size: 2vmin;
+}
+
+.section1 {
+    background: url("{{ '1st_background_pattern.png' | asset_url }}")
+}
+
+.whatWeDoSection {
+    position: relative;
+    margin-bottom: 5%;
+}
+
+.whatWeDoText {
+    position: absolute;
+    width: 51.5%;
+    height: 96%;
+    top: 1%;
+}
+
+.whatWeDoSection img {
+    width: 100%;
+}
+
+.whatWeDoTextContainer {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: 10%;
+    font-size: 1.2vw;
+}
+
+.whatWeDoTextContainer h4 {
+    font-size: 2vw;
+    font-weight: bold;
+    margin-bottom: 5%;
+}
+
+.section1Text {
+    margin: 5%;
+    font-size: 1.5vw;
+    font-weight: bold;
+}
+
+.section1Text p {
+    margin: 0;
+}
+
+.howItAllWorksContainer h4 {
+    display: flex;
+    justify-content: center;
+    margin-top: 3%;
+    font-weight: bold;
+}
+
+.howItAllWorksSubtitle {
+    display: flex;
+    justify-content: center;
+    width: 400px;
+    margin: auto;
+    text-align: center;
+    margin-bottom: 3%;
+}
+
+.howItAllWorkSlide {
+    position: relative;
+    user-select: none;
+}
+
+.howItAllWorkSlide p {
+    position: absolute;
+    top: 50%;
+    width: 70%;
+    font-size: clamp(12px, 3vw, 16px);
+    transform: translate(-50%, 0px);
+    left: 50%;
+}
+
+/* .howItAllWorkSlide {
+    display: flex;
+    justify-content: center;
+} */
+
+.swiper {
+    width: 100%;
+    height: 100%;
+}
+
+.swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.swiper-slide {
+    width: 60%;
+}
+
+@media screen and (min-width: 768px) {
+    .swiper-wrapper {
+        height: auto;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .swiper {
+        overflow: unset;
+    }
+
+    .swiper-slide {
+        width: auto;
+        padding: 10px;
+    }
+}
+
+.section3 {
+    margin-top: 15px;
+}
+
+.termsContainer img {
+    width: 100%;
+}
+
+.termsContainer {
+    position: relative;
+}
+
+.termsSection1Text,
+.termsSection2Text {
+
+    text-align: center;
+    font-weight: bold;
+    font-size: clamp(16px, 3.5vw, 20px);
+}
+
+
+.termsSection1 p,
+.termsSection1 a {
+    width: 80%;
+    display: block;
+    margin: auto;
+}
+
+.termsSection1 {
+    width: 100%;
+    /* position: absolute;
+    top: 0%;
+    height: 43%; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    background: #F1F1F1;
+    height: 22vh;
+    filter: drop-shadow(darkgrey 0px 5px 3px);
+    z-index: 100000;
+    position: relative;
+}
+
+.termsSection2 {
+    width: 100%;
+    /* position: absolute;
+    top: 44%;
+    height: 56%; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30vh;
+    background: url("{{ 'termsBackground2.png' | asset_url }}")
+}
+
+.termsSection1 p:first-child {
+    margin-bottom: 5%;
+}
+
+.termsSection2Text {
+    display: flex;
+}
+
+.terms1,
+.terms2 {
+    width: 50%;
+}
+
+.terms1 p {
+    width: 65%;
+    margin: auto;
+    margin-bottom: unset;
+}
+
+.terms2 a {
+    margin: auto;
+}
+
+.terms2 p {
+    margin-bottom: 15px !important;
+}
+
+.termsButton {
+    width: 215px !important;
+}
+
+@media screen and (max-width: 768px) {
+    .howItAllWorksSubtitle {
+        width: 70%;
+    }
+
+    .terms1,
+    .terms2 {
+        width: 100%;
+    }
+
+    .termsSection2Text {
+        display: block;
+    }
+
+    .termsSection1Text,
+    .termsSection2Text {
+
+        text-align: center;
+        font-weight: bold;
+        font-size: clamp(16px, 3.5vw, 20px);
+    }
+
+    .termsSection1 p,
+    .termsSection1 a,
+    .termsSection2 p {
+        width: 80%;
+        display: block;
+        margin: auto;
+    }
+
+    .termsSection1 p:first-child,
+    .termsSection2 .terms1 p:first-child {
+        margin-bottom: 15%;
+    }
+
+
+    .termsSection1 {
+        width: 100%;
+        /* position: absolute;
+        top: 0%;
+        height: 47%; */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        background: #F1F1F1;
+        height: 30vh;
+        filter: drop-shadow(darkgrey 0px 5px 3px);
+        z-index: 100000;
+        position: relative;
+    }
+
+    .termsSection2 {
+        /* position: absolute;
+        top: 47%;
+        height: 53%; */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 40vh;
+        background: url("{{ 'termsBackground2.png' | asset_url }}")
+    }
+
+
+
+    .swiper-pagination-bullet {
+        width: 13px;
+        height: 13px;
+        text-align: center;
+        opacity: 1;
+        background: url('{{ "Interaction_dot.svg" | asset_url }}');
+        background-repeat: no-repeat;
+    }
+
+    .swiper-pagination-bullet-active {
+        background: url('{{ "interaction_dot_active.svg" | asset_url }}');
+        background-repeat: no-repeat;
+    }
+
+    .swiper-wrapper {
+        margin-bottom: 50px;
+    }
+
+    .swiper {
+        height: auto;
+    }
+
+    .howItAllWorkSlide img {
+        width: 100%;
+    }
+
+    .whatWeDoText {
+        position: absolute;
+        width: 100%;
+        height: 61%;
+        top: 0%;
+    }
+
+    .whatWeDoTextContainer {
+        font-size: 4vw;
+    }
+
+    .whatWeDoTextContainer h4 {
+        font-size: 5vw;
+    }
+
+    .whatWeDoSection {
+        margin-bottom: 25%;
+    }
+
+    .section1Text {
+        font-size: 3.5vw;
+    }
+
+    .affiliateTitleAndSubTitle h1 {
+        font-size: 16vmin;
+    }
+
+    .affiliateTitleAndSubTitle p {
+        font-size: 4.4vmin;
+    }
+}

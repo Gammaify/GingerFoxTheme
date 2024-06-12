@@ -1,0 +1,34 @@
+{% if product.metafields.product.overview_of_product != nothing %}
+  {% assign description = product.metafields.product.overview_of_product | strip_html | strip_newlines %}
+{% else %}
+  {% assign description = product.description | strip_html | strip_newlines %}
+{% endif %}
+{% if product.available == true %}
+  {% assign availability = 'https://schema.org/InStock' %}
+{% else %}
+  {% assign availability = 'https://schema.org/OutOfStock' %}
+{% endif %}
+{% assign currentYear = 'now' | date: '%Y' %}
+{% assign lastDayOfYear = '12/31/#{currentYear}' | date: '%Y-%m-%d' %}
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org/",
+    "@type": "Product",
+    "name": "{{ product.title }}",
+    "image": "{{ shop.url }}/cdn/shop/{{ product.featured_image }}",
+    "description": "{{ description }}",
+    "sku": "{{ product.variants[0].sku }}",
+    "brand": {
+      "@type": "Brand",
+      "name": "Ginger Fox"
+    },
+    "offers": {
+      "@type": "Offer",
+      "priceCurrency": "GBP",
+      "price": "{{ product.variants[0].price | money_without_currency }}",
+      "url": "{{ shop.url }}{{ product.url }}",
+      "availability": "{{ availability }}",
+      "priceValidUntil": "{{ lastDayOfYear }}"
+    }
+  }
+</script>

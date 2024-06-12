@@ -1,0 +1,63 @@
+.errorMessageContainer {
+    display: flex;
+    align-items: center;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+.errorImage {
+    width: 50%;
+}
+
+.errorImage img {
+    width: 100%;
+    padding: 30px;
+}
+
+.errorMessage {
+    width: 50%;
+    position: relative;
+}
+
+.errorTitle {
+    width: 100%;
+}
+
+.errorText {
+    font-size: 21px;
+    padding: 10px 0px;
+}
+
+.errorArrow {
+    width: 30%;
+    float: left;
+    margin-top: 15px;
+    padding-right: 18px;
+    padding-bottom: 25px;
+}
+
+.errorReturn {
+    font-weight: bold;
+    background-color: #FF8200;
+    color: white !important;
+    padding: 10px 30px;
+    border-radius: 50px;
+    float: left;
+}
+
+@media screen and (max-width: 992px){
+    .errorMessageContainer {
+        display: block !important;
+    }
+
+    .errorImage {
+        width: 100%;
+    }
+    .errorMessage {
+        width: 100%;
+    }
+
+    .errorImage img {
+        margin-top: 20px;
+    }
+}

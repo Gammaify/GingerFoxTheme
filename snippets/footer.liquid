@@ -1,0 +1,314 @@
+<footer>
+  {% if customer %}
+    <div class="backgroundColorBlue position-relative overflow-hidden">
+      <div class="footerSignUpShapesLandscape"></div>
+      <div class="container">
+        <div class="row backgroundColorBlue align-content-center justify-content-center emailPadding"></div>
+      </div>
+      <div class="footerSignUpShapesVertical"></div>
+    </div>
+  {% else %}
+    <div class="backgroundColorBlue position-relative overflow-hidden">
+      <div class="footerSignUpShapesLandscape"></div>
+      <div class="container">
+        <div class="d-sm-block d-md-flex backgroundColorBlue align-content-center justify-content-center emailPadding">
+          <div class="RegisterTextContainer">
+            <span class="SignUpTxt text-center text-white">Create An Account for 10% Off</span>
+          </div>
+          <div class="SignupBtn">
+            <a href="{{ routes.account_register_url }}" class="btn GingerfoxButton">Create Account</a>
+          </div>
+        </div>
+      </div>
+      <div class="footerSignUpShapesVertical"></div>
+    </div>
+  {% endif %}
+  <div class="container text-center text-md-left pt-4">
+    <!-- Grid row -->
+    <div class="justify-content-center w-100">
+      <div id="desktopFooter">
+        <div class="">
+          <h6 class="footerTextHeaders">Help</h6>
+          <ul class="list-unstyled">
+            <li class="pb-1 text-start">
+              <a class="footerText" href="{{ pages.contact-us.url }}">{{ pages['contact-us'].title }}</a>
+            </li>
+            <li class="pb-1 text-start">
+              <a class="footerText" href="{{ pages.press.url }}">Press Centre</a>
+            </li>
+            <li class="pb-1 text-start">
+              <a class="footerText" href="{{ pages.affiliates.url }}">Affiliates</a>
+            </li>
+            <li class="pb-1 text-start">
+              <a class="footerText" href="{{ pages.faqs.url }}">{{ pages.faqs.title }}</a>
+            </li>
+            <li class="pb-1 text-start">
+              <a class="footerText" href="{{ pages.site-map.url }}">{{ pages['site-map'].title }}</a>
+            </li>
+            <li class="pb-1 text-start">
+              <a class="footerText" href="{{ shop.shipping_policy.url }}">Delivery policy</a>
+            </li>
+            <li class="pb-1 text-start">
+              <a class="footerText" href="{{ shop.refund_policy.url }}">{{ shop.refund_policy.title }}</a>
+            </li>
+          </ul>
+        </div>
+        <div class="">
+          <h6 class="footerTextHeaders">About Ginger Fox</h6>
+          <ul class="list-unstyled">
+            <li class="pb-1 text-start">
+              <a class="footerText" href="{{ pages.our-story.url }}">{{ pages['our-story'].title }}</a>
+            </li>
+            <li class="pb-1 text-start">
+              <a class="footerText" href="{{ pages.sustainability-promise.url }}">
+                {{- pages['sustainability-promise'].title -}}
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="">
+          <h6 class="footerTextHeaders">Our Policies</h6>
+          <ul class="list-unstyled">
+            <li class="pb-1 text-start">
+              <a class="footerText" href="{{ shop.privacy_policy.url }}">{{ shop.privacy_policy.title }}</a>
+            </li>
+            <li class="pb-1 text-start">
+              <a class="footerText" href="{{ shop.terms_of_service.url }}">{{ shop.terms_of_service.title }}</a>
+            </li>
+            <li class="pb-1 text-start">
+              <a class="footerText" href="{{ pages.accessibility.url }}">{{ pages.accessibility.title }}</a>
+            </li>
+            <li class="pb-1 text-start">
+              <a class="footerText" href="{{ pages.ethical-environmental-policy.url }}">
+                {{- pages['ethical-environmental-policy'].title -}}
+              </a>
+            </li>
+
+            <li class="pb-1 text-start">
+              <a class="footerText" data-cc="c-settings" href="">Cookie Settings</a>
+            </li>
+          </ul>
+        </div>
+        <div class="">
+          <h6 class="footerTextHeaders">Wholesale Info</h6>
+          <ul class="list-unstyled">
+            <li class="pb-1 text-start">
+              <a class="footerText" href="https://uktrade.gingerfox.co.uk/" target="_blank">UK Wholesale</a>
+            </li>
+            <li class="pb-1 text-start">
+              <a class="footerText" href="https://usa.gingerfox.co.uk" target="_blank">USA Wholesale</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-auto">
+        <div class="">
+          <h6 class="FollowUsTitle">Follow Us</h6>
+          <!-- Links -->
+          <ul class="list-unstyled">
+            <li class="inlineblock">
+              <a title="Instagram" href="https://www.instagram.com/gingerfoxuk/?hl=en" target="_blank"
+                ><img
+                  class="socialIcon"
+                  width="50"
+                  height="50"
+                  src="{{ 'GF HUB_FOOTER ICON_INSTAGRAM-01.svg' | asset_url }}"
+                  alt="Ginger Fox Games Instagram Icon Orange "
+              ></a>
+            </li>
+            <li class="inlineblock">
+              <a title="TikTok" href="https://www.tiktok.com/@gingerfoxuk?lang=en" target="_blank"
+                ><img
+                  width="50"
+                  height="50"
+                  class="socialIcon"
+                  src="{{ 'GF HUB_FOOTER ICON_TIKTOK.svg' | asset_url }}"
+                  alt="Ginger Fox Games TikTok Icon Orange"
+              ></a>
+            </li>
+            <li class="inlineblock">
+              <a title="Twitter" href="https://twitter.com/GingerFox_UK" target="_blank"
+                ><img
+                  width="50"
+                  height="50"
+                  class="socialIcon"
+                  src="{{ 'GF HUB_FOOTER ICON_TWITTER-01.svg' | asset_url }}"
+                  alt="Ginger Fox Games Twitter Icon Orange"
+              ></a>
+            </li>
+            <li class="inlineblock">
+              <a title="Facebook" href="https://www.facebook.com/GingerFoxUK/" target="_blank"
+                ><img
+                  width="50"
+                  height="50"
+                  class="socialIcon"
+                  src="{{ 'GF HUB_FOOTER ICON_FACEBOOK-01.svg' | asset_url }}"
+                  alt="Ginger Fox Games Facebook Icon Orange"
+              ></a>
+            </li>
+
+            <li class="inlineblock">
+              <a title="Youtube" href="https://www.youtube.com/channel/UCZSh6UQLU-A7rg6mFnpgYFA" target="_blank"
+                ><img
+                  width="50"
+                  height="50"
+                  class="socialIcon"
+                  src="{{ 'GF HUB_FOOTER ICON_YOUTUBE-01.svg' | asset_url }}"
+                  alt="Ginger Fox Games Youtube Icon Orange"
+              ></a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="accordion" id="footerAccordion">
+        <div class="accordionCard card">
+          <div class="accordionCardHeader" id="headingOne">
+            <p class="mb-0">
+              <button
+                class="accordionTitle btn btn-link collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseOne"
+                aria-expanded="false"
+                aria-controls="collapseTwo"
+              >
+                Help
+              </button>
+            </p>
+          </div>
+          <div id="collapseOne" class="collapse" aria-labelledby="headingTwo" data-bs-parent="#footerAccordion">
+            <div class="accordionBody card-body">
+              <ul class="list-unstyled">
+                <li class="pb-3 text-start">
+                  <a class="footerText" href="{{ pages.contact-us.url }}">{{ pages['contact-us'].title }}</a>
+                </li>
+                <li class="pb-3 text-start">
+                  <a class="footerText" href="{{ pages.press.url }}">Press Centre</a>
+                </li>
+                <li class="pb-3 text-start">
+                  <a class="footerText" href="{{ pages.affiliates.url }}">Affiliates</a>
+                </li>
+                <li class="pb-3 text-start">
+                  <a class="footerText" href="{{ pages.faqs.url }}">{{ pages.faqs.title }}</a>
+                </li>
+                <li class="pb-3 text-start">
+                  <a class="footerText" href="{{ pages.site-map.url }}">{{ pages['site-map'].title }}</a>
+                </li>
+                <li class="pb-3 text-start">
+                  <a class="footerText" href="{{ shop.shipping_policy.url }}">Delivery Policy </a>
+                </li>
+                <li class="pb-3 text-start">
+                  <a class="footerText" href="{{ shop.refund_policy.url }}">{{ shop.refund_policy.title }}</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="accordionCard card">
+          <div class="accordionCardHeader" id="headingTwo">
+            <p class="mb-0">
+              <button
+                class="accordionTitle btn btn-link collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseTwo"
+                aria-expanded="false"
+                aria-controls="collapseTwo"
+              >
+                About Ginger Fox
+              </button>
+            </p>
+          </div>
+          <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-bs-parent="#footerAccordion">
+            <div class="accordionBody card-body">
+              <ul class="list-unstyled">
+                <li class="pb-3 text-start">
+                  <a class="footerText" href="{{ pages.our-story.url }}">{{ pages['our-story'].title }}</a>
+                </li>
+                <li class="pb-3 text-start">
+                  <a class="footerText" href="{{ pages.sustainability-promise.url }}">
+                    {{- pages['sustainability-promise'].title -}}
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordionCard card">
+          <div class="accordionCardHeader" id="headingThree">
+            <p class="mb-0">
+              <button
+                class="accordionTitle btn btn-link collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseThree"
+                aria-expanded="false"
+                aria-controls="collapseThree"
+              >
+                Our Policies
+              </button>
+            </p>
+          </div>
+          <div id="collapseThree" class="collapse" aria-labelledby="headingTwo" data-bs-parent="#footerAccordion">
+            <div class="accordionBody card-body">
+              <ul class="list-unstyled">
+                <li class="pb-3 text-start">
+                  <a class="footerText" href="{{ shop.privacy_policy.url }}">{{ shop.privacy_policy.title }}</a>
+                </li>
+                <li class="pb-3 text-start">
+                  <a class="footerText" href="{{ shop.terms_of_service.url }}">{{ shop.terms_of_service.title }}</a>
+                </li>
+                <li class="pb-3 text-start">
+                  <a class="footerText" href="{{ pages.accessibility.url }}">{{ pages.accessibility.title }}</a>
+                </li>
+                <li class="pb-3 text-start">
+                  <a class="footerText" href="{{ pages.ethical-environmental-policy.url }}">
+                    {{ pages['ethical-environmental-policy'].title }}
+                  </a>
+                </li>
+
+                <li class="pb-3 text-start">
+                  <a class="footerText" data-cc="c-settings" href="">Cookie Settings</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="accordionCard card">
+            <div class="accordionCardHeader" id="headingFour">
+              <p class="mb-0">
+                <button
+                  class="accordionTitle btn btn-link collapsed"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapseFour"
+                  aria-expanded="false"
+                  aria-controls="collapseTwo"
+                >
+                  Wholesale Information
+                </button>
+              </p>
+            </div>
+            <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-bs-parent="#footerAccordion">
+              <div class="accordionBody card-body">
+                <ul class="list-unstyled">
+                  <li class="pb-3 text-start">
+                    <a class="footerText" href="https://uktrade.gingerfox.co.uk/" target="_blank">UK Wholesale</a>
+                  </li>
+                  <li class="pb-3 text-start">
+                    <a class="footerText" href="https://www.gingerfoxgames.com/" target="_blank">USA Wholesale</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Grid row -->
+  </div>
+
+  <p class="copyRight text-center pt-2">&copy; Copyright {{ 'now' | date: '%Y' }} Ginger Fox Games Ltd.</p>
+  <p class="copyRight text-center">Company number: 10081632</p>
+  <p class="copyRight text-center pb-2">Ginger Fox&reg; is a registered trademark of Ginger Fox Games Ltd.</p>
+</footer>

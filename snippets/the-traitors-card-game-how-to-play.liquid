@@ -1,0 +1,237 @@
+{{ 'traitors-how-to-play.css' | asset_url | stylesheet_tag }}
+<link href="https://use.typekit.net/thr0udu.css" rel="stylesheet">
+<div id="main">
+  <div class="TopContainer">
+    <img class="traitorsLogo" src="https://media.gingerfox.co.uk/GingerFoxHub/Site/TraitorsHowTo/The_Traitors_Logo.png">
+    <div class="TitleContainer">
+      <h1>HOW TO PLAY</h1>
+    </div>
+    <div class="HowToPlayVid">
+      <div class="video-container">
+        <iframe
+          src="https://www.youtube.com/embed/ujVwDJHg3ak"
+          frameborder="0"
+          allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        ></iframe>
+      </div>
+    </div>
+  </div>
+  <div class="RulesContainer">
+    <h2>RULES</h2>
+    <div class="RulesIconContainer">
+      <a
+        target="_blank"
+        href="https://media.gingerfox.co.uk/GingerFoxHub/Site/TraitorsHowTo/GFUKA23_THE_TRAITORS_WEB_RULES.pdf"
+        download
+      >
+        <div class="RulesIcon">
+          <img src="https://media.gingerfox.co.uk/GingerFoxHub/Site/TraitorsHowTo/Icon_Rules.svg">
+          <p>Full Rules</p>
+        </div>
+      </a>
+    </div>
+  </div>
+  <div class="FAQTitleContainer">
+    <h2 class="mobileVersion">FAQs</h2>
+    <h2 class="desktopVersion">FREQUENTLY ASKED QUESTIONS</h2>
+  </div>
+  <div class="FAQContainer" id="MainFaqContainer">
+    <div class="faqSection">
+      <h2 class="faqTitle">Treasure Chests</h2>
+      {% assign TreasureChestFAQs = page.metafields.custom.traitors_faqs_treasure_chests.value %}
+      {% for faq in TreasureChestFAQs %}
+        <div class="faqItem" id="#heading_{{ faq.count }}">
+          {% if faq.count == 1 %}
+            <button
+              class="faqQuestionText"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#Collapse_{{ faq.count }}"
+              aria-expanded="true"
+              aria-controls="collapseOne"
+            >
+              {{ faq.question }}
+            </button>
+          {% else %}
+            <button
+              class="faqQuestionText"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#Collapse_{{ faq.count }}"
+              aria-expanded="false"
+              aria-controls="collapseOne"
+            >
+              {{ faq.question }}
+            </button>
+          {% endif %}
+
+          {% if faq.count == 1 %}
+            <div
+              id="Collapse_{{ faq.count }}"
+              class="faqAnswerContainer collapse show"
+              aria-labelledby="Collapse_{{ faq.count }}"
+              data-bs-parent="#MainFaqContainer"
+            >
+              <div class="faqAnswerText">
+                <p>{{ faq.answer }}</p>
+              </div>
+            </div>
+          {% else %}
+            <div
+              id="Collapse_{{ faq.count }}"
+              class="faqAnswerContainer collapse"
+              aria-labelledby="Collapse_{{ faq.count }}"
+              data-bs-parent="#MainFaqContainer"
+            >
+              <div class="faqAnswerText">
+                <p>{{ faq.answer }}</p>
+              </div>
+            </div>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+    <div class="faqSection">
+      <h2 class="faqTitle">Discarding Cards</h2>
+      {% assign DiscardingCardsFAQs = page.metafields.custom.traitors_faqs_discarding_cards.value %}
+      {% for faq in DiscardingCardsFAQs %}
+        <div class="faqItem" id="#heading_{{ faq.count }}">
+          <button
+            class="faqQuestionText"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#Collapse_{{ faq.count }}"
+            aria-expanded="false"
+            aria-controls="collapseOne"
+          >
+            {{ faq.question }}
+          </button>
+          <div
+            id="Collapse_{{ faq.count }}"
+            class="faqAnswerContainer collapse"
+            aria-labelledby="Collapse_{{ faq.count }}"
+            data-bs-parent="#MainFaqContainer"
+          >
+            <div class="faqAnswerText">
+              <p>{{ faq.answer }}</p>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+    <div class="faqSection">
+      <h2 class="faqTitle">HAND LIMIT / DRAWING CARDS</h2>
+      {% assign HandLimitOrDrawingCardsFAQs = page.metafields.custom.traitors_faqs_hand_limit_drawing_cards.value %}
+      {% for faq in HandLimitOrDrawingCardsFAQs %}
+        <div class="faqItem" id="#heading_{{ faq.count }}">
+          <button
+            class="faqQuestionText"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#Collapse_{{ faq.count }}"
+            aria-expanded="false"
+            aria-controls="collapseOne"
+          >
+            {{ faq.question }}
+          </button>
+          <div
+            id="Collapse_{{ faq.count }}"
+            class="faqAnswerContainer collapse"
+            aria-labelledby="Collapse_{{ faq.count }}"
+            data-bs-parent="#MainFaqContainer"
+          >
+            <div class="faqAnswerText">
+              <p>{{ faq.answer }}</p>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+    <div class="faqSection">
+      <h2 class="faqTitle">BLACKMAIL</h2>
+      {% assign BlackmailFAQs = page.metafields.custom.traitors_faqs_blackmail.value %}
+      {% for faq in BlackmailFAQs %}
+        <div class="faqItem" id="#heading_{{ faq.count }}">
+          <button
+            class="faqQuestionText"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#Collapse_{{ faq.count }}"
+            aria-expanded="false"
+            aria-controls="collapseOne"
+          >
+            {{ faq.question }}
+          </button>
+          <div
+            id="Collapse_{{ faq.count }}"
+            class="faqAnswerContainer collapse"
+            aria-labelledby="Collapse_{{ faq.count }}"
+            data-bs-parent="#MainFaqContainer"
+          >
+            <div class="faqAnswerText">
+              <p>{{ faq.answer }}</p>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+    <div class="faqSection">
+      <h2 class="faqTitle">MURDER</h2>
+      {% assign MurderFAQs = page.metafields.custom.traitors_faqs_murder.value %}
+      {% for faq in MurderFAQs %}
+        <div class="faqItem" id="#heading_{{ faq.count }}">
+          <button
+            class="faqQuestionText"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#Collapse_{{ faq.count }}"
+            aria-expanded="false"
+            aria-controls="collapseOne"
+          >
+            {{ faq.question }}
+          </button>
+          <div
+            id="Collapse_{{ faq.count }}"
+            class="faqAnswerContainer collapse"
+            aria-labelledby="Collapse_{{ faq.count }}"
+            data-bs-parent="#MainFaqContainer"
+          >
+            <div class="faqAnswerText">
+              <p>{{ faq.answer }}</p>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+    <div class="faqSection">
+      <h2 class="faqTitle">THE TRAITORS’ DILEMMA</h2>
+      {% assign DilemmaFAQs = page.metafields.custom.traitors_faqs_the_traitors_dilemma.value %}
+      {% for faq in DilemmaFAQs %}
+        <div class="faqItem" id="#heading_{{ faq.count }}">
+          <button
+            class="faqQuestionText"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#Collapse_{{ faq.count }}"
+            aria-expanded="false"
+            aria-controls="collapseOne"
+          >
+            {{ faq.question }}
+          </button>
+          <div
+            id="Collapse_{{ faq.count }}"
+            class="faqAnswerContainer collapse"
+            aria-labelledby="Collapse_{{ faq.count }}"
+            data-bs-parent="#MainFaqContainer"
+          >
+            <div class="faqAnswerText">
+              <p>{{ faq.answer }}</p>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>

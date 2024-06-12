@@ -1,0 +1,74 @@
+.AccountMenuContainer {
+    display: flex;
+    
+    align-items: center;
+    justify-content: center;
+    margin-top: 5%;
+}
+.leftConfetti {
+    width: 15%;
+    max-width: 150px;
+}
+.rightConfetti {
+    width: 15%;
+    max-width: 150px;
+}
+.AccountMenuDataContainer h1 {
+    font-size: clamp(20px, 2vw, 30px);
+    text-align: center;
+    font-weight: bold;
+}
+.AccountIconContainer {
+    display: flex;
+    justify-content: center;
+}
+.AccountIcon {
+    max-width: 140px;
+}
+.AccountIcon img {
+    width: 100%;
+    padding: 10%;
+}
+.AccountIcon p {
+    text-align: center;
+    color: #1B365D !important;
+    font-weight: bold;
+}
+.LogoutContainer {
+    border-top: 1px solid #1B365D;
+    width: 500px;
+    display: block;
+    margin: auto;
+    margin-top: 2%;
+    margin-bottom: 5%;
+    width: 65%;
+    max-width: 500px;
+}
+.logoutBtn{
+    margin: auto;
+    margin-top: 15px;
+}
+.AccountIcon a{
+    text-decoration: none !important;
+    color: #1b365d!important
+}
+.AccountIcon:hover {
+    color: #ff8200 !important;
+}
+@media screen and (max-width: 615px){
+    .AccountIcon {
+        width: 50%;
+        max-width: unset;
+    }
+    .AccountIconContainer {
+        flex-wrap: wrap;
+    }
+    .leftConfetti {
+        margin-top: -50%;
+        width: 20%;
+    }
+    .rightConfetti {
+        margin-top: 60%;
+        width: 20%;
+    }
+}

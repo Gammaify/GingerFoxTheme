@@ -1,0 +1,1028 @@
+{% comment %}
+  <style>
+    {% if product.metafields.custom.themed_product_data.value.image_gallery_selector_colour.value == blank %}
+        {% assign imageSelectColor = "#02bdf2 "%}
+    {% else %}
+        {% assign imageSelectColor = product.metafields.custom.themed_product_data.value.image_gallery_selector_colour.value %}
+    {% endif %}
+
+    {% if product.metafields.custom.themed_product_data.value.line_break_colour.value == blank %}
+        {% assign lineBreakColor = "#f8931d "%}
+    {% else %}
+        {% assign lineBreakColor = product.metafields.custom.themed_product_data.value.line_break_colour.value %}
+    {% endif %}
+    :root{
+        --imageSelectColor: {{ imageSelectColor }};
+        --lineBreakColor: {{ lineBreakColor }}
+
+    }
+
+    .fullDescriptionContainer{
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      }
+      .fullDescriptionContainer p, .fullDescriptionContainer b, .fullDescriptionContainer ul{
+      width: 100%
+    }
+    .ProductContentContainer{
+        display: flex;
+    }
+    .ProductImageGalleryContainer {
+        position: relative;
+        width: 45%;
+        min-width: 300px;
+        padding: 0px 20px 10px 20px;
+    }
+    .ProductInfoContainer {
+        width: 55%;
+        padding: 10px 20px;
+    }
+    h1, h2{
+        font-size: 20px;
+        text-align: center;
+        font-weight: bold;
+        padding: 0px 80px;
+    }
+
+    #productImageGalleryLeftArrow{
+        position: absolute;
+        width: 30px;
+        z-index: 2000;
+        top: 45%;
+        transform: translate(0px, -45%);
+        left: 20px;
+    }
+    #productImageGalleryRightArrow{
+        position: absolute;
+        width: 30px;
+        z-index: 2000;
+        top: 45%;
+        transform: translate(0px, -45%);
+        right: 20px;
+    }
+    #productImageGalleryLeftArrow:hover, #productImageGalleryRightArrow:hover{
+        cursor: pointer;
+    }
+
+    .item img{
+        width: 100%;
+    }
+
+    .swiper-slide-thumb-active{
+        border-bottom: 3px solid var(--imageSelectColor);
+    }
+
+    .productSwiperThumbs .swiper-slide{
+      max-width: 95px !important;
+    }
+    .swiper-slide img{
+        width:100%;
+    }
+
+    .productSwiperThumbs .swiper-slide img{
+        width:100%;
+        padding-bottom: 5px;
+        {% comment %} margin-bottom: 5px; {% endcomment %}
+    }
+
+    .productSwiperThumbs .swiper-slide .videoThumb{
+        transform: scale(1.3) translateY(11%);
+        margin-bottom: 47%;
+    }
+
+    .swiper-button-next {
+        background-image: url({{ 'BlueRightArrow.svg' | asset_url }});
+        background-repeat: no-repeat;
+        background-size: 100% auto;
+        background-position: center;
+    }
+
+    .swiper-button-prev {
+        background-image: url({{ 'BlueLeftArrow.svg' | asset_url }});
+        background-repeat: no-repeat;
+        background-size: 100% auto;
+        background-position: center;
+    }
+
+      .swiper-button-next::after, .swiper-button-prev::after {
+        display: none;
+      }
+
+     .productSwiperThumbs .swiper-wrapper{
+        display: flex;
+        height: 105px !important;
+    }
+
+    .swiper-slide{
+        overflow: hidden;
+    }
+
+
+        .video-responsive iframe{
+
+        height:100%;
+        width:100%;
+
+
+        }
+
+    .priceReviewContainer {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding-top: 15px;
+    }
+    .priceContainer {
+        text-align: center;
+    }
+    .priceContainer .price {
+        font-size: 25px;
+        font-weight: bold;
+    }
+    .priceContainer .priceDiscount {
+        color: red;
+    }
+    .priceContainer .priceCrossedOut {
+        text-decoration: line-through;
+    }
+    .AddToBasketContainer {
+        display: flex;
+        justify-content: center;
+        padding: 20px 0px;
+        border-bottom: 1px solid var(--lineBreakColor);
+    }
+    .AddToBasketContainer form{
+        margin-bottom: 0;
+    }
+    .AddToBasketContainer .AddToCart {
+        color: white !important;
+        background-color: #1B365D;
+        padding: 5px 20px;
+        border-radius: 50px;
+        height: 40px;
+        display: flex;
+        visibility: visible;
+        justify-content: center;
+        align-items: center;
+        border: 0;
+    }
+    .AddToCart:hover{
+        color: #ff8200 !important;
+    }
+    .DescriptionContainer h4 {
+        font-size: 16px;
+        font-weight: bold;
+        padding: 0px 0px 20px;
+        margin: 0;
+    }
+    {% comment %} .DescriptionContainer, .deliveryInfoTxtContainer {
+        font-size: 14px;
+    } {% endcomment %}
+    .DescriptionContainer {
+        padding: 20px 0px;
+        border-bottom: 1px solid var(--lineBreakColor);
+    }
+    .deliveryInfoContainer {
+        padding: 20px 0px;
+        border-bottom: 1px solid var(--lineBreakColor);
+    }
+    .deliveryInfoTitleContainer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .deliveryInfoTitleContainer h4 {
+        font-size: 16px;
+        font-weight: bold;
+        margin: 0;
+    }
+    .deliveryInfoTxtContainer {
+        padding-top: 15px;
+    }
+    .DeliveryInfoReadMoreBtn, .DeliveryInfoHideBtn, .descriptionReadMore {
+        text-decoration: underline !important;
+        font-weight: bold !important;
+        color: #1B365D !important;
+        user-select: none !important;
+    }
+    {% comment %} .descriptionContent p{
+        margin-bottom: 0;
+    } {% endcomment %}
+    .topRightImagery {
+        position: absolute;
+        width: 16%;
+        right: 0;
+        top: 0px;
+        z-index: 5;
+    }
+
+    .middleLeftImagery{
+        position: absolute;
+        top: 60%;
+        left: 0;
+        width: 16%;
+        z-index: -1;
+    }
+    .topRightImagery img, .middleLeftImagery img{
+        width:100%;
+    }
+    .fullDescription{
+        background: white;
+        padding: 10px 20px;
+    }
+
+    .descriptionReadMore{
+        display:flex;
+        justify-content:end;
+    }
+    .videoThumbContainer{
+        position: relative;
+    }
+
+    #playIcon{
+        z-index: 1;
+        left:50%;
+        position: absolute;
+        top: 40%;
+        transform: translate(-50%, -50%)
+    }
+
+    .ProductInfoIconTxt{
+        margin: 0;
+        font-weight: bold;
+        text-transform: capitalize;
+        text-align: center;
+        color: {{ product.metafields.custom.themed_product_data.value.info_icon_text_colour.value }}
+    }
+
+    .ProductInfoIconContainer {
+        display: flex;
+        justify-content: space-evenly;
+        align-items: start;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        border-bottom: 1px solid var(--lineBreakColor);
+    }
+    .ProductInfoIconContainer li {
+        padding: 10px 30px;
+    }
+    .ProductInfoIcon {
+        width: 50px;
+        height: 50px;
+        padding: 5px;
+        margin: auto;
+        display: block;
+    }
+
+    .ProductIconContainer {
+        display: flex;
+        justify-content: space-evenly;
+        list-style: none;
+        padding: 0;
+        padding-top: 15px;
+    }
+    .ProductIconContainer li {
+        width: 110px;
+        display: flex;
+        justify-content: center;
+    }
+    .ProductIcon {
+        height: 75px;
+        padding: 5px;
+        margin: auto;
+        display: block;
+        min-width: 65px;
+        max-width: 75px;
+        width: 6vw;
+    }
+    .ProductIconTxt {
+        text-align: center;
+        font-weight: bold;
+        font-size: clamp(10px, 3vw, 16px);
+        color: #1B365D !important;
+    }
+    .socialIcon2 {
+        width: 60px;
+        padding-right: 5%;
+    }
+    #copyURL {
+        width: 100%;
+        margin-top: 15px;
+    }
+    #CopyURLBtn {
+        display: block;
+        margin: auto;
+        margin-top: auto;
+        margin-top: 15px;
+    }
+
+
+    @media screen and (max-width: 992px){
+        .topRightImagery {
+            right: 0%;
+            width: 19%;
+            top: 0px;
+        }
+
+        h1{
+            padding: 10px;
+        }
+
+        .middleLeftImagery{
+            top: 84%;
+            width: 10%;
+        }
+        .ProductContentContainer {
+            display: block;
+        }
+
+        .ProductImageGalleryContainer{
+            width:100% !important;
+        }
+        .ProductInfoContainer{
+            width: 100% !important;
+        }
+    }
+
+    @media screen and (max-width: 468px){
+        .ProductInfoIconContainer{
+            display: block;
+        }
+    }
+
+    .wishListIconContainer{
+      margin-left: 20px;
+    }
+  </style>
+{% endcomment %}
+{% if product.metafields.custom.themed_product_data.value.image_gallery_selector_colour.value == blank %}
+  {% assign imageSelectColor = '#02bdf2 ' %}
+{% else %}
+  {% assign imageSelectColor = product.metafields.custom.themed_product_data.value.image_gallery_selector_colour.value %}
+{% endif %}
+
+{% if product.metafields.custom.themed_product_data.value.line_break_colour.value == blank %}
+  {% assign lineBreakColor = '#f8931d ' %}
+{% else %}
+  {% assign lineBreakColor = product.metafields.custom.themed_product_data.value.line_break_colour.value %}
+{% endif %}
+
+<style>
+    :root {
+      --imageSelectColor: {{imageSelectColor}};
+
+      --lineBreakColor: {{lineBreakColor}}
+
+  }
+</style>
+<link type="text/css" href="{{ 'product.css' | asset_url }}" rel="stylesheet">
+{% assign videoEnabled = false %}
+<div class="productContainer">
+  {% render 'breadcrumbs' %}
+
+  {% if product.metafields.custom.themed_product_data.value != blank %}
+    <div class="topRightImagery">
+      <img
+        src="{{ product.metafields.custom.themed_product_data.value.top_right_imagery.value.desktop_version.value | image_url }}"
+        class="desktopVersion"
+      >
+      <img
+        src="{{ product.metafields.custom.themed_product_data.value.top_right_imagery.value.mobile_version.value | image_url }}"
+        class="mobileVersion"
+      >
+    </div>
+  {% endif %}
+
+  {% if product.metafields.custom.themed_product_data.value != blank %}
+    <div class="middleLeftImagery">
+      <img
+        src="{{ product.metafields.custom.themed_product_data.value.middle_left_imagery.value.desktop_version.value | image_url }}"
+        class="desktopVersion"
+      >
+      <img
+        src="{{ product.metafields.custom.themed_product_data.value.middle_left_imagery.value.mobile_version.value | image_url }}"
+        class="mobileVersion"
+      >
+    </div>
+  {% endif %}
+  <div class="container">
+    <div class="productTopSectionContainer">
+      <h1>{{ product.title }}</h1>
+      <div class="priceReviewContainer">
+        <div class="priceContainer">
+          {% if product.compare_at_price > 0 %}
+            <div class="price priceDiscount">{{ product.price | money }}</div>
+            <div class="priceCrossedOut">{{ product.compare_at_price | money }}</div>
+          {% else %}
+            <div class="price">{{ product.price | money }}</div>
+          {% endif %}
+        </div>
+        {% if customer %}
+          {% assign wishListHandle = 'wishlist_' | append: customer.id %}
+          {% assign wishListData = customer.metafields.custom.wishlist.value %}
+          {% comment %} {% assign wishlistValue = customer.metafields.custom.wishlist.value %} {% endcomment %}
+
+          {% assign productExists = false %}
+          {% for item in wishListData %}
+            {% if product.id == item.id %}
+              {% assign productExists = true %}
+            {% endif %}
+          {% endfor %}
+
+          {% if productExists == true %}
+            <div
+              class="wishListIconContainer wishListIcon-{{ product.id }} fullHeart"
+              data-wishListBool="true"
+              data-productid="{{ product.id }}"
+              data-customerid="{{ customer.id }}"
+            ></div>
+          {% else %}
+            <div
+              class="wishListIconContainer wishListIcon-{{ product.id }} emptyHeart"
+              data-wishListBool="false"
+              data-productid="{{ product.id }}"
+              data-customerid="{{ customer.id }}"
+            ></div>
+          {% endif %}
+        {% endif %}
+      </div>
+      <div class="AddToBasketContainer">
+        {% if product.available == true %}
+          <form method="post" action="/cart/add">
+            <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+            <input type="number" id="quantity" name="quantity" value="1" min="1" class="d-none">
+            <input type="submit" value="Add To Basket" class="AddToCart">
+          </form>
+        {% else %}
+          <button disabled class="AddToCart disabled">Out of Stock</button>
+        {% endif %}
+      </div>
+    </div>
+    <div class="ProductContentContainer">
+      <div class="ProductImageGalleryContainer" id="productImageGallery">
+        <!-- Slider main container -->
+        <div class="swiper productSwiper">
+          <!-- Additional required wrapper -->
+          <div class="swiper-wrapper">
+            <!-- Slides -->
+            {% for media in product.media %}
+              {% if media.media_type == 'image' %}
+                <div class="swiper-slide productImage" data-video="false">
+                  <img src="{{ media.preview_image.src | image_url }}">
+                </div>
+              {% endif %}
+              {% if media.media_type == 'external_video' %}
+                {% assign videoEnabled = true %}
+                <div class="swiper-slide" data-video="true">
+                  {% comment %} <a class="owl-video" href="{{ media | external_video_url }}"></a> {% endcomment %}
+                  <div class="video-responsive">
+                    <div id="player" data-externalID="{{ media.external_id }}"></div>
+                  </div>
+                </div>
+              {% endif %}
+            {% endfor %}
+          </div>
+
+          <!-- If we need navigation buttons -->
+          <div class="swiper-button-prev"></div>
+          <div class="swiper-button-next"></div>
+        </div>
+        <div class="swiper productSwiperThumbs">
+          <!-- Additional required wrapper -->
+          <div class="swiper-wrapper">
+            <!-- Slides -->
+            {% for media in product.media %}
+              {% if media.media_type == 'image' %}
+                <div class="swiper-slide" data-index="{{ media.position }}">
+                  <img src="{{ media.preview_image.src | image_url }}">
+                </div>
+              {% endif %}
+              {% if media.media_type == 'external_video' %}
+                <div class="swiper-slide" id="HowToPlayBtn" data-index="{{ media.position }}">
+                  {% comment %} <a class="owl-video" href="{{ media | external_video_url }}"></a> {% endcomment %}
+                  <div class="videoThumbContainer">
+                    <i
+                      data-feather="play"
+                      id="playIcon"
+                      stroke="#fff"
+                      fill="#fff"
+                      width="50%"
+                      height="50%"
+                      stroke-width="1"
+                    ></i>
+                    <img class="videoThumb" src="{{ media.preview_image.src | image_url }}">
+                  </div>
+                </div>
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+      <div class="ProductInfoContainer">
+        <ul class="ProductInfoIconContainer">
+          {% if product.metafields.product.apparel_size != blank %}
+            <li>
+              <img
+                src="{{ 'GF_PRODUCT_PAGE_ICON_UK_Size 4-11.svg' | asset_url }}"
+                class="ProductInfoIcon"
+                alt="Apparel Size"
+              >
+
+              <p class="ProductInfoIconTxt">{{ product.metafields.product.apparel_size }}</p>
+            </li>
+          {% endif %}
+          {% if product.metafields.product.mug_size != blank %}
+            <li>
+              {% if product.metafields.custom.themed_product_data.value.mug_size_icon.value != blank %}
+                <img
+                  src="{{ product.metafields.custom.themed_product_data.value.mug_size_icon.value | image_url }}"
+                  class="ProductInfoIcon"
+                  alt="400 Ml Mug Size"
+                >
+              {% else %}
+                <img
+                  src="{{ 'GF_PRODUCT_PAGE_ICON_Holds_400ml.svg' | asset_url }}"
+                  class="ProductInfoIcon"
+                  alt="400 Ml Mug Size"
+                >
+              {% endif %}
+              <p class="ProductInfoIconTxt">{{ product.metafields.product.mug_size }}</p>
+            </li>
+          {% endif %}
+          {% if product.metafields.product.motor_skills_friendly == true %}
+            <li>
+              <img
+                src="{{ 'GF_PRODUCT_PAGE_ICON_Motor_Skills.svg' | asset_url }}"
+                class="ProductInfoIcon"
+                alt="Motor Skills Friendly"
+              >
+
+              <p class="ProductInfoIconTxt">Motor Skills Friendly</p>
+            </li>
+          {% endif %}
+          {% if product.metafields.product.eco_friendly == true %}
+            <li>
+              <img
+                src="{{ 'GF_PRODUCT_PAGE_ICON_Eco-Friendly.svg' | asset_url }}"
+                class="ProductInfoIcon"
+                alt="Eco Friendly"
+              >
+
+              <p class="ProductInfoIconTxt">Eco-friendly</p>
+            </li>
+          {% endif %}
+          {% if product.metafields.product.heat_change == true %}
+            <li>
+              <img
+                src="{{ 'GF_PRODUCT_PAGE_ICON_Heat_Change.svg' | asset_url }}"
+                class="ProductInfoIcon"
+                alt="Heat Change"
+              >
+
+              <p class="ProductInfoIconTxt">Heat Change</p>
+            </li>
+          {% endif %}
+          {% if product.metafields.product.travel_friendly == true %}
+            <li>
+              <img
+                src="{{ 'GF_PRODUCT_PAGE_ICON_Travel_Friendly.svg' | asset_url }}"
+                class="ProductInfoIcon"
+                alt="Travel Friendly"
+              >
+
+              <p class="ProductInfoIconTxt">Travel Friendly</p>
+            </li>
+          {% endif %}
+          {% if product.metafields.product.microwave_safe == true %}
+            <li>
+              <img
+                src="{{ 'GF_PRODUCT_PAGE_ICON_Microwave_Safe.svg' | asset_url }}"
+                class="ProductInfoIcon"
+                alt="Microwave Safe"
+              >
+
+              <p class="ProductInfoIconTxt">Microwave Safe</p>
+            </li>
+          {% endif %}
+          {% if product.metafields.product.machine_washable == true %}
+            <li>
+              <img
+                src="{{ 'GF_PRODUCT_PAGE_ICON_Machine_Wash.svg' | asset_url }}"
+                class="ProductInfoIcon"
+                alt="Machine Washable"
+              >
+
+              <p class="ProductInfoIconTxt">Machine Washable</p>
+            </li>
+          {% endif %}
+          {% if product.metafields.product.puzzle_pieces != blank %}
+            <li>
+              {% if product.metafields.custom.themed_product_data.value.puzzle_pieces_icon.value != blank %}
+                <img
+                  src="{{ product.metafields.custom.themed_product_data.value.players_icon.value | image_url }}"
+                  class="ProductInfoIcon"
+                  alt="Amount of Puzzle Pieces"
+                >
+              {% else %}
+                <img
+                  src="{{ 'GF_PRODUCT_PAGE_ICON_1000_Pieces.svg' | asset_url }}"
+                  class="ProductInfoIcon"
+                  alt="Amount of Puzzle Pieces"
+                >
+              {% endif %}
+              <p class="ProductInfoIconTxt">{{ product.metafields.product.puzzle_pieces }} Pieces</p>
+            </li>
+          {% endif %}
+
+          {% if product.metafields.product.number_of_players != blank %}
+            <li>
+              {% if product.metafields.custom.themed_product_data.value != blank %}
+                <img
+                  src="{{ product.metafields.custom.themed_product_data.value.players_icon.value | image_url }}"
+                  class="ProductInfoIcon"
+                  alt="Amount of Players"
+                >
+              {% else %}
+                {% assign handle = product.metafields.product.number_of_players %}
+                {% case handle %}
+                  {% when '1+ players' %}
+                    <img
+                      src="{{ 'GF_PRODUCT_PAGE_ICON_1_Players.svg' | asset_url }}"
+                      class="ProductInfoIcon"
+                      alt="Amount of Players"
+                    >
+                  {% when '2+ players' %}
+                    <img
+                      src="{{ 'GF_PRODUCT_PAGE_ICON_2_Players.svg' | asset_url }}"
+                      class="ProductInfoIcon"
+                      alt="Amount of Players"
+                    >
+                  {% when '2 to 4 players' %}
+                    <img
+                      src="{{ 'GF_PRODUCT_PAGE_ICON_2_Players.svg' | asset_url }}"
+                      class="ProductInfoIcon"
+                      alt="Amount of Players"
+                    >
+                  {% when '2 to 6 players' %}
+                    <img
+                      src="{{ 'GF_PRODUCT_PAGE_ICON_2_Players.svg' | asset_url }}"
+                      class="ProductInfoIcon"
+                      alt="Amount of Players"
+                    >
+                  {% when '2 to 8 players' %}
+                    <img
+                      src="{{ 'GF_PRODUCT_PAGE_ICON_2_Players.svg' | asset_url }}"
+                      class="ProductInfoIcon"
+                      alt="Amount of Players"
+                    >
+                  {% when '3+ players' %}
+                    <img
+                      src="{{ 'GF_PRODUCT_PAGE_ICON_3_Players.svg' | asset_url }}"
+                      class="ProductInfoIcon"
+                      alt="Amount of Players"
+                    >
+                  {% when '3 to 14 players' %}
+                    <img
+                      src="{{ 'GF_PRODUCT_PAGE_ICON_3_Players.svg' | asset_url }}"
+                      class="ProductInfoIcon"
+                      alt="Amount of Players"
+                    >
+                  {% when '3 to 6 players' %}
+                    <img
+                      src="{{ 'GF_PRODUCT_PAGE_ICON_3_Players.svg' | asset_url }}"
+                      class="ProductInfoIcon"
+                      alt="Amount of Players"
+                    >
+                  {% when '4+ players' %}
+                    <img
+                      src="{{ 'GF_PRODUCT_PAGE_ICON_4_Players.svg' | asset_url }}"
+                      class="ProductInfoIcon"
+                      alt="Amount of Players"
+                    >
+                  {% when '5+ players' %}
+                    <img
+                      src="{{ 'GF_PRODUCT_PAGE_ICON_5_Players.svg' | asset_url }}"
+                      class="ProductInfoIcon"
+                      alt="Amount of Players"
+                    >
+                  {% when '6+ players' %}
+                    <img
+                      src="{{ 'GF_PRODUCT_PAGE_ICON_6_Players.svg' | asset_url }}"
+                      class="ProductInfoIcon"
+                      alt="Amount of Players"
+                    >
+                {% endcase %}
+              {% endif %}
+              <p class="ProductInfoIconTxt">{{ product.metafields.product.number_of_players }}</p>
+            </li>
+          {% endif %}
+
+          {% if product.metafields.product.play_time != blank %}
+            <li>
+              {% if product.metafields.custom.themed_product_data.value != blank %}
+                <img
+                  src="{{ product.metafields.custom.themed_product_data.value.play_time_icon.value | image_url }}"
+                  class="ProductInfoIcon"
+                  alt="Length of Gameplay"
+                >
+              {% else %}
+                <img
+                  src="{{ 'GF_PRODUCT_PAGE_ICON_Average_Playtime.svg' | asset_url }}"
+                  class="ProductInfoIcon"
+                  alt="Length of Gameplay"
+                >
+              {% endif %}
+              <p class="ProductInfoIconTxt">{{ product.metafields.product.play_time }}</p>
+            </li>
+          {% endif %}
+          {% if product.metafields.product.age_range != blank %}
+            <li>
+              {% if product.metafields.custom.themed_product_data.value != blank %}
+                <img
+                  src="{{ product.metafields.custom.themed_product_data.value.age_range_icon.value | image_url }}"
+                  class="ProductInfoIcon"
+                  alt="Age range Icon"
+                >
+              {% else %}
+                <img
+                  src="{{ 'GF_PRODUCT_PAGE_ICON_Age_14.svg' | asset_url }}"
+                  class="ProductInfoIcon"
+                  alt="Age range Icon"
+                >
+              {% endif %}
+
+              <p class="ProductInfoIconTxt">Age {{ product.metafields.product.age_range }}</p>
+            </li>
+          {% endif %}
+        </ul>
+
+        <div class="DescriptionContainer">
+          <h4>Overview of {{ product.title }}</h4>
+          <div class="descriptionContent">
+            {% if product.metafields.product.overview_of_product != nothing %}
+              {{ product.metafields.product.overview_of_product }}
+            {% else %}
+              {{ product.content | split: '</p>' | first }}
+            {% endif %}
+          </div>
+        </div>
+        {% if product.metafields.product.how_to_play != nothing
+          or product.metafields.product.whats_included != nothing
+        %}
+          <div class="detailsContainer">
+            <div class="detailsTitleContainer">
+              <h4>Details</h4>
+              <a id="detailsReadMore" class="ReadMoreLink">Read More</a>
+            </div>
+            <div class="detailsContent">
+              {{ product.metafields.product.whats_included }}
+              {{ product.metafields.product.how_to_play }}
+            </div>
+          </div>
+        {% endif %}
+        <div class="deliveryInfoContainer">
+          <div class="deliveryInfoTitleContainer">
+            <h4>Delivery Info</h4>
+            <div class="DeliveryInfoReadMoreBtn" style="">Read More</div>
+            <div class="DeliveryInfoHideBtn" style="display: none;">Hide</div>
+          </div>
+          <div class="deliveryInfoTxtContainer">
+            <p>
+              We offer both Royal Mail 48-hour post, and Royal Mail 24-hour post. We may use other couriers during
+              busier periods, but shipping costs will remain the same.
+            </p>
+            <ul>
+              <li>Royal Mail 48 (2-3 business days) - FREE</li>
+              <li>Royal Mail 24 (next business day) - £3.99</li>
+            </ul>
+            <p>Visit our <a href="{{ shop.shipping_policy.url }}">delivery</a> page for more information</p>
+          </div>
+        </div>
+
+        <ul class="ProductIconContainer">
+          {% if product.metafields.custom.themed_product_data.value.rules_document.value.url != blank %}
+            <li>
+              <a
+                href="{{ product.metafields.custom.themed_product_data.value.rules_document.value.url }}"
+                target="_blank"
+              >
+                {% if product.metafields.custom.themed_product_data.value.rules_icon.value != blank %}
+                  <img
+                    class="ProductIcon"
+                    src="{{ product.metafields.custom.themed_product_data.value.rules_icon.value | image_url }}"
+                    alt="Rule book icon"
+                  >
+                {% else %}
+                  <img
+                    class="ProductIcon"
+                    src="{{ 'GF_PRODUCT_PAGE_ICON_RULES.svg' | asset_url }}"
+                    alt="Rule book icon"
+                  >
+                {% endif %}
+                <p class="ProductIconTxt">Rules</p>
+              </a>
+            </li>
+          {% endif %}
+
+          <li>
+            <div id="ShareIconContainer">
+              {% if product.metafields.custom.themed_product_data.value.share_icon.value != blank %}
+                <img
+                  class="ProductIcon"
+                  src="{{ product.metafields.custom.themed_product_data.value.share_icon.value | image_url }}"
+                  alt="Share people talking icon"
+                >
+              {% else %}
+                <img
+                  class="ProductIcon"
+                  src="{{ 'GF_PRODUCT_PAGE_ICON_SHARE.svg' | asset_url }}"
+                  alt="Share people talking icon"
+                >
+              {% endif %}
+              <p class="ProductIconTxt">Share</p>
+            </div>
+          </li>
+
+          {% if videoEnabled == true %}
+            <li>
+              <div id="playVideo">
+                {% if product.metafields.custom.themed_product_data.value.how_to_play_icon.value != blank %}
+                  <img
+                    class="ProductIcon"
+                    src="{{ product.metafields.custom.themed_product_data.value.how_to_play_icon.value | image_url }}"
+                    alt="Play video icon"
+                  >
+                {% else %}
+                  <img
+                    class="ProductIcon"
+                    src="{{ 'GF_PRODUCT_PAGE_ICON_VIDEO.svg' | asset_url }}"
+                    alt="Play video icon"
+                  >
+                {% endif %}
+                <p class="ProductIconTxt">How To Play</p>
+              </div>
+            </li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </div>
+  {% render 'upsell-slider' %}
+</div>
+
+<button type="button" hidden="" id="ShareModalBtn" data-bs-toggle="modal" data-bs-target="#ShareModal"></button>
+<div
+  class="modal fade"
+  id="ShareModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Share our game!</h5>
+        <button type="button" class="btn-close  btn-close-orange" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <ul class="list-unstyled">
+          <li>
+            <a id="facebookShare" target="_blank"
+              ><img class="socialIcon2" src="{{ 'GF HUB_FOOTER ICON_FACEBOOK-01.svg' | asset_url }}">FaceBook</a
+            >
+          </li>
+          <li>
+            <a id="twitterShare" target="_blank"
+              ><img class="socialIcon2" src="{{ 'GF HUB_FOOTER ICON_TWITTER-01.svg' | asset_url }}">Twitter</a
+            >
+          </li>
+          <li><input type="text" id="copyURL"><button class="btn GingerfoxButton" id="CopyURLBtn">Copy URL</button></li>
+        </ul>
+      </div>
+      <div class="modal-footer"></div>
+    </div>
+  </div>
+</div>
+<script src="{{ 'wishList.js' | asset_url }}"></script>
+<script>
+  $('#detailsReadMore').click(function () {
+    $('.detailsContent').toggle();
+    if ($('.detailsContent').is(':visible')) {
+      $('#detailsReadMore').text('Hide');
+    } else {
+      $('#detailsReadMore').text('Read More');
+    }
+  });
+
+  $('#ShareIconContainer').click(function () {
+    if (navigator.share) {
+      navigator
+        .share({
+          title: 'Share our game!',
+          url: window.location.href,
+        })
+        .then(() => {
+          console.log('Thanks for sharing!');
+        })
+        .catch(console.error);
+    } else {
+      $('#ShareModalBtn').click();
+    }
+  });
+  $('#facebookShare').attr('href', 'https://www.facebook.com/sharer/sharer.php?u=' + window.location.href);
+  $('#twitterShare').attr(
+    'href',
+    'http://www.twitter.com/share?text=Check%20out%20this%20new%20game%20by%20Ginger%20Fox&url=' + window.location.href
+  );
+  $('#copyURL').val(window.location.href);
+
+  $('#CopyURLBtn').click(function () {
+    var copyText = document.getElementById('copyURL');
+
+    /* Select the text field */
+    copyText.select();
+    copyText.setSelectionRange(0, 99999); /* For mobile devices */
+
+    /* Copy the text inside the text field */
+    document.execCommand('copy');
+  });
+
+  feather.replace();
+  var deliveryDescriptionContent = $('.deliveryInfoTxtContainer').html();
+  var deliveryFirstPart = deliveryDescriptionContent.split('</p>')[0] + '</p>';
+  var deliverySecondPart = deliveryDescriptionContent.split('</p>')[1];
+
+  $('.deliveryInfoTxtContainer').html(deliveryFirstPart);
+  $('.DeliveryInfoReadMoreBtn').click(function () {
+    $('.DeliveryInfoReadMoreBtn').hide();
+    $('.DeliveryInfoHideBtn').show();
+    $('.deliveryInfoTxtContainer').html(deliveryFirstPart + deliverySecondPart);
+  });
+
+  $('.DeliveryInfoHideBtn').click(function () {
+    $('.DeliveryInfoHideBtn').hide();
+    $('.DeliveryInfoReadMoreBtn').show();
+    $('.deliveryInfoTxtContainer').html(deliveryFirstPart);
+  });
+  var tag = document.createElement('script');
+  tag.src = 'https://www.youtube.com/iframe_api';
+  var firstScriptTag = document.getElementsByTagName('script')[0];
+  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+  // global variable for the player
+  var player;
+
+  // this function gets called when API is ready to use
+  function onYouTubePlayerAPIReady() {
+    var externalID = $('#player').attr('data-externalID');
+    // create the global player from the specific iframe (#video)
+    player = new YT.Player('player', {
+      videoId: externalID,
+    });
+  }
+
+  const productSwiperThumbs = new Swiper('.productSwiperThumbs', {
+    // Optional parameters
+    freeMode: true,
+    slidesPerView: '{{ product.media.last.position }}',
+    autoHeight: true,
+  });
+  const productSwiper = new Swiper('.productSwiper', {
+    // Optional parameters
+    direction: 'horizontal',
+    loop: true,
+    thumbs: {
+      swiper: productSwiperThumbs,
+    },
+    on: {
+      transitionStart: function () {
+        player.pauseVideo();
+      },
+      transitionEnd: function () {
+        var activeIndex = this.activeIndex;
+        var activeSlide = document.getElementsByClassName('swiper-slide')[activeIndex];
+        var activeSlideVideo = activeSlide.getElementsByTagName('iframe')[0];
+        if (activeSlideVideo != null) {
+          player.playVideo();
+          $('.video-responsive').css('height', $('.productImage').height());
+        }
+      },
+    },
+    autoHeight: true,
+    // Navigation arrows
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+  });
+
+  $('#playVideo').on('click', function () {
+    var videoIndex = $('#HowToPlayBtn').data('index');
+    productSwiper.slideTo(videoIndex, 100, '');
+    document.body.scrollTop = 0; // For Safari
+    document.documentElement.scrollTop = 0;
+  });
+</script>

@@ -1,0 +1,101 @@
+{% if customer %}
+  <link type="text/css" href="{{ 'account-wishlist.css' | asset_url }}" rel="stylesheet">
+  {% assign wishListHandle = 'wishlist_' | append: customer.id %}
+  {% assign wishListData = customer.metafields.custom.wishlist.value %}
+  {{ 'productCollection.css' | asset_url | stylesheet_tag }}
+
+  <style></style>
+
+  <div class="container pt-4">
+    <a class="textLinkBlack w-100 d-md-inline text-center text-md-start" href="{{ routes.account_url }}"
+      >Back To Account</a
+    >
+    <div class="TitleHeading">
+      <h1>
+        <img src="{{ 'BlueLinesLeft.svg' | asset_url }}">{{ customer.first_name }}'s Wish List<img src="{{ 'BlueLinesRight.svg' | asset_url }}">
+      </h1>
+    </div>
+    {% assign wishListURLData = wishListData %}
+
+    <div class="product-list">
+      {% if wishListData.count == 0 %}
+        <p>No products found</p>
+      {% else %}
+        <p class="w-100">Copy this link below to share your wish list with friends and family</p>
+        <div class="d-flex w-100">
+          <input
+            type="text"
+            id="copyWishList"
+            value="{{ shop.url }}/pages/wish-list?id={{ customer.id | base64_url_safe_encode }}&name={{ customer.first_name | base64_url_safe_encode }}"
+          >
+          <button type="button" id="copyLinkBtn" class="copyBtn"><img src="{{ 'copyIcon.svg' | asset_url  }}"></button>
+        </div>
+        {% for productData in wishListData %}
+          <div class="product">
+            <a href="{{ productData.url }}">
+              <div class="ProductImageContainer">
+                <img class="img-thumbnail lazyload" data-src="{{ productData.featured_image.src | image_url }}">
+                {% if productData.compare_at_price > 0 %}
+                  <div class="discountLabel">
+                    {{
+                      productData.compare_at_price
+                      | minus: productData.price
+                      | times: 100
+                      | divided_by: productData.compare_at_price
+                    -}}
+                    % off
+                  </div>
+                {% endif %}
+              </div>
+              <h6 class="productName">{{ productData.title }}</h6>
+            </a>
+            <div class="PricingContainer">
+              <div class="price">
+                {% if productData.compare_at_price > 0 %}
+                  <p class="productPrice discount">{{ productData.price | money }}</p>
+                  <p class="productPrice discountCrossedOut">{{ productData.compare_at_price | money }}</p>
+                {% else %}
+                  <p class="productPrice">{{ productData.price | money }}</p>
+                {% endif %}
+              </div>
+            </div>
+
+            {% if productData.available == true %}
+              <form method="post" action="/cart/add">
+                <input type="hidden" name="id" value="{{ productData.variants.first.id }}">
+                <input type="number" id="quantity" name="quantity" value="1" min="1" class="d-none">
+                <input type="submit" value="Add To Basket" class="AddToCart">
+              </form>
+            {% else %}
+              <form>
+                <button disabled class="AddToCart disabled">Out of Stock</button>
+              </form>
+            {% endif %}
+            <button
+              type="submit"
+              class="removeWishListItem GingerFoxButtonRedWarning AddToCart "
+              data-wishListBool="true"
+              data-productid="{{ productData.id }}"
+              data-customerid="{{ customer.id }}"
+            >
+              Remove
+            </button>
+          </div>
+        {% endfor %}
+      {% endif %}
+    </div>
+  </div>
+  <script src="{{ 'wishList.js' | asset_url }}"></script>
+  <script>
+    $('#copyLinkBtn').on('click', function () {
+      var copylist = document.getElementById('copyWishList');
+      copylist.focus();
+      copylist.select();
+      navigator.clipboard.writeText(copylist.value);
+    });
+  </script>
+{% else %}
+  <script>
+    window.location.href = '/';
+  </script>
+{% endif %}

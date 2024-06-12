@@ -1,0 +1,72 @@
+$(document).ready(function () {
+  function descriptionJS(number) {
+    $("#DescriptionHideBtn" + number).hide();
+
+    var description = document.getElementById("descriptionContent" + number);
+    console.log(description.innerText)
+    var descriptionLength = description.getElementsByTagName("*").length;
+
+    if (descriptionLength <= 1) {
+      $("#DescriptionReadMoreBtn" + number).hide();
+      $("#DescriptionHideBtn" + number).hide();
+    } else {
+      $("#DescriptionReadMoreBtn" + number).show();
+      $("#DescriptionHideBtn" + number).hide();
+    }
+
+    $(".descriptionContent" + number)
+      .html()
+      .split("</p>")[1];
+
+    var descriptionContent = $(".descriptionContent" + number).html();
+
+    var parser = new DOMParser();
+    var htmlDoc = parser.parseFromString(descriptionContent, "text/html");
+
+    var firstPart = htmlDoc.getElementsByTagName("p").item(0).outerHTML;
+    var secondPart =
+      htmlDoc.getElementsByTagName("p").item(1).outerHTML +
+      htmlDoc.getElementsByTagName("ul").item(0).outerHTML;
+    $(".descriptionContent" + number).html(firstPart);
+    if (secondPart == null) {
+      $("#DescriptionReadMoreBtn" + number).hide();
+      $("#DescriptionHideBtn" + number).hide();
+    }
+
+    $("#DescriptionReadMoreBtn" + number).click(function () {
+      $(".descriptionContent" + number).html(firstPart + secondPart);
+      $("#DescriptionReadMoreBtn" + number).hide();
+      $("#DescriptionHideBtn" + number).show();
+    });
+
+    $("#DescriptionHideBtn" + number).click(function () {
+      $(".descriptionContent" + number).html(firstPart);
+      $("#DescriptionReadMoreBtn" + number).show();
+      $("#DescriptionHideBtn" + number).hide();
+    });
+  }
+
+  descriptionJS("1");
+  descriptionJS("2");
+  descriptionJS("3");
+  //   descriptionJS("4");
+
+  function deliveryInfoJS(number) {
+    $("#DeliveryInfoReadMoreBtn" + number).click(function () {
+      $("#DeliveryInfoReadMoreBtn" + number).hide();
+      $("#DeliveryInfoHideBtn" + number).show();
+      $("#deliveryInfoTxtContainer" + number).show();
+    });
+
+    $("#DeliveryInfoHideBtn" + number).click(function () {
+      $("#DeliveryInfoHideBtn" + number).hide();
+      $("#DeliveryInfoReadMoreBtn" + number).show();
+      $("#deliveryInfoTxtContainer" + number).hide();
+    });
+  }
+
+  deliveryInfoJS("1");
+  deliveryInfoJS("2");
+  deliveryInfoJS("3");
+  //   deliveryInfoJS("4");
+});

@@ -1,0 +1,100 @@
+<script>
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  return (id = urlParams.get('id'));
+</script>
+
+<link type="text/css" href="{{ 'wish-list.css' | asset_url }}" rel="stylesheet">
+{{ 'productCollection.css' | asset_url | stylesheet_tag }}
+
+{%- assign page_url = content_for_header
+  | split: '"pageurl":"'
+  | last
+  | split: '"'
+  | first
+  | split: request.host
+  | last
+  | replace: '\/', '/'
+  | replace: '%20', ' '
+  | replace: '\u0026', '&'
+  | url_decode
+-%}
+{% assign param = blank %}
+
+{%- for i in (1..1) -%}
+  {%- unless page_url contains '?' -%}{% break %}{%- endunless -%}
+  {%- assign query_string = page_url | split: '?' | last -%}
+  {%- assign qry_parts = query_string | split: '&' -%}
+
+  {%- for part in qry_parts -%}
+    {%- assign key_and_value = part | split: '=' -%}
+    {%- if key_and_value.size > 1 -%}
+      {% if key_and_value[0] == 'id' %}
+        {% assign customerID = key_and_value[1] | base64_url_safe_decode %}
+      {% endif %}
+      {% if key_and_value[0] == 'name' %}
+        {% assign customerName = key_and_value[1] | base64_url_safe_decode %}
+      {% endif %}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endfor -%}
+
+{% assign wishListHandle = 'wishlist_' | append: customerID %}
+{% assign wishListData = shop.metaobjects.customer_wishlist[wishListHandle].product_list.value %}
+
+<div class="container pt-4">
+  <div class="TitleHeading">
+    <h1>
+      <img src="{{ 'BlueLinesLeft.svg' | asset_url }}">{{ customerName }}'s Wish List<img src="{{ 'BlueLinesRight.svg' | asset_url }}">
+    </h1>
+  </div>
+
+  <div class="product-list">
+    {% if wishListData.count == 0 %}
+      <p>No products found, it can take up to 5 minutes to appear on the list.</p>
+    {% else %}
+      {% for productData in wishListData %}
+        <div class="product">
+          <a href="{{ productData.url }}">
+            <div class="ProductImageContainer">
+              <img class="img-thumbnail lazyload" data-src="{{ productData.featured_image.src | image_url }}">
+              {% if productData.compare_at_price > 0 %}
+                <div class="discountLabel">
+                  {{
+                    productData.compare_at_price
+                    | minus: productData.price
+                    | times: 100
+                    | divided_by: productData.compare_at_price
+                  -}}
+                  % off
+                </div>
+              {% endif %}
+            </div>
+            <h6 class="productName">{{ productData.title }}</h6>
+          </a>
+          <div class="PricingContainer">
+            <div class="price">
+              {% if productData.compare_at_price > 0 %}
+                <p class="productPrice discount">{{ productData.price | money }}</p>
+                <p class="productPrice discountCrossedOut">{{ productData.compare_at_price | money }}</p>
+              {% else %}
+                <p class="productPrice">{{ productData.price | money }}</p>
+              {% endif %}
+            </div>
+          </div>
+
+          {% if productData.available == true %}
+            <form method="post" action="/cart/add">
+              <input type="hidden" name="id" value="{{ productData.variants.first.id }}">
+              <input type="number" id="quantity" name="quantity" value="1" min="1" class="d-none">
+              <input type="submit" value="Add To Basket" class="AddToCart">
+            </form>
+          {% else %}
+            <button disabled class="AddToCart disabled">Out of Stock</button>
+          {% endif %}
+        </div>
+      {% endfor %}
+    {% endif %}
+  </div>
+</div>
+<script src="{{ 'wishList.js' | asset_url }}"></script>

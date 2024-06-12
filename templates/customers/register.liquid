@@ -1,0 +1,288 @@
+{{ 'register.css' | asset_url | stylesheet_tag }}
+<div class="registerContainer">
+  <div class="registerHeader">
+    <div class="registerTitleContainer">
+      <img src="{{ 'BlueLinesLeft.svg' | asset_url }}">
+      <h1>Register</h1>
+      <img src="{{ 'BlueLinesRight.svg' | asset_url }}">
+    </div>
+    <img class="nearlyThereDesktop" src="{{ 'NEARLYTHERE_ARROW_DESKTOP.png' | asset_url }}">
+    <img class="nearlyThereMobile" src="{{ 'NEARLYTHERE_ARROW_MOBILE.png' | asset_url }}">
+  </div>
+  <div class="registerText">
+    <h4>You are moments away from unlimited access to exclusive perks, offers and more!</h4>
+  </div>
+  {%- capture contentForQuerystring -%}{{ content_for_header }}{%- endcapture -%}
+  {%- assign pageUrl = contentForQuerystring
+    | split: '"pageurl":"'
+    | last
+    | split: '"'
+    | first
+    | split: '.myshopify.com'
+    | last
+    | replace: '\/', '/'
+    | replace: '%20', ' '
+    | replace: '\u0026', '&'
+  -%}
+  {% capture finalurl %}{{ pageUrl }}{% endcapture %}
+  {% if finalurl contains 'return_to=checkout' %}
+    {% assign redirectURL = pages['register-redirect'].url | append: '?return_to=checkout' %}
+  {% else %}
+    {% assign redirectURL = routes.account_url %}
+  {% endif %}
+
+  {% form 'create_customer', class: 'needs-validation', return_to: redirectURL %}
+    {% for error in form.errors %}
+      {% if error == 'form' %}
+        <ul>
+          <li>
+            {{ form.errors.messages[error] }}
+          </li>
+        </ul>
+      {% endif %}
+    {% endfor %}
+
+    <div class="nameContainer">
+      <div class="FirstNameContainer">
+        <div class="first-name">
+          <label for="first-name">First Name: *</label>
+          <input class="form-control" type="text" name="customer[first_name]" id="firstName">
+          <span id="firstNameEmpty" class="invalid-feedback">First Name is required.</span>
+          <span id="firstNameValidate" class="invalid-feedback"
+            >First Name should be less than 50 characters and only contain letters and hyphens.</span
+          >
+        </div>
+      </div>
+      <div class="LastNameContainer">
+        <div class="last-name">
+          <label for="last-name">Last Name: *</label>
+          <input class="form-control" type="text" name="customer[last_name]" id="lastName">
+          <span id="lastNameEmpty" class="invalid-feedback">Last Name is required.</span>
+          <span id="lastNameValidate" class="invalid-feedback"
+            >Last Name should be less than 50 characters and only contain letters and hyphens.</span
+          >
+        </div>
+      </div>
+    </div>
+
+    <div class="email">
+      <label for="email">Email: *</label>
+      <input class="form-control" type="email" name="customer[email]" id="email">
+      <span id="emailEmpty" class="invalid-feedback">Email is required.</span>
+      <span id="emailValidate" class="invalid-feedback">Please use a valid email address.</span>
+    </div>
+
+    <div class="PasswordsContainer">
+      <div class="PasswordContainer">
+        <div class="password">
+          <label for="password">Password: *</label>
+          <div class="passwordInputContainer">
+            <input class="form-control" type="password" name="customer[password]" id="password">
+            <img class="visibleIcon" src="{{ 'eye.svg' | asset_url }}">
+          </div>
+          <span id="passEmpty" class="invalid-feedback">Password is required.</span>
+          <span id="passValidate" class="invalid-feedback"
+            >Your password must include at least one lowercase letter, one uppercase letter, one number (0-9) and must
+            be a minimum of 5 characters.</span
+          >
+        </div>
+      </div>
+
+      <div class="ConfirmPasswordContainer">
+        <label for="confirmPassword">Confirm Password: *</label>
+        <input
+          class="form-control"
+          type="password"
+          value=""
+          name="customer[password_confirmation]"
+          id="password_confirm"
+        >
+        <span id="passConfirmEmpty" class="invalid-feedback">Confirm Password is required.</span>
+        <span id="passMatch" class="invalid-feedback">Passwords do not match.</span>
+      </div>
+    </div>
+    {% comment %}
+      <div class="birthdayContainer">
+        <label for="birthday">Birthday: *</label>
+        <input type="text" id="birthday" tabindex="-1" autocomplete="false" name="customer[note][Birthday]">
+      </div>
+    {% endcomment %}
+
+    <div class="accepts-terms">
+      <input id="termsCheck" type="checkbox" name="customer[terms_conditions]" required>
+      <label class="checkLabels" for="termsCheck">I agree to Terms & Conditions. *</label>
+    </div>
+    <span id="termsCheckError" class="invalid-feedback">The Terms & Conditions must be checked to continue.</span>
+    <div class="accepts-marketing">
+      <input type="hidden" name="customer[accepts_marketing]" value="false">
+
+      <input type="checkbox" id="marketCheck" name="customer[accepts_marketing]">
+      <label class="checkLabels" for="marketCheck"
+        >I agree to being contacted via email by Ginger Fox for exclusive offers, discounts & more.</label
+      >
+    </div>
+    <div class="cf-turnstile" data-sitekey="0x4AAAAAAADtH6bHTmySzXv4"></div>
+    <div class="required">
+      <p>* Required</p>
+    </div>
+    <div class="submit">
+      <input type="submit" id="submitCustomerForm" class="GingerFoxButtonBlue registerBtn" value="Register">
+      <img class="loading" src="{{ 'Spinner.gif' | asset_url }}">
+    </div>
+
+    <a class="registerLinks textLinkBlack d-flex justify-content-center" href="{{ routes.account_login_url }}"
+      >Already have an account?</a
+    >
+  {% endform %}
+</div>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+<script>
+  var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+  var cloudflareDisabled = false;
+  if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+    $('.cf-turnstile').remove();
+    cloudflareDisabled = true;
+  }
+
+  $('.visibleIcon').on('click', function () {
+    if ($('#password').attr('type') == 'text') {
+      $('#password').attr('type', 'password');
+    } else {
+      $('#password').attr('type', 'text');
+    }
+  });
+
+  function validate(password) {
+    var minMaxLength = /^[\s\S]{5,}$/,
+      upper = /[A-Z]/,
+      lower = /[a-z]/,
+      number = /[0-9]/;
+
+    if (minMaxLength.test(password) && upper.test(password) && lower.test(password) && number.test(password)) {
+      return true;
+    }
+
+    return false;
+  }
+
+  function validateName(name) {
+    console.log(name.length);
+    const nameRegex = new RegExp('[A-Za-z\p{L}-]');
+    if (nameRegex.test(name) == true && name.length <= 50) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  $('#submitCustomerForm').on('click', function (event) {
+    $('.loading').show();
+    $('.invalid-feedback').hide();
+    setTimeout(function () {
+      $('.loading').hide();
+    }, 500);
+    event.preventDefault();
+
+    var isValid = true;
+    var confirmPassword = $('#password_confirm').val();
+    var password = $('#password').val();
+    var firstName = $('#firstName').val();
+    var lastName = $('#lastName').val();
+    var email = $('#email').val();
+    var terms = $('#termsCheck').prop('checked');
+
+    if (terms == false) {
+      $('#termsCheckError').show();
+      isValid = false;
+    }
+
+    if (email == '') {
+      $('#emailEmpty').show();
+      isValid = false;
+    }
+
+    var emailRegex = new RegExp("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$");
+    if (emailRegex.test(email) == false && email != '') {
+      $('#emailValidate').show();
+      isValid = false;
+    }
+    if (confirmPassword != password) {
+      $('#passMatch').show();
+      isValid = false;
+    }
+
+    if (confirmPassword == '') {
+      $('#passConfirmEmpty').show();
+      isValid = false;
+    }
+
+    if (password == '') {
+      $('#passEmpty').show();
+      isValid = false;
+    }
+
+    if (validate(password) == false && password != '') {
+      $('#passValidate').show();
+      isValid = false;
+    }
+
+    if (firstName == '') {
+      $('#firstNameEmpty').show();
+      isValid = false;
+    }
+
+    if (firstName != '' && validateName(firstName) == false) {
+      $('#firstNameValidate').show();
+      isValid = false;
+    }
+
+    if (lastName == '') {
+      $('#lastNameEmpty').show();
+      isValid = false;
+    }
+
+    if (lastName != '' && validateName(lastName) == false) {
+      $('#lastNameValidate').show();
+      isValid = false;
+    }
+
+    var cloudflareResponse = $('input[name="cf-turnstile-response"]').val();
+
+    var cloudflareResult = false;
+    const data = {
+      response: cloudflareResponse,
+    };
+    if (cloudflareDisabled == false) {
+      setTimeout(function () {
+        turnstile.reset();
+      }, 300000);
+
+      fetch('https://shopify.gingerfox.co.uk/api/cloudflare/turnstile/response', {
+        method: 'POST', // or 'PUT'
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          var json = JSON.parse(data);
+
+          cloudflareResult = json.success;
+          console.log(cloudflareResult);
+
+          if (isValid == true && cloudflareResult == true) {
+            $('#create_customer').submit();
+          } else {
+            turnstile.reset();
+          }
+        });
+    } else {
+      if (isValid == true) {
+        $('#create_customer').submit();
+      }
+    }
+
+    // Add your form validation code here
+  });
+</script>

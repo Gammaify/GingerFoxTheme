@@ -1,0 +1,130 @@
+<link type="text/css" href="{{ 'pick-of-the-week.css' | asset_url }}" rel="stylesheet">
+
+{% for block in section.blocks %}
+  {% case block.type %}
+    {% when 'product' %}
+      {% assign currentDate = 'now' | date: '%s' %}
+      {% assign startDate = block.settings.startDate | date: '%s' %}
+      {% assign endDate = block.settings.endDate | date: '%s' %}
+      {% if currentDate >= startDate and currentDate <= endDate %}
+        <div class="PickOfTheWeekContainer">
+          <img class="backgroundLeft" src="{{ 'PICKOFTHEWEEK_DESKTOP_CONFETTI_1.svg' | asset_url }}">
+
+          <div class="PickOfTheWeekText">
+            <h5>PICK <span>of the</span> WEEK</h5>
+
+            <p class="PWProductName">{{ block.settings.PWProduct.title }}</p>
+            <p class="PWQuote">{{ block.settings.QuoteText }}</p>
+            {% comment %} <a class="PWAddToBag btn GingerfoxButton formRoundedTextbox" href="">Add To Bag</a> {% endcomment %}
+            {% if block.settings.PWProduct.available == true %}
+              <form method="post" action="/cart/add">
+                <input type="hidden" name="id" value="{{ block.settings.PWProduct.variants.first.id }}">
+                <input type="number" id="quantity" name="quantity" value="1" min="1" class="d-none">
+                <input type="submit" value="Add To Basket" class="PWAddToBag">
+              </form>
+            {% else %}
+              <button class="PWAddToBag disabled">Out of Stock</button>
+            {% endif %}
+          </div>
+          <div class="PickOfTheWeekImage">
+            <a href="{{ block.settings.PWProduct.url }}">
+              <img
+                data-src="{{ block.settings.PWImage | image_url }}"
+                class="lazyload"
+                width="{{ block.settings.PWImage.width }}"
+                height="{{ block.settings.PWImage.height }}"
+              >
+            </a>
+          </div>
+
+          <img class="backgroundRight" src="{{ 'PICKOFTHEWEEK_DESKTOP_CONFETTI_2.svg' | asset_url }}">
+        </div>
+
+        <div class="MobilePickOfTheWeekContainer">
+          <div class="PWMobileImageContainer">
+            <a href="{{ block.settings.PWProduct.url  }}">
+              <img
+                data-src="{{ block.settings.PWImage | image_url }}"
+                class="lazyload"
+                width="{{ block.settings.PWImage.width }}"
+                height="{{ block.settings.PWImage.height }}"
+              >
+            </a>
+          </div>
+
+          <div class="MobilePickOfTheWeekText">
+            <div class="mobilePWBackground">
+              <img class="mobilePWImage" src="{{ 'PICKOFTHEWEEK_MOBILE_CONFETTI.svg' | asset_url }}">
+            </div>
+
+            <div class="PWMobileTitle">
+              <p class="bigTitle">Pick</p>
+              <p class="smallTitle">of the</p>
+              <p class="bigTitle">Week</p>
+            </div>
+
+            <p class="PWMobileProductTitle">{{ block.settings.PWProduct.title }}</p>
+            {% if block.settings.PWProduct.available == true %}
+              <form method="post" action="/cart/add">
+                <input type="hidden" name="id" value="{{ block.settings.PWProduct.variants.first.id }}">
+                <input type="number" id="quantity" name="quantity" value="1" min="1" class="d-none">
+                <input type="submit" value="Add To Basket" class="PWAddToBag">
+              </form>
+            {% else %}
+              <button class="PWAddToBag disabled">Out of Stock</button>
+            {% endif %}
+          </div>
+        </div>
+      {% endif %}
+  {% endcase %}
+{% endfor %}
+
+{% schema %}
+{
+  "name": "Pick of the Week",
+  "blocks": [
+    {
+      "name": "Product",
+      "type": "product",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Very Important"
+        },
+        {
+          "type": "paragraph",
+          "content": "If this is the last product in the list of the Pick of the Week. Leave the default date in the End Date field."
+        },
+        {
+          "type": "product",
+          "id": "PWProduct",
+          "label": "Select product"
+        },
+        {
+          "type": "image_picker",
+          "id": "PWImage",
+          "label": "Pick of the Week Image"
+        },
+        {
+          "type": "textarea",
+          "id": "QuoteText",
+          "label": "Quote Text"
+        },
+        {
+          "type": "text",
+          "id": "startDate",
+          "label": "Start Date",
+          "info": "e.g. dd-mm-yyyy"
+        },
+        {
+          "type": "text",
+          "id": "endDate",
+          "label": "End Date",
+          "default": "31-12-2050",
+          "info": "e.g. dd-mm-yyyy"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,211 @@
+.visibleIcon {
+    position: absolute;
+    top: 25%;
+    right: 5px;
+    font-size: 20px;
+    color: rgba(0, 0, 0, 0.2);
+    user-select: none;
+}
+
+.birthdayContainer {
+    display: none;
+}
+
+.visibleIcon:hover {
+    cursor: pointer;
+    color: #ff8200;
+    user-select: none;
+}
+
+.passwordInputContainer {
+    position: relative;
+}
+
+#create_customer ul li {
+    color: red;
+}
+
+#create_customer ul {
+    text-align: center;
+}
+
+.registerContainer {
+    width: 40%;
+    margin: auto;
+}
+
+.registerHeader {
+    width: 100%;
+    padding-top: 20px;
+    position: relative;
+}
+
+.registerTitleContainer h1 {
+    font-size: clamp(20px, 4vw, 80px);
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.registerTitleContainer {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-bottom: 20px;
+}
+
+.registerTitleContainer img {
+    width: clamp(20px, 3vw, 30px);
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
+.nearlyThereDesktop {
+    display: block;
+    position: absolute;
+    width: 30%;
+    right: -5%;
+    top: 15%;
+}
+
+.nearlyThereMobile {
+    display: none;
+}
+
+.registerText {
+    text-align: center;
+}
+
+.registerText h4 {
+    font-size: 20px;
+}
+
+.registerContainer form label {
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+    color: black;
+}
+
+.LastNameContainer,
+.ConfirmPasswordContainer {
+    width: 50%;
+    padding-left: 2%;
+}
+
+.FirstNameContainer,
+.PasswordContainer {
+    width: 50%;
+    padding-right: 2%;
+}
+
+.PasswordsContainer {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.nameContainer {
+    display: flex;
+}
+
+.errors ul li {
+    color: red;
+}
+
+.loading {
+    display: none;
+    width: 50px;
+    height: 50px;
+    margin: auto;
+}
+
+.required p {
+    margin-bottom: 0px;
+}
+
+.checkLabels {
+    width: unset !important;
+    margin-top: unset !important;
+    text-align: left !important;
+}
+
+.accepts-terms,
+.accepts-marketing {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.registerContainer form input[type=checkbox] {
+    margin-right: 2%;
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+}
+
+.required {
+    margin-top: 20px;
+    color: black;
+    text-align: end;
+}
+
+.registerBtn {
+    display: block;
+    margin: 20px auto;
+}
+
+.registerLinks {
+    margin-bottom: 20px;
+}
+
+@media screen and (max-width: 992px) {
+
+    .PasswordsContainer,
+    .nameContainer {
+        display: block;
+    }
+
+    .LastNameContainer,
+    .ConfirmPasswordContainer {
+        width: 100%;
+        padding-left: unset;
+    }
+
+    .FirstNameContainer,
+    .PasswordContainer {
+        width: 100%;
+        padding-right: unset;
+    }
+
+    .registerContainer h1 {
+        font-size: 54px;
+    }
+
+    .nearlyThereDesktop {
+        display: none;
+    }
+
+    .registerContainer {
+        width: 80%;
+    }
+
+    .nearlyThereMobile {
+        display: block;
+        position: absolute;
+        width: 40%;
+        right: 0;
+    }
+
+    .registerText {
+        margin-top: 25%
+    }
+
+    .registerTitleContainer {
+        padding-bottom: unset;
+    }
+
+    .registerBtn {
+        width: 100% !important;
+    }
+}

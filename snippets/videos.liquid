@@ -1,0 +1,51 @@
+{{ 'videos.css' | asset_url | stylesheet_tag }}
+<div class="container">
+  <div class="videoTitleContainer">
+    <img src="{{ 'BlueLinesLeft.svg' | asset_url }}">
+    <h1>Videos</h1>
+    <img src="{{ 'BlueLinesRight.svg' | asset_url }}">
+  </div>
+
+  <div class="VideoPlayerContainer">
+    <h2 id="videoTitle"></h2>
+    <div class="auto-resizable-iframe">
+      <div>
+        <iframe id="videoSrc"></iframe>
+      </div>
+    </div>
+    <p id="videoData"></p>
+    <p id="videoDescription"></p>
+  </div>
+</div>
+
+<script>
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  var id = urlParams.get('id');
+
+  const data = {
+    id: id,
+  };
+  fetch('https://shopify.gingerfox.co.uk/api/youtube/video', {
+    method: 'POST', // or 'PUT'
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      var json = JSON.parse(data);
+      $('#videoTitle').text(json['Title']);
+      $('#videoSrc').attr('src', 'https://youtube.com/embed/' + id);
+      var currentDate = new Date();
+      var uploadDate = new Date(json['UploadDate']);
+      var difference =
+        currentDate.getFullYear() * 12 +
+        currentDate.getMonth() -
+        (uploadDate.getFullYear() * 12 + uploadDate.getMonth());
+
+      $('#videoData').text(json['ViewCount'] + ' views | ' + difference + ' months ago');
+      $('#videoDescription').text(json['Description']);
+    });
+</script>

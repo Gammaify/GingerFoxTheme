@@ -1,0 +1,296 @@
+<style>
+  .desktopAccountIcon {
+    width: 40px;
+    height: 40px;
+    background: url('{{ 'PROFILE_ICON_STATE_1.svg' | asset_url }}');
+    margin-right: 20px;
+  }
+  .desktopAccountIcon:hover {
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    background: url('{{ 'PROFILE_ICON_STATE_2.svg' | asset_url }}');
+    background-repeat: no-repeat;
+  }
+
+  .desktopCartIcon {
+    width: 40px;
+    height: 40px;
+    background: url('{{ 'CART_ICON_STATE_1.svg' | asset_url }}');
+  }
+
+  .desktopCartIcon:hover {
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    background: url('{{ 'CART_ICON_STATE_2.svg' | asset_url }}');
+    background-repeat: no-repeat;
+  }
+</style>
+<header>
+  <div class="topHeaderBackground">
+    <div class="topHeader">
+      <!-- Logo -->
+      <div class="logoContainer">
+        <a class="logo" href="/" title="Homepage">
+          <div id="logo">
+            <img src="{{ 'GF_TITLE_AND_ROUND_LOGO_WHITE.svg' | asset_url }}" width="300" height="55">
+          </div>
+        </a>
+      </div>
+      <div id="topSearchContainer">
+        <div class="searchBar">
+          <form action="{{ routes.search_url }}">
+            <input
+              type="text"
+              placeholder="Search"
+              class="desktopSearchBar"
+              name="q"
+              autocomplete="off"
+              value="{{ search.terms | escape }}"
+            >
+            <input type="hidden" name="type" value="product">
+            <input type="hidden" name="options[unavailable_products]" value="show">
+            <input type="hidden" name="options[prefix]" value="last">
+
+            <input id="searchSubmit" type="submit" value="Search">
+            <img class="desktopSearchBarIcon" src="{{ 'Mobile_Search_Icon.svg' | asset_url | image_url: '20px' }}">
+          </form>
+          <div id="desktopSearchResults" class="AjaxSearchResultContainer">
+            <ul class="searchResults"></ul>
+          </div>
+        </div>
+      </div>
+
+      <div id="topIconContainer">
+        {% if customer %}
+          <a href="{{ routes.account_url}}">
+            <div class="desktopAccountIcon"></div>
+            {% comment %} <img class="desktopAccountIcon" src="{{ 'PROFILE_ICON_STATE_1.svg' | asset_url }}"> {% endcomment %}
+          </a>
+        {% else %}
+          <a href="{{ routes.account_login_url }}">
+            <div class="desktopAccountIcon"></div>
+          </a>
+        {% endif %}
+
+        <a class="CartContainer" href="{{ routes.cart_url}}">
+          <div class="desktopCartIcon"></div>
+          {% comment %} <img class="desktopCartIcon" src="{{ 'CART_ICON_STATE_1.svg' | asset_url }}"> {% endcomment %}
+          <div class="desktopCartCount">{{ cart.item_count }}</div>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="desktopNavigationContainer">
+    <ul>
+      {% for link in linklists['main-menu'].links -%}
+        <li class="desktopItem">
+          {{ link.title | link_to: link.url }}
+          {% if link.links.size > 0 %}
+            <div class="desktopSubCategoryContainer">
+              <ul class="desktopSubCategoryList">
+                <div class="SubDownArrow"></div>
+                {% for child_link in link.links %}
+                  {% for collection in collections %}
+                    {% if collection.url == child_link.url %}
+                      {% if collection.all_products_count != 0 %}
+                        <li>
+                          <a href="{{ child_link.url  }}">{{ child_link.title }}</a>
+                        </li>
+                      {% endif %}
+                    {% endif %}
+                  {% endfor %}
+                {% endfor %}
+              </ul>
+            </div>
+          {% endif %}
+        </li>
+      {% endfor %}
+
+      <li class="desktopItem"><a id="TricksOfTheTradeBtn" href="/#TricksOfTheTrade">Wholesale</a></li>
+      {% comment %}
+        {% if customer %}
+          <li class="desktopItem"><a href="/pages/extras">Bonus Content</a></li>
+        {% endif %}
+      {% endcomment %}
+    </ul>
+  </div>
+  <div class="bottomHeader">
+    <div class="mobileNavigationContainer">
+      <div id="BrowseIcon" class="menuIconContainer menuBorderRight menuBorderBottom">
+        <div class="menuIcon">
+          <img
+            class="BurgerIcon"
+            width="35"
+            height="35"
+            src="{{ 'Mobile_Browse_Icon.svg' | asset_url | image_url: '40px' }}"
+            alt="Burger menu icon"
+          >
+          <img
+            class="CloseIcon"
+            width="35"
+            height="35"
+            src="{{ 'Mobile_Close_Icon.svg' | asset_url | image_url: '40px'}}"
+            alt="Close menu icon"
+          >
+          <span>Browse</span>
+        </div>
+      </div>
+      <div id="SearchIcon" class="menuIconContainer menuBorderRight menuBorderBottom">
+        <div class="menuIcon">
+          <img
+            class="searchMagIcon"
+            width="35"
+            height="35"
+            src="{{ 'Mobile_Search_Icon.svg' | asset_url | image_url: '40px' }}"
+            alt="Magnify glass search icon"
+          >
+          <img
+            class="searchCloseIcon"
+            width="35"
+            height="35"
+            src="{{ 'Mobile_Close_Icon.svg' | asset_url | image_url: '40px'}}"
+            alt="Close menu icon"
+          >
+          <span>Search</span>
+        </div>
+      </div>
+      <div id="AccountIcon" class="menuIconContainer menuBorderRight menuBorderBottom">
+        {% if customer %}
+          <a class="menuIconLink" href="{{ routes.account_url }}">
+            <div class="menuIcon">
+              <img
+                width="35"
+                height="35"
+                src="{{ 'Mobile_Account_Icon.svg' | asset_url | image_url: '40px'}}"
+                alt="Account icon person smiling"
+              >
+              <span>Account</span>
+            </div>
+          </a>
+        {% else %}
+          <a class="menuIconLink" href="{{ routes.account_login_url }}">
+            <div class="menuIcon">
+              <img
+                width="35"
+                height="35"
+                src="{{ 'Mobile_Account_Icon.svg' | asset_url | image_url: '40px'}}"
+                alt="Account icon person smiling"
+              >
+              <span>Account</span>
+            </div>
+          </a>
+        {% endif %}
+      </div>
+      <div id="CartIcon" class="menuIconContainer menuBorderBottom">
+        <a class="menuIconLink" href="{{ routes.cart_url }}">
+          <div class="menuIcon">
+            <div class="CartIcon">
+              <div class="cartCount">{{ cart.item_count }}</div>
+              <img
+                width="35"
+                height="35"
+                src="{{ 'Mobile_Cart_Icon.svg' | asset_url| image_url: '40px'}}"
+                alt="Shopping cart icon"
+              >
+            </div>
+            <span>Cart</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="mobileSearchBarContainer">
+    {% comment %} <input type="text" id="mobileSearchBar" placeholder="Search"> {% endcomment %}
+    <form action="{{ routes.search_url }}">
+      <input
+        type="text"
+        placeholder="Search"
+        id="mobileSearchBar"
+        autocomplete="off"
+        name="q"
+        value="{{ search.terms | escape }}"
+      >
+      <input type="hidden" name="type" value="product">
+      <input type="hidden" name="options[unavailable_products]" value="show">
+      <input type="hidden" name="options[prefix]" value="last">
+
+      <input id="mobileSearchSubmit" type="submit" value="Search">
+      <img id="searchBarIcon" src="{{ 'Mobile_Search_Icon.svg' | asset_url | image_url: '20px' }}">
+    </form>
+    <div id="mobileSearchResults" class="AjaxSearchResultContainer">
+      <ul class="searchResults"></ul>
+    </div>
+  </div>
+  <div class="mobileNavMenuContainer">
+    <h4>All Categories</h4>
+    <ul class="mobileNavMenu" id="accordion">
+      {% for link in linklists['main-menu'].links %}
+        <li>
+          <div class="mobileNavItem">
+            <a href="{{ link.url }}">{{ link.title }}</a>
+            {% if link.links.size > 0 %}
+              <span
+                class="expandMenu"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapse_{{ link.title }}"
+                aria-expanded="false"
+                >+</span
+              >
+            {% endif %}
+          </div>
+          {% if link.links.size > 0 %}
+            <ul class="mobileMenuSubList collapsing" data-bs-parent="#accordion" id="collapse_{{ link.title }}">
+              {% for child_link in link.links %}
+                {% for collection in collections %}
+                  {% if collection.url == child_link.url %}
+                    {% if collection.all_products_count != 0 %}
+                      <li>
+                        <a href="{{ child_link.url  }}">{{ child_link.title }}</a>
+                      </li>
+                    {% endif %}
+                  {% endif %}
+                {% endfor %}
+              {% endfor %}
+            </ul>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+    <h4>Wholesale</h4>
+    <ul class="mobileNavMenu" id="accordion">
+      <li>
+        <div class="mobileNavItem bonusContentLinkContainer">
+          <a class="bonusContentLink" href="https://uktrade.gingerfox.co.uk/" target="_blank">UK Wholesale</a>
+        </div>
+      </li>
+      <li>
+        <div class="mobileNavItem bonusContentLinkContainer">
+          <a class="bonusContentLink" href="https://usa.gingerfox.co.uk/" target="_blank">USA Wholesale</a>
+        </div>
+      </li>
+    </ul>
+    {% comment %}
+      <h4>Ginger Fox Exclusives</h4>
+      <ul class="mobileNavMenu" id="accordion">
+        <li>
+          <div class="mobileNavItem bonusContentLinkContainer">
+            <a class="bonusContentLink" href="/Extras">Bonus Content</a>
+          </div>
+        </li>
+        <li>
+          <div class="mobileNavItem bonusContentLinkContainer">
+            <a class="bonusContentLink" href="/Extras?s=GameRules">Game Rules</a>
+          </div>
+        </li>
+        <li>
+          <div class="mobileNavItem bonusContentLinkContainer">
+            <a class="bonusContentLink" href="/Extras?s=TryGame">Try A Game</a>
+          </div>
+        </li>
+      </ul>
+    {% endcomment %}
+  </div>
+</header>
+<div class="FadedOut" style="display: none;"></div>

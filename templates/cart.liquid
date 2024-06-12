@@ -1,0 +1,88 @@
+{{ 'cart.css' | asset_url | stylesheet_tag}}
+
+
+<div class="headerContainer">
+    <img class="topLeftBakcground" src="{{ 'GF_HUB_FOOTER_MOBILE_SHAPES_Landscape.svg' | asset_url }}">
+    <div class="titleContainer">
+        <img src="{{ 'WhiteLinesLeft.svg' | asset_url }}">
+        <h1>Shopping Cart</h1>
+        <img  src="{{ 'WhiteLinesRight.svg' | asset_url }}">
+    </div>
+
+    <img class="topRightBackground" src="{{ 'GF_HUB_FOOTER_DESKTOP_SHAPES_Vertical.svg' | asset_url }}">
+</div>
+<div id="cartContainer">
+    {% section "cart-container"%}
+</div>
+
+<script>
+   
+    document.addEventListener("click", function(event) {
+        if (event.target.classList.contains("increaseVal")) {
+          var input_el = event.target.previousElementSibling;
+          var v = parseInt(input_el.value) + 1;
+          if (v <= parseInt(input_el.getAttribute('max'))) {
+            input_el.value = v;
+            input_el.addEventListener('change', function(event) {
+                var input_el = event.target;
+                var productQty = parseInt(input_el.value);
+                var productID = input_el.dataset.productid;
+            
+                var data = { updates: {}, sections: "cart-container" };
+                data.updates[productID] = productQty;
+            
+                jQuery.ajax({
+                    url:'/cart/update.js',
+                    type: 'post',
+                    dataType: 'json',
+                    data: data,
+                    success: function(d) {
+                      
+                        $("#cartContainer").html(d.sections["cart-container"])
+                    }  
+                })
+            });
+            input_el.dispatchEvent(new Event('change'));
+           
+          }
+        }
+      });
+    
+
+      document.addEventListener("click", function(event) {
+        if (event.target.classList.contains("decreaseVal")) {
+          var input_el = event.target.nextElementSibling;
+          var v = parseInt(input_el.value) - 1;
+          if (v >= parseInt(input_el.getAttribute('min'))) {
+            input_el.value = v;
+            input_el.addEventListener('change', function(event) {
+                var input_el = event.target;
+                var productQty = parseInt(input_el.value);
+                var productID = input_el.dataset.productid;
+            
+                var data = { updates: {}, sections: "cart-container" };
+                data.updates[productID] = productQty;
+            
+                jQuery.ajax({
+                    url:'/cart/update.js',
+                    type: 'post',
+                    dataType: 'json',
+                    data: data,
+                    success: function(d) {
+                        
+                       
+                
+                        
+                        $("#cartContainer").html(d.sections["cart-container"])
+                    }  
+                })
+            });
+            input_el.dispatchEvent(new Event('change'));
+           
+          }
+        }
+      });
+   
+
+   
+</script>

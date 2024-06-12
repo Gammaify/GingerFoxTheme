@@ -1,0 +1,176 @@
+.PickOfTheWeekContainer {
+    display: flex;
+    width: 100%;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    padding-left: 15%;
+    padding-right: 20%;
+    height: 350px;
+}
+
+.JoinTheHubImage svg {
+    width: 100%;
+}
+
+.backgroundLeft {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    z-index: -1;
+}
+
+.PickOfTheWeekText {
+    padding-right: 3%;
+}
+
+.PickOfTheWeekText h5 {
+    font-size: 30px;
+    display: flex;
+    font-weight: bold;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+}
+
+.PWProductName {
+    width: 60%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    font-weight: bold;
+    padding-bottom: 15px;
+}
+
+.PWQuote {
+    width: 60%;
+    text-align: center;
+    display: flex;
+    margin: auto;
+    font-size: 14px;
+}
+
+.PWAddToBag {
+    width: fit-content;
+    margin: auto;
+    margin-top: 20px;
+    padding: 5px 35px;
+    display: block;
+    height: unset !important;
+    background: #FF8200 !important;
+    border: 2px solid #FF8200 !important;
+    color: white !important;
+    border-radius: 50px;
+}
+
+.PickOfTheWeekImage {
+    height: 100%;
+    display: flex;
+}
+
+.backgroundRight {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    z-index: -1;
+}
+
+.PickOfTheWeekImage a img {
+    height: 100%;
+    max-width: 500px;
+    margin: auto;
+}
+
+.PickOfTheWeekText h5 span {
+    font-size: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+    white-space: nowrap;
+}
+
+.MobilePickOfTheWeekContainer {
+    display: none;
+}
+
+@media screen and (max-width: 992px) {
+    .PickOfTheWeekContainer {
+        display: none;
+    }
+
+    .MobilePickOfTheWeekContainer {
+        display: flex;
+        margin-top: 30px;
+        margin-bottom: 15px;
+    }
+
+    .PWMobileImageContainer {
+        width: 90%;
+    }
+
+    .PWMobileImageContainer img {
+        width: 100%;
+        height: auto;
+    }
+
+    .MobilePickOfTheWeekText {
+        position: relative;
+        width: 45%;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        align-items: center;
+    }
+
+    .mobilePWImage {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        z-index: -1;
+    }
+
+    .PWMobileTitle {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        width: 100%;
+    }
+
+    .PWMobileProductTitle {
+        font-size: 2.5vw;
+        text-align: center;
+        width: 50%;
+        margin: auto;
+    }
+
+    .PWAddToBag {
+        width: 25vw;
+        font-size: 3vw;
+        justify-content: center;
+        white-space: nowrap;
+        padding-left: unset !important;
+        padding-right: unset !important;
+    }
+
+    .bigTitle {
+        width: 100%;
+        text-align: center;
+        margin: 0;
+        font-size: 5vw;
+        font-weight: bold;
+    }
+
+    .smallTitle {
+        width: 100%;
+        text-align: center;
+        margin: 0;
+        font-size: 2vw;
+        font-weight: bold;
+    }
+}

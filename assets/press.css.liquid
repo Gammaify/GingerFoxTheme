@@ -1,0 +1,148 @@
+.pressHeader img {
+    width: 100%;
+
+}
+
+.pressHeader {
+    position: relative;
+}
+
+.pressHeader h2 {
+    font-size: 50px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    margin: 0;
+    text-shadow: 2px 2px black;
+}
+
+.titleBackground {
+    background: url("{{ 'PRESS_TITLE_HEADER.jpg' | asset_url }}");
+    background-size: 100%;
+}
+
+.firstSection {
+    display: flex;
+    margin-top: 2%;
+    align-items: start;
+}
+
+.firstSectionText {
+    padding-right: 27px;
+}
+
+.secondSection {
+    display: flex;
+    flex-direction: row-reverse;
+    margin-top: 2%;
+}
+
+.secondSectionText {
+    padding-left: 27px;
+}
+
+h1 {
+    text-align: center;
+    padding: 35px;
+    margin: 0;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+h2 {
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    font-size: 30px;
+}
+
+.contactCatalogueContainer {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 40px;
+}
+
+.contactUsContainer,
+.catalogueContainer {
+    width: 48%
+}
+
+.contactUsContainer {
+    background-color: #f0f0f0;
+    padding: 30px;
+}
+
+.contactUsContainer a {
+    margin: auto;
+}
+
+/* .contactUsContainer p {
+    text-align: center;
+    color: white;
+    margin-bottom: 5px;
+} */
+
+.catalogueContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    background-color: #f0f0f0;
+    padding: 30px;
+}
+
+.catalogueContent p,
+.contactUsContainer p {
+    font-size: 22px;
+    width: 243px;
+    margin: auto;
+    margin-bottom: 15px;
+    text-align: center;
+    font-weight: bold;
+}
+
+
+@media screen and (max-width:992px) {
+    .contactCatalogueContainer {
+        display: block;
+    }
+
+    .contactUsContainer,
+    .catalogueContainer {
+        width: 100%
+    }
+
+    .catalogueContainer {
+        margin-top: 5%;
+    }
+
+    .firstSection {
+        display: block;
+    }
+
+    .firstSection img {
+        width: 100%;
+        height: auto;
+    }
+
+    .firstSectionText {
+        width: 100%;
+        padding-right: unset;
+    }
+
+    .secondSection {
+        display: block;
+    }
+
+    .secondSection img {
+        width: 100%;
+        height: auto;
+    }
+
+    .secondSectionText {
+        width: 100%;
+        padding-left: unset;
+    }
+}

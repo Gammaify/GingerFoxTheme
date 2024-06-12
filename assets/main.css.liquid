@@ -1,0 +1,193 @@
+@font-face {
+    font-family: 'MontserratLight';
+    src: url("{{ 'Montserrat-Light.woff' | asset_url }}") format("woff");
+    font-display: swap;
+}
+
+.envolve-sc-buttons-wrapper a {
+    color: rgb(27, 54, 93) !important;
+}
+
+html {
+
+    font-size: 16px;
+    min-width: 320px;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 140px);
+    position: relative;
+    margin: 0;
+    /* overflow: hidden; */
+    margin-top: 140px !important;
+    font-family: unset !important;
+    font-family: 'MontserratLight' !important;
+    color: #1B365D !important;
+}
+
+.backgroundColorBlue {
+    background-color: #1B365D;
+}
+
+.GingerfoxButton {
+    background: #FF8200 !important;
+    border: 2px solid #FF8200 !important;
+    color: white !important;
+    height: 40px;
+    width: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 30px;
+    padding-right: 30px;
+    border-radius: 50%;
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
+    -ms-border-radius: 50px;
+    -o-border-radius: 50px;
+}
+
+.btn-close-orange {
+    background: transparent url("{{ 'close_white.svg' | asset }}");
+    background-size: 100% 100%;
+    opacity: 1;
+}
+
+.modal-header {
+    background: #FF8200;
+}
+
+.modal-footer {
+    border-top: 1px solid #FF8200;
+}
+
+.modal-header h1,
+.modal-header h5 {
+    color: white !important;
+}
+
+.disabled {
+    pointer-events: none;
+    opacity: .65;
+}
+
+.GingerFoxButtonBlue {
+    background: #1B365D;
+    border: 2px solid #1B365D;
+    color: white !important;
+    width: 200px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 30px;
+    padding-right: 30px;
+    border-radius: 50%;
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
+    -ms-border-radius: 50px;
+    -o-border-radius: 50px;
+    text-decoration: none !important;
+}
+
+.GingerFoxButtonRedWarning {
+    background: red !important;
+    color: white !important;
+    width: 200px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 30px;
+    padding-right: 30px;
+    border-radius: 50%;
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
+    -ms-border-radius: 50px;
+    -o-border-radius: 50px;
+    text-decoration: none !important;
+    border: 0 !important;
+}
+
+.GingerFoxButtonBlue:hover {
+    color: #ff8200 !important;
+}
+
+.textLinkBlack {
+    text-decoration: underline !important;
+    color: black !important;
+    display: block;
+}
+
+.textLinkBlack:hover {
+    color: #ff8200 !important;
+}
+
+.backArrow {
+    width: 50px;
+    height: 50px;
+}
+
+a {
+    color: #FF8200 !important;
+    text-decoration: none !important;
+}
+
+a:hover {
+    color: #1B365D !important;
+    text-decoration: none !important;
+}
+
+.desktopVersion {
+    display: block;
+}
+
+.mobileVersion {
+    display: none;
+}
+
+.shopify-policy__title {
+    display: none;
+}
+
+.TitleHeading {
+    display: flex;
+    justify-content: center;
+    padding-top: 30px;
+    padding-bottom: 15px;
+
+}
+
+.TitleHeading h1 {
+    font-weight: bold;
+    font-size: clamp(30px, 3vw, 40px);
+}
+
+.TitleHeading img {
+    width: 4vw;
+    height: 4vw;
+    margin-top: -3.5vh;
+    max-width: 30px;
+    max-height: 30px;
+    min-width: 20px;
+    min-height: 20px;
+}
+
+@media screen and (max-width: 768px) {
+    body {
+        margin-top: 165px !important;
+        height: calc(100vh - 165px);
+    }
+
+    .desktopVersion {
+        display: none;
+    }
+
+    .mobileVersion {
+        display: block;
+    }
+
+
+}

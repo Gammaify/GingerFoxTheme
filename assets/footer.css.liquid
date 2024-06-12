@@ -1,0 +1,199 @@
+footer {
+    margin-top: auto;
+    background-color: rgb(227, 227, 227);
+    clear: both;
+}
+
+.footerSignUpShapesLandscape {
+    content: url("{{ 'GF_HUB_FOOTER_MOBILE_SHAPES_Landscape.svg' | asset_url }}");
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100px;
+    z-index: 0;
+}
+
+.footerSignUpShapesVertical {
+    content: url("{{ 'GF_HUB_FOOTER_MOBILE_SHAPES_Vertical.svg' | asset_url }}");
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 50px;
+    z-index: 0;
+}
+
+.emailPadding {
+    padding-top: 25px;
+    padding-bottom: 25px;
+    flex-wrap: wrap;
+}
+
+.SignupBtn {
+    z-index: 1;
+}
+
+.SignupBtn a:hover {
+    color: #1B365D !important;
+}
+
+.SignUpTxt {
+    margin-right: 20px;
+    font-size: clamp(15px, 2vw, 20px);
+}
+
+.RegisterTextContainer {
+    display: flex;
+    align-items: center;
+}
+
+.accordion {
+    width: 95%;
+    margin: auto;
+}
+
+.accordionCard {
+    background-color: rgb(0 0 0 / 0.00) !important;
+    border: 0 !important;
+}
+
+.accordionCardHeader {
+    border-top: 1px solid #1B365D !important;
+    padding: .75rem 1.25rem;
+}
+
+.accordionBody {
+    padding: 0 !important;
+}
+
+.footerTextHeaders {
+    color: #1B365D !important;
+    font-family: 'MontserratLight';
+    font-weight: bold;
+    border-bottom: 1px solid #1B365D;
+    width: fit-content;
+}
+
+.footerText {
+    text-transform: capitalize;
+    color: #1B365D !important;
+    /* color: #777 !important; */
+    font-family: 'MontserratLight';
+    font-size: 15px;
+    padding-left: 30px !important;
+    display: block;
+    width: 100%;
+    text-decoration: none;
+}
+
+.footerText:hover,
+a.footerTextHeaders:hover {
+    color: #FF8200 !important;
+}
+
+.inlineblock {
+    display: inline-block;
+}
+
+.socialIcon {
+    width: 15vw;
+    max-width: 63px;
+    min-width: 47px;
+}
+
+.copyRight {
+    display: flex;
+    font-size: 12px;
+    /* height: 40px; */
+    background-color: white;
+    justify-content: center;
+    align-items: center;
+    color: #1b365d !important;
+    margin-bottom: 0;
+}
+
+.accordionTitle {
+    width: 100%;
+    padding: 10px;
+    text-align: left;
+    display: inline-block;
+    color: #1B365D !important;
+    text-decoration: none !important;
+}
+
+.accordionTitle[aria-expanded="false"]:after {
+    content: "+";
+    position: absolute;
+    color: #FF8200;
+    font-size: 36px;
+    right: 12px;
+    top: 10px;
+}
+
+.accordionTitle:after {
+    content: "-";
+    position: absolute;
+    color: #FF8200;
+    font-size: 36px;
+    right: 12px;
+    top: 10px;
+    width: 16px;
+    height: 16px;
+}
+
+@media screen and (max-width: 768px) {
+    .RegisterTextContainer {
+        display: flex;
+        align-items: center;
+    }
+
+    .SignUpTxt {
+        margin-right: 0 !important;
+        font-size: clamp(15px, 2vw, 20px);
+        margin-right: 20px;
+        color: white;
+    }
+
+    .SignupBtn {
+        display: block;
+        margin: auto;
+        width: fit-content;
+        margin-top: 10px;
+    }
+
+}
+
+@media screen and (max-width: 992px) {
+    .RegisterTextContainer {
+        justify-content: center;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    #footerAccordion {
+        display: none;
+    }
+
+    #desktopFooter {
+        display: flex;
+        justify-content: space-evenly;
+    }
+
+    .footerText {
+        padding-left: 0px !important;
+        white-space: nowrap;
+    }
+
+    .FollowUsTitle {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    #desktopFooter {
+        display: none;
+    }
+
+    #footerAccordion {
+        display: block;
+    }
+}

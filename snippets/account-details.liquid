@@ -1,0 +1,177 @@
+<link type="text/css" href="{{ 'account-details.css' | asset_url }}" rel="stylesheet">
+{% if customer %}
+  <div class="container pt-4 pb-4">
+    <a class="textLinkBlack text-center text-md-start mt-3" href="{{ routes.account_url }}">Back To Account</a>
+    <div class="TitleHeading">
+      <h1>
+        <img src="{{ 'BlueLinesLeft.svg' | asset_url }}">Your Details<img src="{{ 'BlueLinesRight.svg' | asset_url }}">
+      </h1>
+    </div>
+    <p id="accountDetailsMessage" class="valid-feedback">Your details have been updated!</p>
+    <p id="accountDetailsError" class="invalid-feedback">An error has occured, please try again or contact support.</p>
+    <form class="form-inline" id="updateAccountDetails" method="post">
+      <div class="row">
+        <div class="col-lg-6 col-sm-12">
+          <label class="col-form-label col-form-label-sm" for="customerFirstName"
+            >First Name <span class="text-danger">*</span></label
+          >
+          <input
+            type="text"
+            name="customerFirstName"
+            class="form-control form-control-sm"
+            id="customerFirstName"
+            value="{{ customer.first_name }}"
+          >
+          <span id="firstNameEmpty" class="invalid-feedback">First Name is required.</span>
+        </div>
+        <div class="col-lg-6 col-sm-12">
+          <label class="col-form-label col-form-label-sm" for="customerLastName"
+            >Last Name <span class="text-danger">*</span></label
+          >
+          <input
+            type="text"
+            name="customerLastName"
+            class="form-control form-control-sm"
+            id="customerLastName"
+            value="{{ customer.last_name }}"
+          >
+          <span id="lastNameEmpty" class="invalid-feedback">Last Name is required.</span>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-12">
+          <label class="col-form-label col-form-label-sm" for="customerEmail">Email:</label>
+          <input
+            type="email"
+            class="form-control form-control-sm"
+            name="customerEmail"
+            id="customerEmail"
+            value="{{ customer.email }}"
+          >
+          <span id="emailEmpty" class="invalid-feedback">Email is required.</span>
+          <span id="emailValidate" class="invalid-feedback">Please use a valid email address.</span>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-12 d-flex align-items-center">
+          <label class="col-form-label col-form-label-sm" for="marketCheck">Allow marketing emails:</label>
+          <input
+            type="checkbox"
+            class="form-control-lg"
+            name="marketCheck"
+            id="marketCheck"
+            {% if customer.accepts_marketing %}
+              checked
+            {% endif %}
+          >
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-6">
+          <input id="saveDetailsBtn" class="GingerFoxButtonBlue m-md-0 m-auto " type="submit" value="Save">
+        </div>
+      </div>
+      <img class="loading" src="{{ 'Spinner.gif' | asset_url }}">
+    </form>
+  </div>
+
+  <script>
+    $("#updateAccountDetails").submit(function(event){
+        $(".loading").show();
+        $(".invalid-feedback").hide();
+        setTimeout(function(){
+            $(".loading").hide();
+        }, 500)
+        event.preventDefault();
+
+        var isValid = true;
+        var email = $("#customerEmail").val();
+        var firstName = $("#customerFirstName").val();
+        var lastName = $("#customerLastName").val()
+
+
+        if (email == ""){
+            $("#emailEmpty").show();
+            isValid = false;
+        }
+        if (firstName == ""){
+            $("#firstNameEmpty").show();
+            isValid = false;
+        }
+
+        if (lastName == ""){
+            $("#lastNameEmpty").show();
+            isValid = false;
+        }
+
+        if (isValid == true){
+            const data = {
+                customerID: "{{ customer.id }}",
+                email: $("#customerEmail").val(),
+                firstName: $("#customerFirstName").val(),
+                lastName: $("#customerLastName").val(),
+                marketCheck: $("#marketCheck").prop("checked")
+            };
+            fetch('https://shopify.gingerfox.co.uk/api/shopify/update-customer', {
+                method: 'POST', // or 'PUT'
+                headers: {
+                'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                {% comment %} console.log('Success:', data); {% endcomment %}
+                if (data.success == true && data.errors == false){
+                    $("#accountDetailsMessage").show();
+                    setTimeout(function(){
+                        $("#accountDetailsMessage").hide();
+                        }, 5000);
+                }
+                else{
+                    $("#accountDetailsError").show();
+                    setTimeout(function(){
+                        $("#accountDetailsError").hide();
+                        }, 5000);
+                }
+
+
+
+
+                })
+                .catch((error) => {
+                console.error('Error:', error);
+                });
+
+        }
+
+
+
+
+
+        {% comment %} $.ajax({
+            url: "https://d1e8-81-130-66-146.eu.ngrok.io/api/shopify/update-customer",
+            type: "POST",
+            data: { customerID: $("#customerID").val() },
+            dataType: "jsonp",
+            success: function(result) {
+                console.log(result.message);
+            },
+            error: function(xhr, status, error) {
+                console.log("Error: " + error);
+            },
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
+            }
+        });
+        {% endcomment %}
+
+    })
+  </script>
+{% else %}
+  <script>
+    window.location.href = '/';
+  </script>
+{% endif %}

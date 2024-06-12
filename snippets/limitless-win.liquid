@@ -1,0 +1,63 @@
+{{ 'limitless-win.css' | asset_url | stylesheet_tag }}
+<div class="container">
+  <h1>Ant & Dec's Limitless Win Board Game And Card Game</h1>
+  <div class="productsContainer">
+    {% assign gamesProducts = collections.games.products | sort: 'price' | reverse %}
+    {% for product in gamesProducts %}
+      {% case product.id %}
+        {% when 8777816637726 %}
+          <a class="product" href="{{ product.url }}">
+            <img src="{{ product.featured_image.src | image_url }}">
+            <h2>{{ product.title }}</h2>
+            <div class="priceContainer">
+              <div>
+                {% if product.compare_at_price > 0 %}
+                  <div class="price priceDiscount">{{ product.price | money }}</div>
+                  <div class="priceCrossedOut">{{ product.compare_at_price | money }}</div>
+                {% else %}
+                  <div class="price">{{ product.price | money }}</div>
+                {% endif %}
+              </div>
+            </div>
+            <div class="AddToBasketContainer">
+              {% if product.available == true %}
+                <form method="post" action="/cart/add">
+                  <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+                  <input type="number" id="quantity" name="quantity" value="1" min="1" class="d-none">
+                  <input type="submit" value="Add To Basket" class="AddToCart">
+                </form>
+              {% else %}
+                <button disabled class="AddToCart disabled">Out of Stock</button>
+              {% endif %}
+            </div>
+          </a>
+        {% when 8777813000478 %}
+          <a class="product" href="{{ product.url }}">
+            <img src="{{ product.featured_image.src | image_url }}">
+            <h2>{{ product.title }}</h2>
+            <div class="priceContainer">
+              <div>
+                {% if product.compare_at_price > 0 %}
+                  <div class="price priceDiscount">{{ product.price | money }}</div>
+                  <div class="priceCrossedOut">{{ product.compare_at_price | money }}</div>
+                {% else %}
+                  <div class="price">{{ product.price | money }}</div>
+                {% endif %}
+              </div>
+            </div>
+            <div class="AddToBasketContainer">
+              {% if product.available == true %}
+                <form method="post" action="/cart/add">
+                  <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+                  <input type="number" id="quantity" name="quantity" value="1" min="1" class="d-none">
+                  <input type="submit" value="Add To Basket" class="AddToCart">
+                </form>
+              {% else %}
+                <button disabled class="AddToCart disabled">Out of Stock</button>
+              {% endif %}
+            </div>
+          </a>
+      {% endcase %}
+    {% endfor %}
+  </div>
+</div>

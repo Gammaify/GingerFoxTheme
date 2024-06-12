@@ -1,0 +1,89 @@
+<link type="text/css" href="{{ 'collection-slider.css' | asset_url }}" rel="stylesheet">
+
+<div class="ExploreMoreMainContainer">
+  {% comment %}
+    <div class="ExploreMoreTitleContainer">
+        <img src="/Images/Products/WhiteLinesLeft.svg">
+        <h4>Explore More</h4>
+        <img src="/Images/Products/WhiteLinesRight.svg">
+    </div>
+  {% endcomment %}
+  <div class="ExploreMoreContainer">
+    <div class="ExploreMoreSlider swiper">
+      <div class="swiper-wrapper">
+        {% for block in section.blocks %}
+          {% case block.type %}
+            {% when 'slide' %}
+              <div class="ExploreMoreItem swiper-slide">
+                <a href="{{ block.settings.collectionData.url }}">
+                  <img
+                    data-src="{{ block.settings.collectionImage | image_url }}"
+                    class="lazyload"
+                    width="{{ block.settings.collectionImage.width }}"
+                    height="{{ block.settings.collectionImage.height }}"
+                  >
+                  <p>{{ block.settings.collectionData.title }}</p>
+                </a>
+              </div>
+          {% endcase %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  var ExploreMoreSlider = new Swiper('.ExploreMoreSlider', {
+    loop: false,
+    slidesPerView: 4,
+    breakpoints: {
+      0: {
+        slidesPerView: 2,
+        loop: true,
+        spaceBetween: 0,
+      },
+      768: {
+        slidesPerView: 2,
+        loop: true,
+        spaceBetween: 0,
+      },
+      992: {
+        slidesPerView: 4,
+        loop: false,
+        spaceBetween: 20,
+      },
+    },
+    autoHeight: true,
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Collection Slider",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "LoopSlider",
+      "label": "Loop Slider"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Slide",
+      "type": "slide",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "collectionImage",
+          "label": "Collection Image"
+        },
+        {
+          "type": "collection",
+          "id": "collectionData",
+          "label": "Select a Collection"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

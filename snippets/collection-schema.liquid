@@ -1,0 +1,57 @@
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "Collection",
+    "name": "{{ collection.title }}",
+    "url": "{{ shop.url }}{{ collection.url }}",
+    "mainEntity": {
+      "@type": "Product",
+      "name": "{{ collection.title }}",
+      "url": "{{ shop.url }}{{ collection.url }}",
+      "image": "{{ shop.url }}/cdn/shop/{{ shop.brand.logo }}",
+      "brand": {
+        "@type": "Brand",
+        "name": "Ginger Fox"
+      },
+      "offers": [
+        {% for productData in collection.products limit: 12 %}
+          {% assign currentYear = 'now' | date: '%Y' %}
+          {% assign lastDayOfYear = '12/31/#{currentYear}' | date: '%Y-%m-%d' %}
+          {% if forloop.last == true %}
+            {
+              "@type": "Offer",
+              "name": "{{ productData.title }}",
+              "price": "{{ productData.variants[0].price | money_without_currency }}",
+              "priceCurrency": "GBP",
+              "url": "{{ shop.url }}{{ productData.url }}",
+              "image": "{{ shop.url }}/cdn/shop/{{ productData.featured_image }}",
+              {% if productData.available == true %}
+                {% assign availability = 'https://schema.org/InStock' %}
+              {% else %}
+                {% assign availability = 'https://schema.org/OutOfStock' %}
+              {% endif %}
+              "availability": "{{ availability }}",
+              "priceValidUntil": "{{ lastDayOfYear }}"
+            }
+          {% else %}
+            {
+              "@type": "Offer",
+              "name": "{{ productData.title }}",
+              "price": "{{ productData.variants[0].price | money_without_currency }}",
+              "priceCurrency": "GBP",
+              "url": "{{ shop.url }}{{ productData.url }}",
+              "image": "{{ shop.url }}/cdn/shop/{{ productData.featured_image }}",
+              {% if productData.available == true %}
+                {% assign availability = 'https://schema.org/InStock' %}
+              {% else %}
+                {% assign availability = 'https://schema.org/OutOfStock' %}
+              {% endif %}
+              "availability": "{{ availability }}",
+              "priceValidUntil": "{{ lastDayOfYear }}"
+            },
+          {% endif%}
+        {% endfor %}
+      ]
+    }
+  }
+</script>

@@ -1,0 +1,105 @@
+body {
+    color: #1B365D;
+    /*#777 !important;*/
+}
+
+h2 {
+    color: #1B365D !important;
+}
+
+.desktopVersion {
+    display: block;
+}
+
+.mobileVersion {
+    display: none;
+}
+
+.SnakeContainer {
+    width: 100%;
+}
+
+.SnakeContainer img {
+    width: 100%;
+}
+
+@media screen and (max-width: 992px) {
+    .desktopVersion {
+        display: none;
+    }
+
+    .mobileVersion {
+        display: block;
+    }
+}
+
+h1,
+h2 {
+    color: #FF8200;
+    color: white;
+}
+
+.TextGray {
+    color: #777;
+}
+
+.vheader {
+    position: relative;
+    background-color: black;
+    height: 75vh;
+    min-height: 75vh;
+    width: 100%;
+    overflow: hidden;
+    z-index: 0;
+}
+
+.vheader video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: 0;
+    -ms-transform: translateX(-50%) translateY(-50%);
+    -moz-transform: translateX(-50%) translateY(-50%);
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+}
+
+.vheader .Vcontainer {
+    position: relative;
+    z-index: 2;
+    display: block;
+    margin: auto;
+}
+
+.vheader .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: black;
+    opacity: 0.5;
+    z-index: 1;
+}
+
+a:hover,
+a:visited,
+a:link,
+a:active {
+    text-decoration: none !important;
+}
+
+.img-thumbnail {
+    border: none !important;
+    padding: 0px !important;
+}
+
+
+
+.VideoLogo {
+    width: 300px;
+}

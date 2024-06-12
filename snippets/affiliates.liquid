@@ -1,0 +1,109 @@
+{{ 'affiliates.css' | asset_url | stylesheet_tag }}
+
+<div class="affiliateTopBanner">
+  <div class="affiliateTitleAndSubTitle">
+    <h1>{{ page.title }}</h1>
+    <p>{{ shop.metaobjects.affiliates_content.subtitle.text.value }}</p>
+  </div>
+  <img class="desktopVersion" src="{{ 'affiliates_top_header_Image.png' | asset_url }}">
+  <img class="mobileVersion" src="{{ 'affiliates_top_header_image_mobile.png' | asset_url }}">
+</div>
+
+<div class="section1">
+  <div class="section1Text">
+    <p>Earning commissions is a breeze</p>
+    <p>when your visitors shop at <a href="/">GingerFox.co.uk</a></p>
+  </div>
+  <div class="whatWeDoSection">
+    <div class="whatWeDoText">
+      <div class="whatWeDoTextContainer">
+        <div>
+          <h4>What We Do?</h4>
+          {% assign paragraphs = shop.metaobjects.affiliates_content['what-we-do'].text.value
+            | newline_to_br
+            | split: '<br />'
+          %}
+          {% for paragraph in paragraphs %}
+            <p>{{ paragraph }}</p>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    <img class="desktopVersion" src="{{ 'affiliates_what_we_do.png' | asset_url }}">
+    <img class="mobileVersion" src="{{ 'affiliates_what_we_do_mobile.png' | asset_url }}">
+  </div>
+</div>
+<div class="section2">
+  <div class="howItAllWorksContainer">
+    <h4>Wondering How it All Works?</h4>
+    <p class="howItAllWorksSubtitle">{{ shop.metaobjects.affiliates_content['how-it-works-subtitle'].text.value }}</p>
+
+    <div id="howItAllWorksSlider" class="howItAllWorksSlider swiper">
+      <div class="swiper-wrapper">
+        <div class="howItAllWorkSlide swiper-slide">
+          {{ shop.metaobjects.affiliates_content['card-1'].rich_text | metafield_tag }}
+          <img src="{{ shop.metaobjects.affiliates_content['card-1'].image.value | image_url }}">
+        </div>
+        <div class="howItAllWorkSlide swiper-slide">
+          <p>{{ shop.metaobjects.affiliates_content['card-2'].text.value }}</p>
+          <img src="{{ shop.metaobjects.affiliates_content['card-2'].image.value | image_url }}">
+        </div>
+        <div class="howItAllWorkSlide swiper-slide">
+          <p>{{ shop.metaobjects.affiliates_content['card-3'].text.value }}</p>
+          <img src="{{ shop.metaobjects.affiliates_content['card-3'].image.value | image_url }}">
+        </div>
+        <div class="howItAllWorkSlide swiper-slide">
+          <p>{{ shop.metaobjects.affiliates_content['card-4'].text.value }}</p>
+          <img src="{{ shop.metaobjects.affiliates_content['card-4'].image.value | image_url }}">
+        </div>
+        <div class="howItAllWorkSlide swiper-slide">
+          <p>{{ shop.metaobjects.affiliates_content['card-5'].text.value }}</p>
+          <img src="{{ shop.metaobjects.affiliates_content['card-5'].image.value | image_url }}">
+        </div>
+        <div class="howItAllWorkSlide swiper-slide">
+          <p>{{ shop.metaobjects.affiliates_content['card-6'].text.value }}</p>
+          <img src="{{ shop.metaobjects.affiliates_content['card-6'].image.value | image_url }}">
+        </div>
+        <div class="howItAllWorkSlide swiper-slide">
+          <p>{{ shop.metaobjects.affiliates_content['card-7'].text.value }}</p>
+          <img src="{{ shop.metaobjects.affiliates_content['card-7'].image.value | image_url }}">
+        </div>
+      </div>
+      <div class="swiper-pagination mobileVersion"></div>
+    </div>
+    {% comment %} <div class="swiper-pagination"></div> {% endcomment %}
+  </div>
+</div>
+<div class="section3">
+  <div class="termsContainer">
+    <div class="termsSection1">
+      <div class="termsSection1Text">
+        <p>{{ shop.metaobjects.affiliates_content['terms-text'].text.value }}</p>
+        {% comment %} <p>Please read our terms & conditions at</p> {% endcomment %}
+        <a class="btn GingerfoxButton termsButton" href="https://ui.awin.com/merchant-profile-terms/25520"
+          >Terms & Conditions</a
+        >
+      </div>
+    </div>
+    <div class="termsSection2">
+      <div class="termsSection2Text">
+        <div class="terms1">
+          <p>{{ shop.metaobjects.affiliates_content['join-us-today-text'].text.value }}</p>
+        </div>
+        <div class="terms2">
+          <div>
+            <p>Ready to get started?</p>
+            <a class="btn GingerfoxButton" href="https://ui.awin.com/publisher-signup/en/awin?advertiser=25520"
+              >JOIN US TODAY!</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+    {% comment %}
+      <img class="mobileVersion" src="{{ 'termsBackground_mobile.png' | asset_url  }}">
+      <img class="desktopVersion" src="{{ 'termsBackground.png' | asset_url  }}">
+    {% endcomment %}
+  </div>
+</div>
+{{ 'affiliates.js' | asset_url | script_tag }}

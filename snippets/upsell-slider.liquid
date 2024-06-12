@@ -1,0 +1,130 @@
+<style>
+  {% if product.metafields.custom.themed_product_data.value.upsell_background_colours.value.bottom_colour.value == blank %}
+      {% assign YMALBottomColor = "#02bdf2"%}
+  {% else %}
+      {% assign YMALBottomColor = product.metafields.custom.themed_product_data.value.upsell_background_colours.value.bottom_colour.value %}
+  {% endif %}
+
+  {% if product.metafields.custom.themed_product_data.value.upsell_background_colours.value.top_colour.value == blank %}
+      {% assign YMALTopColor = "#7fddf8"%}
+  {% else %}
+      {% assign YMALTopColor = product.metafields.custom.themed_product_data.value.upsell_background_colours.value.top_colour.value %}
+  {% endif %}
+  :root{
+      --YMALBottomColor: {{ YMALBottomColor }};
+      --YMALTopColor: {{ YMALTopColor }};
+  }
+</style>
+{{ 'upsell-slider.css' | asset_url | stylesheet_tag }}
+{{ 'product-slider.css' | asset_url | stylesheet_tag }}
+<div class="upsellProductContainer">
+  <div class="upsellProductTitle">
+    <img src="{{ 'WhiteLinesLeft.svg' | asset_url  }}" alt="white lines decoration">
+    <h4>You Might Also Like</h4>
+    <img src="{{ 'WhiteLinesRight.svg' | asset_url }}" alt="white lines decoration">
+  </div>
+
+  {% if product.metafields.custom.upsell_product_list.value == blank %}
+    {% assign productList = collections['best-sellers'].products %}
+  {% else %}
+    {% assign productList = product.metafields.custom.upsell_product_list.value %}
+  {% endif %}
+
+  <div class="upsellSwiper swiper">
+    <div class="swiper-wrapper">
+      {% for item in productList %}
+        {% if item.id != product.id %}
+          <div class="Product swiper-slide">
+            <a href="{{ item.url }}">
+              <div class="ProductImageContainer">
+                <img data-src="{{ item.featured_image | image_url }}" class="lazyload">
+                {% if item.compare_at_price > 0 %}
+                  <div class="discountLabel">
+                    {{ item.compare_at_price | minus: item.price | times: 100 | divided_by: item.compare_at_price }}%
+                    off
+                  </div>
+                {% endif %}
+              </div>
+              <p class="productName">{{ item.title }}</p>
+            </a>
+            <div class="PricingContainer">
+              <div class="price">
+                {% if item.compare_at_price > 0 %}
+                  <p class="productPrice discount">{{ item.price | money }}</p>
+                  <p class="productPrice discountCrossedOut">{{ item.compare_at_price | money }}</p>
+                {% else %}
+                  <p class="productPrice">{{ item.price | money }}</p>
+                {% endif %}
+              </div>
+              {% if customer %}
+                {% assign wishListHandle = 'wishlist_' | append: customer.id %}
+                {% assign wishListData = customer.metafields.custom.wishlist.value %}
+                {% comment %} {% assign wishlistValue = customer.metafields.custom.wishlist.value %} {% endcomment %}
+
+                {% assign productExists = false %}
+                {% for item in wishListData %}
+                  {% if product.id == item.id %}
+                    {% assign productExists = true %}
+                  {% endif %}
+                {% endfor %}
+
+                {% if productExists == true %}
+                  <div
+                    class="wishListIconContainer wishListIcon-{{ item.id }} fullHeart"
+                    data-wishListBool="true"
+                    data-productid="{{ item.id }}"
+                    data-customerid="{{ customer.id }}"
+                  ></div>
+                {% else %}
+                  <div
+                    class="wishListIconContainer wishListIcon-{{ item.id }} emptyHeart"
+                    data-wishListBool="false"
+                    data-productid="{{ item.id }}"
+                    data-customerid="{{ customer.id }}"
+                  ></div>
+                {% endif %}
+              {% endif %}
+            </div>
+            {% if product.available == true %}
+              <form method="post" action="/cart/add">
+                <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+                <input type="number" id="quantity" name="quantity" value="1" min="1" class="d-none">
+                <input type="submit" value="Add To Basket" class="AddToCart">
+              </form>
+            {% else %}
+              <button disabled class="AddToCart disabled">Out of Stock</button>
+            {% endif %}
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+    <div id="upsellSwiperPrev" class=" swiper-button-prev"></div>
+    <div id="upsellSwiperNext" class="swiper-button-next"></div>
+  </div>
+</div>
+
+<script>
+  var upsellSwiper = new Swiper('.upsellSwiper', {
+    loop: true,
+    autoHeight: true,
+    spaceBetween: 20,
+    navigation: {
+      nextEl: '#upsellSwiperNext',
+      prevEl: '#upsellSwiperPrev',
+    },
+    breakpoints: {
+      0: {
+        slidesPerView: 1,
+      },
+      468: {
+        slidesPerView: 2,
+      },
+      992: {
+        slidesPerView: 4,
+      },
+      1200: {
+        slidesPerView: 6,
+      },
+    },
+  });
+</script>

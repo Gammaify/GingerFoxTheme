@@ -1,0 +1,200 @@
+.st0 {
+    fill: #FFFFFF;
+}
+
+.st1 {
+    fill: #004781;
+}
+
+.st2 {
+    fill: #FF8500;
+}
+
+.bottomContainer {
+    display: flex;
+    width: 100%;
+    position: relative;
+}
+
+.JoinTheHubContainer {
+    background: linear-gradient(-10deg, #fff1a5 50%, #ffeb7b 50%);
+    position: relative;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.JoinTheHubImage {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.JoinTheHubImage svg {
+    padding: 0% 10%;
+    width: 100%;
+}
+
+.joinTodayBtn {
+    /* width: 30%; */
+    max-width: 170px;
+    min-width: 120px;
+    justify-content: center;
+    padding: 5px 35px;
+    border-radius: 50px !important;
+    display: flex;
+    align-items: center;
+    background: #FF8200;
+    border: 2px solid #FF8200;
+    color: white !important;
+    white-space: nowrap;
+    text-decoration: none;
+}
+
+.joinTodayBtn:hover {
+    color: #1B365D !important
+}
+
+.ReviewContainer {
+    background: linear-gradient(10deg, #fdab63 50%, #fc9439 50%);
+    position: relative;
+    width: 50%;
+    display: flex;
+    align-items: center;
+    padding: 15px;
+}
+
+.ReviewTitleContainer {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-bottom: 5%;
+}
+
+.ReviewTitleContainer img {
+    width: 15px;
+    height: auto;
+    margin-right: 5px;
+}
+
+.ReviewTitleContainer h4 {
+    color: white;
+    margin: 0;
+    font-size: 30px;
+}
+
+.ReviewContentContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ReviewImageContainer {
+    width: 50%;
+}
+
+.ReviewImageContainer img {
+    width: 70%;
+    height: auto;
+    float: right;
+}
+
+.ReviewQuoteContainer {
+    width: 50%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.QuoteContainer {
+    position: relative;
+    z-index: 10;
+    color: white;
+    width: 75%;
+    text-align: center;
+}
+
+.QuoteContainer p {
+    font-size: clamp(14px, 2vw, 16px);
+}
+
+.starContainer {
+    position: relative;
+    display: inline-block;
+}
+
+.starsFilled {
+    position: absolute;
+    top: 0;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.SeeGameBtnContainer {
+    width: 100%;
+    display: flex;
+    padding-top: 25px;
+}
+
+.SeeGameBtn {
+    /* width: 80%; */
+    margin: auto;
+    max-width: 170px;
+    min-width: 140px;
+    white-space: nowrap;
+    background: #1B365D;
+    border: 2px solid #1B365D;
+    color: white !important;
+    height: 40px;
+    padding-left: 30px;
+    padding-right: 30px;
+    border-radius: 50px !important;
+}
+
+.SeeGameBtn:hover {
+    color: #FF8200 !important;
+    background-color: #1B365D;
+}
+
+@media screen and (max-width: 992px) {
+    .ReviewContentContainer {
+        display: block;
+    }
+
+    .bottomContainer {
+        display: block;
+    }
+
+    .ReviewImageContainer {
+        margin: auto;
+    }
+
+    .JoinTheHubContainer,
+    .ReviewContainer,
+    .ReviewQuoteContainer {
+        width: 100%;
+    }
+
+    .ReviewContainer {
+        padding-bottom: 10%;
+    }
+
+    .ReviewTitleContainer {
+        padding-top: 5%;
+    }
+
+    .ReviewImageContainer img {
+        width: 90%;
+        height: auto;
+        margin-bottom: 20px;
+    }
+
+    .starsEmpty {
+        white-space: nowrap;
+    }
+}

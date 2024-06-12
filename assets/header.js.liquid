@@ -1,0 +1,166 @@
+
+
+jQuery(function() { 
+    window.addEventListener("pageshow", function(evt){
+        if(evt.persisted){
+        setTimeout(function(){
+            window.location.reload();
+        },10);
+    }
+    }, false);
+   
+    
+ 
+    $(".desktopSearchBarIcon").on("click", function(){
+        $("#searchSubmit").trigger("click");
+    })
+
+    $("#searchBarIcon").on("click", function(){
+        
+        $("#mobileSearchSubmit").trigger("click");
+    })
+
+    $("#BrowseIcon").on('click', function () {
+        $(".searchMagIcon").show();
+        $(".mobileSearchBarContainer").hide();
+        $(".searchCloseIcon").hide();
+        if ($(".mobileNavMenuContainer").is(":visible")) {
+            $(".CloseIcon").hide();
+            $(".BurgerIcon").show();
+            $(".FadedOut").hide();
+        }
+        else{
+            $(".CloseIcon").show();
+            $(".BurgerIcon").hide();
+            $(".FadedOut").show();
+        }
+        $(".mobileNavMenuContainer").fadeToggle();
+    })
+
+    $(".expandMenu").on('click', function () {
+        $(".expandMenu").text("+")
+        if ($(this).attr("aria-expanded") == "true") {
+            $(this).text("-")
+        }
+        else {
+            $(this).text("+")
+        }
+
+    })
+
+    $("#SearchIcon").on('click', function () {
+        $(".CloseIcon").hide();
+        $(".BurgerIcon").show();
+        $(".mobileNavMenuContainer").hide();
+
+        if ($(".mobileSearchBarContainer").is(":visible")) {
+            $("body").css("overflow", "initial");
+            $(".FadedOut").hide();
+            $(".searchMagIcon").show();
+            $(".searchCloseIcon").hide();
+        }
+        else {
+            $("body").css("overflow", "hidden");
+            $(".FadedOut").show();
+            $(".searchMagIcon").hide();
+            $(".searchCloseIcon").show();
+        }
+        $(".mobileSearchBarContainer").fadeToggle();
+
+        /*        $("body").css("overflow", "hidden");*/
+    })
+
+    $("#mobileSearchBar").keyup(function (e) {
+
+        if ($("#mobileSearchBar").val().length < 3){
+            $(".searchResults").empty();
+            $("#mobileSearchResults").hide();
+        }
+        if ($("#mobileSearchBar").val().length >= 3) {
+            fetch(window.Shopify.routes.root + "search/suggest.json?q=" + $("#mobileSearchBar").val() + "&resources[type]=product&[unavailable_products]=hide")
+            .then((response) => response.json())
+            .then((suggestions) => {
+                $(".searchResults").empty();
+                const productSuggestions = suggestions.resources.results.products;
+                if (productSuggestions.length > 0) {
+               
+                productSuggestions.forEach(element => {
+                    var link = document.createElement("a");
+                    link.href = element.url;
+                    link.text = element.title;
+
+                    var listItem = document.createElement("li");
+                    listItem.appendChild(link)
+
+                    $(".searchResults").append(listItem);
+                    $("#mobileSearchResults").show();
+                })
+                if (productSuggestions.length == 0){
+                    $(".searchResults").append("No product found");
+                }
+               
+                }
+            }
+            );
+        }   
+    })
+    var arrowPress = 0;
+    $(".desktopSearchBar").keyup(function (e) {
+
+        
+        if(e.which == 40){
+           var searchResults = $("#desktopSearchResults .searchResults").focus().children();
+           console.log(searchResults[arrowPress]) 
+           arrowPress += 1; 
+           console.log(arrowPress)
+           if (arrowPress >= searchResults.length){
+            arrowPress = 0;
+           }
+        }
+        if ($(".desktopSearchBar").val().length < 3){
+            $("#desktopSearchResults").hide();
+            $(".searchResults").empty();
+            
+        }
+        if ($(".desktopSearchBar").val().length >= 3) {
+            fetch(window.Shopify.routes.root + "search/suggest.json?q=" + $(".desktopSearchBar").val() + "&resources[type]=product&[unavailable_products]=hide")
+            .then((response) => response.json())
+            .then((suggestions) => {
+                $(".searchResults").empty();
+                const productSuggestions = suggestions.resources.results.products;
+                if (productSuggestions.length > 0) {
+               
+                productSuggestions.forEach(element => {
+                    var link = document.createElement("a");
+                    link.href = element.url;
+                    link.text = element.title;
+
+                    var listItem = document.createElement("li");
+                    listItem.appendChild(link)
+
+                    $(".searchResults").append(listItem);
+                    $("#desktopSearchResults").show();
+                })
+               
+                }
+                if (productSuggestions.length == 0){
+                    $(".searchResults").append("No product found");
+                }
+            }
+            );
+        }   
+    })
+
+    $(".FadedOut").click(function () {
+        $(".CloseIcon").hide();
+        $(".BurgerIcon").show();
+        $(".searchMagIcon").show();
+        $(".searchCloseIcon").hide();
+        $(".mobileNavMenuContainer").hide();
+        $(".mobileSearchBarContainer").hide();
+        $(".FadedOut").hide();
+        $("body").css("overflow", "initial");
+    })
+
+
+})

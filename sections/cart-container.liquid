@@ -1,0 +1,198 @@
+<div class="container pt-5">
+  {% if cart.item_count != 0 %}
+    <form action="{{ routes.cart_url }}" method="post">
+      <div id="CartForm">
+        {% for item in cart.items %}
+          <div class="Product">
+            <a class="ProductImage" href="{{ item.product.url }}">
+              <img
+                data-src="{{ item.product.featured_image.src | image_url }}"
+                class="lazyload"
+                width="{{ item.product.featured_image.width }}"
+                height="{{ item.product.featured_image.src.height }}"
+              >
+            </a>
+            <div class="ProductData">
+              <p class="ProductText">{{ item.title }}</p>
+              {% if item.product.compare_at_price != blank %}
+                <p class="ProductText redColor">
+                  {{ item.original_price | money }}
+                  <span class="discountCrossedOut">{{ item.product.compare_at_price | money }}</span>
+                </p>
+              {% elsif item.line_level_discount_allocations.size > 0 and item.price != item.original_price %}
+                <p class="ProductText redColor">
+                  {{ item.price | money }}
+                  <span class="discountCrossedOut">{{ item.original_price | money }}</span>
+                </p>
+              {% else %}
+                <p class="ProductText">{{ item.original_price | money }}</p>
+              {% endif %}
+              {% comment %}
+                {% for product in collections['mystery-product'].products limit: 1 %}
+                  {% if product.variants.first.id == item.variant_id %}
+                    <p class="freeGiftText">At checkout this will become a free gift</p>
+                  {% endif %}
+                {% endfor %}
+              {% endcomment %}
+
+              <div class="qtyContainer qty-{{ item.variant_id }}">
+                <label for="qty">Quantity: </label><span class="decreaseVal">-</span
+                ><input
+                  type="text"
+                  class="qty"
+                  name="updates[]"
+                  data-productid="{{ item.variant_id }}"
+                  value="{{ item.quantity }}"
+                  min="0"
+                  max="10"
+                  disabled
+
+                ><span class="increaseVal">+</span>
+              </div>
+
+              <a class="removeItem" href="{{ item.url_to_remove }}">Remove</a>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+
+      <div class="OrderSummary">
+        <div class="SummaryText">
+          <div class="TotalTextContainer">
+            <p class="TotalText">Total (excluding delivery):</p>
+            <p id="subTotal" class="TotalText">{{ cart.total_price | money }}</p>
+          </div>
+          <div class="TotalTextContainer">
+            {% for line_item in cart.items %}
+              {% if line_item.line_level_discount_allocations.size > 0 %}
+                {% assign isDiscountApplied = true %}
+                {% for discount_allocation in line_item.line_level_discount_allocations %}
+                  {% assign totalDiscount = totalDiscount | plus: discount_allocation.amount %}
+                  {% assign discountName = discount_allocation.discount_application.title %}
+                {% endfor %}
+              {% endif %}
+            {% endfor %}
+            {% if isDiscountApplied == true %}
+              <p class="promoText">Discount applied at checkout:</p>
+              <p class="promoText">{{ discountName }} (-{{ totalDiscount | money }})</p>
+            {% endif %}
+          </div>
+          <p class="promoText">
+            *Promo codes can be applied at the checkout.<br>
+            *If a mystery product is applied, no other promo codes are useable.
+          </p>
+        </div>
+
+        <div class="mysteryProductContainer">
+          <h4>Halloween Trick Offer!</h4>
+          {% for product in collections['mystery-product'].products limit: 1 %}
+            <div class="mysteryProduct">
+              <div class="d-flex align-items-center justify-content-evenly">
+                <img class="lazyload" data-src="{{ product.featured_image.src | image_url }}">
+
+                <p>{{ product.title }}</p>
+              </div>
+            </div>
+            {% if product.available == true %}
+              <div id="AddToCart" class="GingerFoxButtonBlue m-auto">Add To Basket</div>
+            {% else %}
+              <button disabled class="GingerFoxButtonBlue disabled">Out of Stock</button>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="CheckoutButtonsContainer">
+        <a id="ContinueShopping" class="GingerFoxButtonBlue continueBtn" href="/"> Continue Shopping </a>
+        {% if customer %}
+          <input class="GingerFoxButtonBlue checkoutBtn" type="button" name="checkout" value="Continue To Checkout">
+        {% else %}
+          <a href="{{ routes.account_login_url }}?return_to=checkout" class="GingerFoxButtonBlue checkoutBtn"
+            >Continue To Checkout</a
+          >
+        {% endif %}
+      </div>
+    </form>
+  {% else %}
+    <h5>Your Cart is Empty!</h5>
+  {% endif %}
+</div>
+
+<script>
+  function setCookie(cname, cvalue) {
+    document.cookie = cname + "=" + cvalue + ";" + ";path=/";
+  }
+
+  function getCookie(cname) {
+    let name = cname + '=';
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return '';
+  }
+
+  var halloween = getCookie("halloween");
+  var cartSubtotal = {{ cart.items_subtotal_price }}
+  if (cartSubtotal >= 4000 && halloween == "trick"){
+    $(".mysteryProductContainer").show();
+    {% for item in cart.items %}
+
+
+      {% for product in collections["mystery-product"].products limit: 1 %}
+
+        {% if product.variants.first.id == item.variant_id %}
+          $(".qty-{{ item.variant_id }}").hide();
+          $(".mysteryProductContainer").hide();
+        {% endif %}
+      {% endfor %}
+    {% endfor %}
+  }
+
+
+
+  $(document).on("click", "#AddToCart", function(){
+    var mysteryProduct = 0;
+    {% for product in collections["mystery-product"].products limit: 1 %}
+      mysteryProduct = {{ product.variants.first.id }};
+    {% endfor %}
+    var addCartData = {
+      quantity: 1,
+      id: mysteryProduct
+    }
+    $.ajax({
+      type: 'POST',
+      url: '/cart/add.js',
+      data: addCartData,
+        dataType: 'json',
+       success: function (data) {
+        console.log(data)
+        location.reload();
+       },
+       error: function(error){
+          console.log(error)
+       }
+       });
+  })
+
+
+  $(document).on("click", ".checkoutBtn", function(event){
+    event.preventDefault();
+
+
+
+    {% if customer %}
+      location.href="/checkout"
+    {% else %}
+      location.href="{{ routes.account_login_url }}?return_to=checkout"
+    {% endif %}
+
+  })
+</script>

@@ -1,0 +1,135 @@
+<link type="text/css" href="{{ 'homepage-slider.css' | asset_url }}" rel="stylesheet">
+
+{% assign currentDate = 'now' | date: '%d-%m-%Y' %}
+
+<div class="homepage-slider swiper">
+  <div class="swiper-wrapper">
+    {% for block in section.blocks %}
+      {% case block.type %}
+        {% when 'slide' %}
+          {% if currentDate >= block.settings.startDate
+            and currentDate <= block.settings.endDate
+            or block.settings.startDate == ''
+            and block.settings.endDate == ''
+          %}
+            <div class="swiper-slide">
+              <a href="{{ block.settings.slideLink }}"
+                ><img
+                  width="{{ block.settings.desktopImage.width }}"
+                  height="{{ block.settings.desktopImage.height }}"
+                  class="desktopVersion lazyload"
+                  data-src="{{ block.settings.desktopImage | image_url: width: 1920, height: 600 }}"
+              ></a>
+              <a href="{{ block.settings.slideLink }}"
+                ><img
+                  width="{{ block.settings.mobileImage.width }}"
+                  height="{{ block.settings.mobileImage.height }}"
+                  class="mobileVersion lazyload"
+                  data-src="{{ block.settings.mobileImage | image_url: width: 992, height: 720 }}"
+              ></a>
+            </div>
+          {% endif %}
+      {% endcase %}
+    {% endfor %}
+  </div>
+</div>
+<div class="swiperDots swiper-pagination"></div>
+<script>
+     var autoRotate = {{ section.settings.AutoRotate }};
+     var autoRotateBool = (autoRotate === "true");
+     var rotateSpeed = parseInt({{ section.settings.RotateSpeed }}) * 1000;
+     var Loop = {{ section.settings.LoopSlider }};
+     var loopBool = (Loop === "true");
+
+
+
+  const homepageSlider = new Swiper('.homepage-slider', {
+      // Optional parameters
+      direction: 'horizontal',
+      loop: loopBool,
+      autoplay: {
+        delay: rotateSpeed
+      },
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true
+      },
+      autoHeight: true
+    });
+</script>
+
+{% schema %}
+{
+  "name": "Homepage Slider",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "AutoRotate",
+      "label": "Auto Rotate"
+    },
+    {
+      "type": "range",
+      "id": "RotateSpeed",
+      "label": "Rotation Speed",
+      "min": 1,
+      "max": 30,
+      "step": 1,
+      "unit": "sec",
+      "default": 5
+    },
+    {
+      "type": "checkbox",
+      "id": "LoopSlider",
+      "label": "Loop Slider"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Slide",
+      "type": "slide",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "desktopImage",
+          "label": "Desktop Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "mobileImage",
+          "label": "Mobile Image"
+        },
+        {
+          "type": "url",
+          "id": "slideLink",
+          "label": "Slide Link"
+        },
+        {
+          "type": "text",
+          "id": "startDate",
+          "label": "Start Date",
+          "info": "e.g. dd-mm-yyyy"
+        },
+        {
+          "type": "text",
+          "id": "endDate",
+          "label": "End Date",
+          "info": "e.g. dd-mm-yyyy"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Homepage Slider",
+      "settings": {
+        "AutoRotate": false
+      },
+      "blocks": [
+        {
+          "type": "slide"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

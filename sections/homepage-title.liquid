@@ -1,0 +1,25 @@
+{% stylesheet %}
+  .homepageTitle h1 {
+    text-transform: capitalize;
+    font-weight: 700;
+    font-size: clamp(16px, 2vw, 30px);
+    text-align: center;
+    color: #16467e !important;
+    padding: 20px 10px;
+  }
+{% endstylesheet %}
+<h1>{{ section.settings.title }}</h1>
+
+{% schema %}
+{
+  "name": "Homepage Title",
+  "class": "homepageTitle",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title Text (H1)"
+    }
+  ]
+}
+{% endschema %}

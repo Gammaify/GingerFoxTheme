@@ -1,0 +1,78 @@
+<link type="text/css" href="{{ 'notification-banner.css' | asset_url }}" rel="stylesheet">
+<style>
+  .notificationBanner{
+      width:100%;
+      padding: 5px;
+      background-color: {{ section.settings.notificationColor }}
+  }
+  .notificationBannerText, .notificationBannerText a{
+      width: 100%;
+      text-align: center;
+      margin: 0;
+      color: {{ section.settings.notificationTextColor }}
+  }
+  .notificationBannerText a:hover{
+      color: {{ section.settings.notificationLinkHoverColor }}
+  }
+</style>
+{% assign currentDate = 'now' | date: '%d-%m-%Y' %}
+{% assign startDate = section.settings.startDate | date: '%d-%m-%Y' %}
+{% assign endDate = section.settings.endDate | date: '%d-%m-%Y' %}
+{% if section.settings.enableNotification == true %}
+  {% if currentDate >= startDate
+    and currentDate <= endDate
+    or section.settings.startDate == ''
+    and section.settings.endDate == ''
+  %}
+    <div class="notificationBanner">
+      <p class="notificationBannerText">{{ section.settings.notificationText }}</p>
+    </div>
+  {% endif %}
+{% endif %}
+{% schema %}
+{
+  "name": "Notification Banner",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "enableNotification",
+      "label": "Turn On/Off"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "notificationText",
+      "label": "Notification Text"
+    },
+    {
+      "type": "color",
+      "id": "notificationTextColor",
+      "label": "Notification Text Colour",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "notificationLinkHoverColor",
+      "label": "Notification Link Hover Colour",
+      "default": "#ff8200"
+    },
+    {
+      "type": "color_background",
+      "id": "notificationColor",
+      "label": "Notification Background Colour",
+      "default": "#1B3647"
+    },
+    {
+      "type": "text",
+      "id": "startDate",
+      "label": "Start Date",
+      "info": "e.g. dd-mm-yyyy"
+    },
+    {
+      "type": "text",
+      "id": "endDate",
+      "label": "End Date",
+      "info": "e.g. dd-mm-yyyy"
+    }
+  ]
+}
+{% endschema %}

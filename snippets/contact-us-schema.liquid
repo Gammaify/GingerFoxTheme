@@ -1,0 +1,22 @@
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "ContactPage",
+    "name": "{{ page.title }}",
+    "url": "{{ shop.url }}{{ page.url }}",
+    "mainEntity": {
+      "@type": "Organization",
+      "name": "Ginger Fox",
+      "email": "helpme@gingerfox.co.uk",
+      "telephone": "01242 513 424",
+      "image": "{{ shop.url }}/cdn/shop/{{ shop.brand.logo }}",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Unit B4 Kingsditch Trade Park, Upperfield Road,",
+        "addressLocality": "Cheltenham",
+        "addressRegion": "Gloucestershire",
+        "postalCode": "GL51 9PA"
+      }
+    }
+  }
+</script>

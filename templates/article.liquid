@@ -1,0 +1,64 @@
+<div class="container pt-5 pb-5">
+  <h1 class="fw-bold">{{ article.title }}</h1>
+  <div class="container">
+    <div class="row">
+      <div id="blogContainer" class="col-12 order-2 col-md-8 order-md-1">
+        {{ article.content }}
+      </div>
+      <div id="toc" class="col-12 order-1 col-md-4 order-md-2"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const blog = document.getElementById('blogContainer');
+  const headings = blog.querySelectorAll('h4');
+  console.log(headings);
+  // Check if any headings exist
+  if (headings.length > 0) {
+    // Create the table of contents container
+    const tocContainer = document.getElementById('toc');
+    tocContainer.innerHTML = '<h2>Table of Contents</h2><ul>';
+    headings.forEach((heading) => {});
+    let index = 1;
+    // Loop through each heading
+    headings.forEach((heading) => {
+      if (!heading.id) {
+        heading.id = index;
+        index++;
+      }
+
+      // Create a list item with a link to the heading
+      const listItem = document.createElement('li');
+      listItem.innerHTML = `<a href="#${heading.id}" id="">${heading.textContent}</a>`;
+
+      // Add the list item to the container
+      tocContainer.querySelector('ul').appendChild(listItem);
+    });
+
+    function getHeaderHeight() {
+      return document.getElementsByTagName('header')[0].offsetHeight;
+    }
+
+    function scrollToTarget(targetId) {
+      const targetElement = document.getElementById(targetId);
+
+      const headerHeight = getHeaderHeight();
+      window.scrollTo({
+        top: targetElement.offsetTop - headerHeight,
+        behavior: 'smooth',
+      });
+    }
+
+    const tocLinks = document.querySelectorAll('#toc a');
+
+    tocLinks.forEach((link) => {
+      link.addEventListener('click', (event) => {
+        event.preventDefault(); // Prevent default link behavior
+        const targetId = event.currentTarget.href.split('#')[1];
+        console.log(targetId);
+        scrollToTarget(targetId);
+      });
+    });
+  }
+</script>

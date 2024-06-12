@@ -1,0 +1,94 @@
+{% assign handle = page.handle %}
+{% case handle %}
+  {% when 'account-details' %}
+    {% render 'account-details' %}
+  {% when 'account-orders' %}
+    {% render 'account-orders' %}
+  {% when 'account-wishlist' %}
+    {% render 'account-wishlist' %}
+  {% when 'wish-list' %}
+    {% render 'wish-list' %}
+  {% when 'contact-us' %}
+    {% render 'contact-us-schema' %}
+    {% render 'contact-us' %}
+  {% when 'media' %}
+    {% render 'media' %}
+  {% when 'videos' %}
+    {% render 'videos' %}
+  {% when 'puzzle-cru' %}
+    {% render 'puzzle-cru' %}
+  {% when 'the-traitors-card-game-how-to-play' %}
+    {% render 'the-traitors-card-game-how-to-play' %}
+  {% when 'extras' %}
+    {% render 'extras' %}
+  {% when 'faqs' %}
+    {% render 'faq-schema' %}
+    <div class="container p-2 p-sm-5">
+      <div class="TitleHeading">
+        <h1 class="fw-bold">
+          <img src="{{ 'BlueLinesLeft.svg' | asset_url }}">{{ page.title -}}
+          <img src="{{ 'BlueLinesRight.svg' | asset_url }}">
+        </h1>
+      </div>
+      {{ page.content }}
+    </div>
+  {% when 'our-story' %}
+    {% render 'our-story' %}
+  {% when 'sustainability-promise' %}
+    {% render 'sustainability' %}
+  {% when 'accessibility' %}
+    <div class="container p-2 p-sm-5">
+      <div class="TitleHeading">
+        <h1 class="fw-bold">
+          <img src="{{ 'BlueLinesLeft.svg' | asset_url }}">{{ page.title -}}
+          <img src="{{ 'BlueLinesRight.svg' | asset_url }}">
+        </h1>
+      </div>
+      {{ page.content }}
+    </div>
+  {% when 'ethical-environmental-policy' %}
+    <div class="container p-2 p-sm-5">
+      <div class="TitleHeading">
+        <h1 class="fw-bold">
+          <img src="{{ 'BlueLinesLeft.svg' | asset_url }}">{{ page.title -}}
+          <img src="{{ 'BlueLinesRight.svg' | asset_url }}">
+        </h1>
+      </div>
+      {{ page.content }}
+    </div>
+  {% when 'code-of-conduct' %}
+    <div class="container p-2 p-sm-5">
+      <div class="TitleHeading">
+        <h1>
+          <img src="{{ 'BlueLinesLeft.svg' | asset_url }}">{{ page.title -}}
+          <img src="{{ 'BlueLinesRight.svg' | asset_url }}">
+        </h1>
+      </div>
+      {{ page.content }}
+    </div>
+  {% when 'press' %}
+    {% section 'press' %}
+  {% when 'halloween-offer' %}
+    {% if customer.tags contains 'admin' %}
+      {% render 'halloween-offer' %}
+    {% endif %}
+  {% when 'site-map' %}
+    {% render 'site-map' %}
+  {% when 'register-redirect' %}
+    {% render 'register-redirect' %}
+  {% when 'halloween-treat' %}
+    {{ page.content }}
+  {% when 'halloween-trick' %}
+    <script>
+      function setCookie(cname, cvalue) {
+        document.cookie = cname + '=' + cvalue + ';' + ';path=/';
+      }
+
+      setCookie('halloween', 'trick');
+    </script>
+    {{ page.content }}
+  {% when 'affiliates' %}
+    {% render 'affiliates' %}
+  {% when 'limitless-win' %}
+    {% render 'limitless-win' %}
+{% endcase %}

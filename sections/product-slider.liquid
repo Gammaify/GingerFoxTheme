@@ -1,0 +1,157 @@
+<link type="text/css" href="{{ 'product-slider.css' | asset_url }}" rel="stylesheet">
+
+{% assign collection = collections[section.settings.collection_id] %}
+<h2 class="title">{{ section.settings.sliderName }}</h2>
+<div class="product-slider swiper" data-Loop="{{ section.settings.loopSlider }}">
+  <div class="swiper-wrapper">
+    {% for product in collection.products %}
+      <div class="Product swiper-slide">
+        <a href="{{ product.url }}">
+          <div class="ProductImageContainer">
+            <img
+              data-src="{{ product.featured_image | image_url }}"
+              class="lazyload"
+              width="{{ product.featured_image.width }}"
+              height="{{ product.featured_image.height }}"
+            >
+            {% if product.compare_at_price > 0 %}
+              <div class="discountLabel">
+                {{
+                  product.compare_at_price
+                  | minus: product.price
+                  | times: 100
+                  | divided_by: product.compare_at_price
+                -}}
+                % off
+              </div>
+            {% endif %}
+          </div>
+          <p class="productName">{{ product.title }}</p>
+        </a>
+        <div class="PricingContainer">
+          <div class="price">
+            {% if product.compare_at_price > 0 %}
+              <p class="productPrice discount">{{ product.price | money }}</p>
+              <p class="productPrice discountCrossedOut">{{ product.compare_at_price | money }}</p>
+            {% else %}
+              <p class="productPrice">{{ product.price | money }}</p>
+            {% endif %}
+          </div>
+          {% if customer %}
+            {% assign wishListHandle = 'wishlist_' | append: customer.id %}
+            {% assign wishListData = customer.metafields.custom.wishlist.value %}
+            {% comment %} {% assign wishlistValue = customer.metafields.custom.wishlist.value %} {% endcomment %}
+
+            {% assign productExists = false %}
+            {% for item in wishListData %}
+              {% if product.id == item.id %}
+                {% assign productExists = true %}
+              {% endif %}
+            {% endfor %}
+
+            {% if productExists == true %}
+              <div
+                class="wishListIconContainer wishListIcon-{{ product.id }} fullHeart"
+                data-wishListBool="true"
+                data-productid="{{ product.id }}"
+                data-customerid="{{ customer.id }}"
+              ></div>
+            {% else %}
+              <div
+                class="wishListIconContainer wishListIcon-{{ product.id }} emptyHeart"
+                data-wishListBool="false"
+                data-productid="{{ product.id }}"
+                data-customerid="{{ customer.id }}"
+              ></div>
+            {% endif %}
+          {% endif %}
+        </div>
+        {% if product.available == true %}
+          <form method="post" action="/cart/add">
+            <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+            <input type="number" id="quantity" name="quantity" value="1" min="1" class="d-none">
+            <input type="submit" value="Add To Basket" class="AddToCart">
+          </form>
+        {% else %}
+          <button class="AddToCart disabled">Out of Stock</button>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+  <div class="swiper-button-prev"></div>
+  <div class="swiper-button-next"></div>
+</div>
+
+<script>
+  var Loop = {{ section.settings.loopSlider }};
+  var loopBool = (Loop === "true");
+  console.log(loopBool)
+
+  var productSlider = new Swiper('.product-slider', {
+      //enable hash navigation
+      loop: loopBool,
+      slidesPerView: 6,
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+      breakpoints:{
+          '0': {
+              slidesPerView: 1
+          },
+          '500':{
+              slidesPerView: 3
+          },
+          '992':{
+              slidesPerView: 6
+          }
+      },
+
+      autoHeight: true
+    });
+  {% comment %} $(".product-slider").owlCarousel({
+      items: 6,
+      loop: loopBool,
+      responsive: {
+              0: {
+                  items: 2,
+              },
+              500: {
+                  items: 3,
+              },
+              992: {
+                  items: 6,
+              }
+
+
+          }
+  });     {% endcomment %}
+</script>
+
+{% schema %}
+{
+  "name": "Product Slider",
+  "settings": [
+    {
+      "type": "text",
+      "id": "sliderName",
+      "label": "Slider Name"
+    },
+    {
+      "type": "collection",
+      "id": "collection_id",
+      "label": "Select collection for slider"
+    },
+    {
+      "type": "checkbox",
+      "id": "loopSlider",
+      "label": "Loop Slider"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Slider"
+    }
+  ]
+}
+{% endschema %}
